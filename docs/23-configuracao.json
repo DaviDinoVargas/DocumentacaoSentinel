@@ -82,6 +82,12 @@
         "Evidence:S3 configura Endpoint, Bucket, StorageId, Region, AccessKey, SecretKey e RetentionMode. Use configuração privada do serviço e usuário restrito ao prefixo necessário. HTTPS é exigido fora do loopback; versionamento é requisito de gravação.",
         "A configuração local HTTP/H2 e o bootstrap de identidade são de desenvolvimento. O suporte de infraestrutura não habilita testes de produção: a política de auditoria continua bloqueando esse perfil."
       ]
+    },
+    {
+      "title": "Exemplo sem segredo",
+      "paragraphs": [],
+      "code": "# Exemplo de sintaxe de variável hierárquica\n$env:Evidence__Provider = \"S3\"\n# Demais valores vêm da configuração privada aprovada do serviço.",
+      "note": "Não grave tokens, senhas, access keys ou connection strings completas em README, screenshots, commits ou comandos compartilhados."
     }
   ]
 }
