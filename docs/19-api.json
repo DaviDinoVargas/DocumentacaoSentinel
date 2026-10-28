@@ -1,0 +1,35 @@
+{
+  "id": "api",
+  "title": "Referência da API",
+  "group": "Desenvolvimento",
+  "lead": "Rotas extraídas dos controllers, com os contratos de contexto e autorização preservados.",
+  "sources": [
+    "Sentinel/Controllers/ProjectsController.cs",
+    "Sentinel/Controllers/AuditsController.cs",
+    "Sentinel/Controllers/TargetCredentialsController.cs",
+    "Sentinel/Controllers/SourceSnapshotsController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Convenções e autenticação",
+      "paragraphs": [
+        "As rotas usam /api/v1. ASP.NET serializa enums como strings. Parâmetros :guid no catálogo representam restrições de rota, não texto que o cliente deva enviar. Use o Swagger do ambiente Development para conferir schemas e exemplos completos.",
+        "Saúde e configuração OIDC são públicas. Demais recursos são sujeitos a autenticação, organização e políticas por operação. Ausência de um atributo no método não significa que o recurso é público: a configuração global também participa."
+      ]
+    },
+    {
+      "title": "Paginação e concorrência",
+      "paragraphs": [
+        "Projetos oferecem busca por nome/descrição, propósito e ordenação. Históricos usam limit/offset; eventos de execução usam cursor beforeId. Use o total e o cursor retornados em vez de presumir que a primeira página é o conjunto completo.",
+        "run-profile usa expectedVersion. Triagem usa revisão otimista. Ao receber conflito, recarregue o registro e reconcilie a alteração. Após falha de conexão em um POST, consulte o histórico antes de repetir."
+      ]
+    },
+    {
+      "title": "Contratos essenciais",
+      "paragraphs": [],
+      "code": "// Corpo ilustrativo de um pedido de auditoria HTTP\n{\n  \"targetUrl\": \"http://localhost:8080/api/status\",\n  \"action\": \"simulated\",\n  \"confirmActive\": false,\n  \"dataOrigin\": \"SoftwareUnderTest\"\n}",
+      "note": "O projeto e o escopo devem existir e autorizar esse alvo. O exemplo contém somente endereço de loopback; não inclui autenticação nem dispara requisições."
+    }
+  ]
+}
