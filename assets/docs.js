@@ -1395,8 +1395,30 @@ window.SENTINEL_DOCS = [
           "O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.",
           "CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto."
         ]
+      },
+      {
+        "title": "Leitura correta de cobertura",
+        "paragraphs": [],
+        "items": [
+          [
+            "Tentada",
+            "Uma etapa foi tentada; o gateway ainda pode recusar o envio."
+          ],
+          [
+            "Avaliada",
+            "A observação satisfez os requisitos de interpretação do controle."
+          ],
+          [
+            "Não avaliada",
+            "Faltou resposta completa, referência válida ou outra pré-condição."
+          ],
+          [
+            "Não tentada",
+            "Prazo, orçamento ou interrupção impediu chegar à etapa."
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato declarado e superfície observada</h2></div></div><div class=\"prose\"><p>A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.</p></div><div class=\"prose\"><p>A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Injeção: candidato não é exploração comprovada</h2></div></div><div class=\"prose\"><p>As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.</p></div><div class=\"prose\"><p>Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Corpos, cabeçalhos e protocolos</h2></div></div><div class=\"prose\"><p>O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.</p></div><div class=\"prose\"><p>CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato declarado e superfície observada</h2></div></div><div class=\"prose\"><p>A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.</p></div><div class=\"prose\"><p>A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Injeção: candidato não é exploração comprovada</h2></div></div><div class=\"prose\"><p>As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.</p></div><div class=\"prose\"><p>Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Corpos, cabeçalhos e protocolos</h2></div></div><div class=\"prose\"><p>O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.</p></div><div class=\"prose\"><p>CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Leitura correta de cobertura</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Tentada</h3><p>Uma etapa foi tentada; o gateway ainda pode recusar o envio.</p></article><article class=\"card\"><h3>Avaliada</h3><p>A observação satisfez os requisitos de interpretação do controle.</p></article><article class=\"card\"><h3>Não avaliada</h3><p>Faltou resposta completa, referência válida ou outra pré-condição.</p></article><article class=\"card\"><h3>Não tentada</h3><p>Prazo, orçamento ou interrupção impediu chegar à etapa.</p></article></div></section>"
   }
 ];

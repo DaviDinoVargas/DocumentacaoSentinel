@@ -31,6 +31,28 @@
         "O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.",
         "CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto."
       ]
+    },
+    {
+      "title": "Leitura correta de cobertura",
+      "paragraphs": [],
+      "items": [
+        [
+          "Tentada",
+          "Uma etapa foi tentada; o gateway ainda pode recusar o envio."
+        ],
+        [
+          "Avaliada",
+          "A observação satisfez os requisitos de interpretação do controle."
+        ],
+        [
+          "Não avaliada",
+          "Faltou resposta completa, referência válida ou outra pré-condição."
+        ],
+        [
+          "Não tentada",
+          "Prazo, orçamento ou interrupção impediu chegar à etapa."
+        ]
+      ]
     }
   ]
 }
