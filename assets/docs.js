@@ -212,5 +212,80 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Composição do host</h2></div></div><div class=\"prose\"><p>Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.</p></div><div class=\"prose\"><p>A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Fronteiras de responsabilidade</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Sentinel.Web</h3><p>Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria.</p></article><article class=\"card\"><h3>Sentinel</h3><p>ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo.</p></article><article class=\"card\"><h3>Sentinel.Contracts</h3><p>Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost.</p></article><article class=\"card\"><h3>Sentinel.PluginHost</h3><p>Implementações dos controles executadas com entrada limitada, prazo e resposta validada.</p></article></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Do pedido ao checkpoint</h2></div></div><div class=\"prose\"><p>Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.</p></div><div class=\"prose\"><p>Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Dependências operacionais</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Dependências operacionais\"><table><thead><tr><th scope=\"col\">Componente</th><th scope=\"col\">Responsabilidade</th><th scope=\"col\">Falha relevante</th></tr></thead><tbody><tr><td>PostgreSQL</td><td>Estado, outbox, orçamento, lease e metadados</td><td>Sem banco não há autorização distribuída confiável</td></tr><tr><td>RabbitMQ</td><td>Notificação durável de trabalho</td><td>Atraso de fila não elimina o pedido persistido</td></tr><tr><td>Docker</td><td>Execução isolada dos plugins</td><td>Imagem ou daemon indisponível impede sandbox</td></tr><tr><td>OIDC</td><td>Identidade e papéis</td><td>Token inválido impede acesso às rotas protegidas</td></tr><tr><td>Filesystem / S3</td><td>Conteúdo cifrado das evidências</td><td>Metadados existentes não garantem disponibilidade do artefato</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "dominio",
+    "title": "Domínio e dados",
+    "group": "Estrutura do sistema",
+    "lead": "Projetos dão contexto; escopos autorizam; auditorias registram o que aconteceu.",
+    "sources": [
+      "Sentinel/Core/Domain.cs",
+      "Sentinel/Core/DataOrigins.cs",
+      "Sentinel/Core/ProjectRunProfile.cs",
+      "Sentinel/Findings/FindingModel.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Entidades e relações",
+        "paragraphs": [],
+        "table": [
+          [
+            "Entidade",
+            "Papel",
+            "Relação"
+          ],
+          [
+            "Projeto",
+            "Nome, propósito e contexto de trabalho",
+            "Agrupa escopos, auditorias e fontes"
+          ],
+          [
+            "Escopo autorizado",
+            "Alvo, ambiente, janela e regras",
+            "Pertence a um projeto"
+          ],
+          [
+            "Auditoria",
+            "Pedido, estado e origem declarada",
+            "Vincula alvo, escopo, controles e evidências"
+          ],
+          [
+            "Controle",
+            "Avaliação de um critério",
+            "Preserva plugin, versão, confiança e severidade"
+          ],
+          [
+            "Evidência",
+            "Conteúdo verificável e metadados",
+            "Hash, retenção e referência de armazenamento"
+          ],
+          [
+            "Achado",
+            "Consolidação temporal para triagem",
+            "Agrupa ocorrências comparáveis"
+          ],
+          [
+            "Plano",
+            "Preferências reutilizáveis de execução",
+            "Referências a credencial e snapshot do projeto"
+          ]
+        ]
+      },
+      {
+        "title": "Referência não é segredo",
+        "paragraphs": [
+          "O plano persiste URLs e identificadores de credenciais/snapshots. A configuração usa expectedVersion para evitar sobrescrita concorrente, inclusive no primeiro salvamento. Referências de outro projeto são recusadas.",
+          "Tokens e senhas permanecem no cofre. A validade do perfil e do escopo continua sendo verificada quando o plano é executado. Salvar uma configuração não cria uma autorização nova."
+        ]
+      },
+      {
+        "title": "Leitura dos estados",
+        "paragraphs": [
+          "AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Entidades e relações</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Entidades e relações\"><table><thead><tr><th scope=\"col\">Entidade</th><th scope=\"col\">Papel</th><th scope=\"col\">Relação</th></tr></thead><tbody><tr><td>Projeto</td><td>Nome, propósito e contexto de trabalho</td><td>Agrupa escopos, auditorias e fontes</td></tr><tr><td>Escopo autorizado</td><td>Alvo, ambiente, janela e regras</td><td>Pertence a um projeto</td></tr><tr><td>Auditoria</td><td>Pedido, estado e origem declarada</td><td>Vincula alvo, escopo, controles e evidências</td></tr><tr><td>Controle</td><td>Avaliação de um critério</td><td>Preserva plugin, versão, confiança e severidade</td></tr><tr><td>Evidência</td><td>Conteúdo verificável e metadados</td><td>Hash, retenção e referência de armazenamento</td></tr><tr><td>Achado</td><td>Consolidação temporal para triagem</td><td>Agrupa ocorrências comparáveis</td></tr><tr><td>Plano</td><td>Preferências reutilizáveis de execução</td><td>Referências a credencial e snapshot do projeto</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Referência não é segredo</h2></div></div><div class=\"prose\"><p>O plano persiste URLs e identificadores de credenciais/snapshots. A configuração usa expectedVersion para evitar sobrescrita concorrente, inclusive no primeiro salvamento. Referências de outro projeto são recusadas.</p></div><div class=\"prose\"><p>Tokens e senhas permanecem no cofre. A validade do perfil e do escopo continua sendo verificada quando o plano é executado. Salvar uma configuração não cria uma autorização nova.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Leitura dos estados</h2></div></div><div class=\"prose\"><p>AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis.</p></div></section>"
   }
 ];
