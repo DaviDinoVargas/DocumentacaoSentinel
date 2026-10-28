@@ -1,0 +1,42 @@
+{
+  "id": "escopos",
+  "title": "Escopos e políticas",
+  "group": "Governança",
+  "lead": "A autorização é um contrato verificável de alvo, janela, método e ação.",
+  "sources": [
+    "Sentinel/Core/ScopeRules.cs",
+    "Sentinel/Core/PolicyAndAuditService.cs",
+    "Sentinel/Core/ScopeLifecycle.cs",
+    "Sentinel/Controllers/ScopeLifecycleController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Como o alvo é comparado",
+      "paragraphs": [
+        "A política compara esquema, host, porta e prefixo de caminho com limite de segmento. /api/cars inclui descendentes, mas não /api/cars-other. URLs com credenciais, fragmento, segmentos perigosos e codificação percentual no caminho são recusadas.",
+        "A janela inclui o início e exclui a expiração. Regras aceitam métodos conhecidos, ações reconhecidas e até cinquenta exclusões dentro da base. Uma exclusão de escopo vigente prevalece sobre permissões de outro escopo sobreposto."
+      ]
+    },
+    {
+      "title": "Perfis e produção",
+      "paragraphs": [
+        "simulated é o nome histórico do perfil HTTP de baixo risco e pode produzir tráfego real. lab-active e authenticated-lab exigem confirmação explícita, ambiente laboratorio e localhost/IP de loopback. source-analysis usa autorização exata do snapshot.",
+        "Ambientes identificados como produção retornam ApprovalRequired. O mecanismo completo de aprovação de produção permanece indisponível; não existe liberação implícita por ser administrador."
+      ]
+    },
+    {
+      "title": "Revogar sem apagar o histórico",
+      "paragraphs": [
+        "Revogação exige permissão scopes.manage e motivo de 8 a 1000 caracteres. O primeiro ator/motivo é preservado em chamadas concorrentes. A operação solicita cancelamento dos trabalhos associados, sem reativação do registro. Para nova autorização, crie outro escopo.",
+        "Revogar impede novas permissões, mas não desfaz requisições já admitidas. Acompanhe as auditorias até o estado terminal. Regras não são editadas no lugar: revogue e registre a substituição."
+      ]
+    },
+    {
+      "title": "Exemplo didático de regras",
+      "paragraphs": [],
+      "code": "{\n  \"startsAtUtc\": null,\n  \"methods\": [\"GET\"],\n  \"actions\": [\"simulated\"],\n  \"exclusions\": [\"/api/admin\"]\n}",
+      "note": "O exemplo é somente o objeto rules. O cadastro completo também precisa de targetBaseUrl, environment e expiresAtUtc futuro. Nenhum exemplo deste site executa tráfego."
+    }
+  ]
+}

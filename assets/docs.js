@@ -380,5 +380,48 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Entrada com OIDC</h2></div></div><div class=\"prose\"><p>O frontend utiliza Authorization Code com PKCE S256. Tokens ficam na memória da aba; o estado temporário do protocolo usa sessionStorage. Recarregar a aplicação exige entrar novamente, podendo reaproveitar a sessão no provedor.</p></div><div class=\"prose\"><p>A API valida assinatura, emissor, audiência, prazo, papéis e vínculo com uma única organização existente. Rotas de saúde e configuração de identidade são públicas; rotas de negócio exigem autenticação e políticas aplicáveis.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Isolamento por organização</h2></div></div><div class=\"prose\"><p>Filtros globais do EF Core limitam os recursos HTTP ao tenant. Uma requisição anônima não herda a organização histórica. Serviços de background trabalham com envelopes persistidos entre organizações e precisam manter os vínculos de cada operação.</p></div><div class=\"prose\"><p>Administradores de plataforma gerenciam organizações e infraestrutura global, mas consultas a projetos continuam no contexto da organização do token. Atribuição de papéis e organização acontece no provedor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Credenciais diferentes, fronteiras diferentes</h2></div></div><div class=\"prose\"><p>O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Papéis e responsabilidades</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Papéis e responsabilidades\"><table><thead><tr><th scope=\"col\">Papel</th><th scope=\"col\">Capacidade principal</th></tr></thead><tbody><tr><td>ReadOnly / Auditor</td><td>Consultar recursos autorizados da organização</td></tr><tr><td>Developer</td><td>Consultar, cadastrar projetos, executar baixo risco, cancelar e fazer triagem permitida</td></tr><tr><td>SecurityEngineer / OrganizationAdmin</td><td>Também gerenciar escopos e executar laboratório ativo</td></tr><tr><td>PlatformAdmin</td><td>Também administrar organizações, infraestrutura e orçamento global por alvo</td></tr></tbody></table></div><div class=\"callout\"><span>As políticas do servidor são a autoridade. Permissões por projeto e aprovação de produção não devem ser presumidas a partir de um papel global.</span></div></section>"
+  },
+  {
+    "id": "escopos",
+    "title": "Escopos e políticas",
+    "group": "Governança",
+    "lead": "A autorização é um contrato verificável de alvo, janela, método e ação.",
+    "sources": [
+      "Sentinel/Core/ScopeRules.cs",
+      "Sentinel/Core/PolicyAndAuditService.cs",
+      "Sentinel/Core/ScopeLifecycle.cs",
+      "Sentinel/Controllers/ScopeLifecycleController.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Como o alvo é comparado",
+        "paragraphs": [
+          "A política compara esquema, host, porta e prefixo de caminho com limite de segmento. /api/cars inclui descendentes, mas não /api/cars-other. URLs com credenciais, fragmento, segmentos perigosos e codificação percentual no caminho são recusadas.",
+          "A janela inclui o início e exclui a expiração. Regras aceitam métodos conhecidos, ações reconhecidas e até cinquenta exclusões dentro da base. Uma exclusão de escopo vigente prevalece sobre permissões de outro escopo sobreposto."
+        ]
+      },
+      {
+        "title": "Perfis e produção",
+        "paragraphs": [
+          "simulated é o nome histórico do perfil HTTP de baixo risco e pode produzir tráfego real. lab-active e authenticated-lab exigem confirmação explícita, ambiente laboratorio e localhost/IP de loopback. source-analysis usa autorização exata do snapshot.",
+          "Ambientes identificados como produção retornam ApprovalRequired. O mecanismo completo de aprovação de produção permanece indisponível; não existe liberação implícita por ser administrador."
+        ]
+      },
+      {
+        "title": "Revogar sem apagar o histórico",
+        "paragraphs": [
+          "Revogação exige permissão scopes.manage e motivo de 8 a 1000 caracteres. O primeiro ator/motivo é preservado em chamadas concorrentes. A operação solicita cancelamento dos trabalhos associados, sem reativação do registro. Para nova autorização, crie outro escopo.",
+          "Revogar impede novas permissões, mas não desfaz requisições já admitidas. Acompanhe as auditorias até o estado terminal. Regras não são editadas no lugar: revogue e registre a substituição."
+        ]
+      },
+      {
+        "title": "Exemplo didático de regras",
+        "paragraphs": [],
+        "code": "{\n  \"startsAtUtc\": null,\n  \"methods\": [\"GET\"],\n  \"actions\": [\"simulated\"],\n  \"exclusions\": [\"/api/admin\"]\n}",
+        "note": "O exemplo é somente o objeto rules. O cadastro completo também precisa de targetBaseUrl, environment e expiresAtUtc futuro. Nenhum exemplo deste site executa tráfego."
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Como o alvo é comparado</h2></div></div><div class=\"prose\"><p>A política compara esquema, host, porta e prefixo de caminho com limite de segmento. /api/cars inclui descendentes, mas não /api/cars-other. URLs com credenciais, fragmento, segmentos perigosos e codificação percentual no caminho são recusadas.</p></div><div class=\"prose\"><p>A janela inclui o início e exclui a expiração. Regras aceitam métodos conhecidos, ações reconhecidas e até cinquenta exclusões dentro da base. Uma exclusão de escopo vigente prevalece sobre permissões de outro escopo sobreposto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Perfis e produção</h2></div></div><div class=\"prose\"><p>simulated é o nome histórico do perfil HTTP de baixo risco e pode produzir tráfego real. lab-active e authenticated-lab exigem confirmação explícita, ambiente laboratorio e localhost/IP de loopback. source-analysis usa autorização exata do snapshot.</p></div><div class=\"prose\"><p>Ambientes identificados como produção retornam ApprovalRequired. O mecanismo completo de aprovação de produção permanece indisponível; não existe liberação implícita por ser administrador.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Revogar sem apagar o histórico</h2></div></div><div class=\"prose\"><p>Revogação exige permissão scopes.manage e motivo de 8 a 1000 caracteres. O primeiro ator/motivo é preservado em chamadas concorrentes. A operação solicita cancelamento dos trabalhos associados, sem reativação do registro. Para nova autorização, crie outro escopo.</p></div><div class=\"prose\"><p>Revogar impede novas permissões, mas não desfaz requisições já admitidas. Acompanhe as auditorias até o estado terminal. Regras não são editadas no lugar: revogue e registre a substituição.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Exemplo didático de regras</h2></div></div><pre class=\"codebox\"><code>{\n  &quot;startsAtUtc&quot;: null,\n  &quot;methods&quot;: [&quot;GET&quot;],\n  &quot;actions&quot;: [&quot;simulated&quot;],\n  &quot;exclusions&quot;: [&quot;/api/admin&quot;]\n}</code></pre><div class=\"callout\"><span>O exemplo é somente o objeto rules. O cadastro completo também precisa de targetBaseUrl, environment e expiresAtUtc futuro. Nenhum exemplo deste site executa tráfego.</span></div></section>"
   }
 ];
