@@ -1067,5 +1067,69 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Bearer e login JSON</h2></div></div><div class=\"prose\"><p>Perfis pertencem ao projeto e ao escopo. Bearer guarda token cifrado; JsonLogin guarda o contrato e os dados privados necessários ao login. Consultas retornam metadados, nunca segredos. O host mantém tokens obtidos por login e exporta somente observações permitidas.</p></div><div class=\"prose\"><p>Rotação muda a versão e revogação invalida usos posteriores. O prazo fica limitado ao escopo; Bearer usa teto de 24 horas, enquanto JsonLogin tem política configurável MaximumJsonLoginLifetimeHours, padrão de 24 horas. Configuração privada do laboratório pode alterar esse teto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Comparar acesso permitido e negado</h2></div></div><div class=\"prose\"><p>O cenário verifica recusa anônima e acesso autenticado. Para negação esperada, precisa de referência permitida recente da mesma identidade/versão. 401 não prova autorização correta; 403/404 precisam do contexto previsto pelo contrato.</p></div><div class=\"prose\"><p>Uma segunda identidade pode ser Bearer ou JsonLogin no backend, do mesmo projeto/escopo e diferente da primária. Tokens, estados de login e diagnósticos ficam separados. Na revisão analisada, o seletor secundário da interface ainda se restringe a Bearer.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Logout e refresh são contratos explícitos</h2></div></div><div class=\"prose\"><p>Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.</p></div><div class=\"prose\"><p>Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Limites de sessão</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Limites de sessão\"><table><thead><tr><th scope=\"col\">Capacidade</th><th scope=\"col\">Limite</th></tr></thead><tbody><tr><td>Login</td><td>Não é suporte universal a MFA, cookies ou qualquer fluxo de autenticação</td></tr><tr><td>Logout</td><td>Não comprova revogação em todos os dispositivos ou propagação assíncrona</td></tr><tr><td>Refresh</td><td>Não cobre client_secret_basic, DPoP, mTLS e todos os modelos de sessão</td></tr><tr><td>Limpeza</td><td>Sem logout aplicável, sessões sintéticas podem permanecer até expiração</td></tr><tr><td>Carga autenticada</td><td>Exige acesso permitido e seleção explícita, dentro do orçamento global</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "fontes",
+    "title": "Snapshots e segredos",
+    "group": "Investigações",
+    "lead": "Análise offline de um recorte autorizado, sem executar o projeto enviado.",
+    "sources": [
+      "Sentinel.Contracts/SourceArchivePolicy.cs",
+      "Sentinel/Source/SourceSnapshotStore.cs",
+      "Sentinel/Controllers/SourceSnapshotsController.cs",
+      "Sentinel.PluginHost/Checks/SourceSecretsCheck.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Contrato de entrada",
+        "paragraphs": [
+          "O upload recebe ZIP binário application/zip, sourceKey estável e revision. O snapshot fica cifrado por uma hora. Cada execução revalida hash, validade e autorização exata; o outbox contém referências e metadados, não os bytes do arquivo.",
+          "O parser recusa links, arquivos especiais, caminhos perigosos, colisões e diretórios privados proibidos. Não há clone remoto, leitura arbitrária do servidor, build, restore ou execução de scripts do snapshot."
+        ]
+      },
+      {
+        "title": "Limites do arquivo",
+        "paragraphs": [],
+        "table": [
+          [
+            "Limite",
+            "Valor"
+          ],
+          [
+            "ZIP compactado",
+            "20 MiB"
+          ],
+          [
+            "Conteúdo expandido",
+            "100 MiB"
+          ],
+          [
+            "Arquivo individual",
+            "2 MiB"
+          ],
+          [
+            "Arquivos",
+            "5.000"
+          ],
+          [
+            "Uploads simultâneos",
+            "2 por processo"
+          ],
+          [
+            "Snapshots retidos",
+            "10 por projeto; 100 na instalação"
+          ]
+        ]
+      },
+      {
+        "title": "Candidatos a segredo",
+        "paragraphs": [
+          "Gitleaks executa offline com configuração da plataforma. Dispensas do próprio repositório não eliminam achados. O resultado agrupa arquivo/regra e linhas; valores, trechos e relatório bruto são descartados.",
+          "Candidatos têm confiança Hypothesis e não são testados contra provedores. Ausência de candidatos é Informational, não comprovação de inexistência de segredos. O recorte não cobre todo histórico Git, binários ou arquivos compactados aninhados."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato de entrada</h2></div></div><div class=\"prose\"><p>O upload recebe ZIP binário application/zip, sourceKey estável e revision. O snapshot fica cifrado por uma hora. Cada execução revalida hash, validade e autorização exata; o outbox contém referências e metadados, não os bytes do arquivo.</p></div><div class=\"prose\"><p>O parser recusa links, arquivos especiais, caminhos perigosos, colisões e diretórios privados proibidos. Não há clone remoto, leitura arbitrária do servidor, build, restore ou execução de scripts do snapshot.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Limites do arquivo</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Limites do arquivo\"><table><thead><tr><th scope=\"col\">Limite</th><th scope=\"col\">Valor</th></tr></thead><tbody><tr><td>ZIP compactado</td><td>20 MiB</td></tr><tr><td>Conteúdo expandido</td><td>100 MiB</td></tr><tr><td>Arquivo individual</td><td>2 MiB</td></tr><tr><td>Arquivos</td><td>5.000</td></tr><tr><td>Uploads simultâneos</td><td>2 por processo</td></tr><tr><td>Snapshots retidos</td><td>10 por projeto; 100 na instalação</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Candidatos a segredo</h2></div></div><div class=\"prose\"><p>Gitleaks executa offline com configuração da plataforma. Dispensas do próprio repositório não eliminam achados. O resultado agrupa arquivo/regra e linhas; valores, trechos e relatório bruto são descartados.</p></div><div class=\"prose\"><p>Candidatos têm confiança Hypothesis e não são testados contra provedores. Ausência de candidatos é Informational, não comprovação de inexistência de segredos. O recorte não cobre todo histórico Git, binários ou arquivos compactados aninhados.</p></div></section>"
   }
 ];
