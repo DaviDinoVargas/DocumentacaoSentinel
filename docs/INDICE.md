@@ -24,3 +24,4 @@
 - [Persistência e recuperação](../index.html#persistencia) — Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.
 - [Configuração e instalação](../index.html#configuracao) — Configure capacidades e caminhos; mantenha os valores privados fora do repositório.
 - [Operação e diagnóstico](../index.html#operacao) — Investigue a camada que falhou sem confundir saúde da API com prontidão da auditoria.
+- [Testes e validação](../index.html#testes) — Diferencie suíte existente, resultados históricos e verificação desta documentação.
