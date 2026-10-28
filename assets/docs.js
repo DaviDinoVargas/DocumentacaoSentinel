@@ -2144,5 +2144,93 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>PostgreSQL como fonte de verdade</h2></div></div><div class=\"prose\"><p>Projetos, autorizações, auditorias, resultados, outbox, posse e metadados vivem no banco. As migrações são aplicadas no startup. Alterações recentes adicionam tabelas, índices e atributos preservando histórico, mas uma implantação deve avaliar compatibilidade de todas as instâncias.</p></div><div class=\"prose\"><p>O plano de execução usa JSONB e versão otimista. Operações de coordenação e projeção usam transações e locks. JSONB não elimina os vínculos de projeto/organização nem as validações do serviço.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Conteúdo cifrado e identidade de armazenamento</h2></div></div><div class=\"prose\"><p>Credenciais, evidências e snapshots dependem de Data Protection. No Windows, a proteção usa DPAPI; fora do laboratório Windows, o host exige certificado configurado. Workers devem compartilhar keyring e proteção compatíveis.</p></div><div class=\"prose\"><p>StorageId identifica o volume lógico. Um worker em volume diferente não deve apagar conteúdo alheio nem presumir que consegue materializá-lo. Para S3, preserve bucket, versões, StorageId e keyring; mudar o provider não move os artefatos históricos.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Roteiro de recuperação proposto</h2></div></div><div class=\"prose\"><p>Planeje cópias coordenadas do PostgreSQL, conteúdo privado ainda retido e keyring protegido, com acesso restrito. Em ambiente isolado, restaure as partes, valide organização e metadados, leia uma evidência de teste pelo endpoint autenticado e confira seu hash.</p></div><div class=\"prose\"><p>Esse roteiro é orientação operacional desta documentação, não declaração de backup automatizado ou teste de restauração executado. Preserve janelas de retenção e não reintroduza segredos expirados sem política definida.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Migrações presentes na revisão</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Migrações presentes na revisão\"><table><thead><tr><th scope=\"col\">Migration</th><th scope=\"col\">Objetivo pelo nome</th></tr></thead><tbody><tr><td>20261019032325_InitialPostgres</td><td>InitialPostgres</td></tr><tr><td>20261019041650_AddAuditJobsAndSeverity</td><td>AddAuditJobsAndSeverity</td></tr><tr><td>20261019093403_AddPluginMetadataToAuditControls</td><td>AddPluginMetadataToAuditControls</td></tr><tr><td>20261019103735_ReplaceJobQueueWithOutbox</td><td>ReplaceJobQueueWithOutbox</td></tr><tr><td>20261019234923_AddDistributedExecutionControl</td><td>AddDistributedExecutionControl</td></tr><tr><td>20261020000243_AddOrganizationsAndTenantIsolation</td><td>AddOrganizationsAndTenantIsolation</td></tr><tr><td>20261020004618_AddTargetCredentials</td><td>AddTargetCredentials</td></tr><tr><td>20261020011834_AddPrivateEvidenceArtifacts</td><td>AddPrivateEvidenceArtifacts</td></tr><tr><td>20261020012146_AddEvidenceRetentionPolicy</td><td>AddEvidenceRetentionPolicy</td></tr><tr><td>20261020013435_AddEvidenceStorageIdentity</td><td>AddEvidenceStorageIdentity</td></tr><tr><td>20261020014433_AddCanonicalFindings</td><td>AddCanonicalFindings</td></tr><tr><td>20261020015111_AddFindingObservationClock</td><td>AddFindingObservationClock</td></tr><tr><td>20261020020221_AddSourceSnapshotsAndLocations</td><td>AddSourceSnapshotsAndLocations</td></tr><tr><td>20261020020730_AddSourceRevocationAudit</td><td>AddSourceRevocationAudit</td></tr><tr><td>20261020232335_AddScopeRevocationLifecycle</td><td>AddScopeRevocationLifecycle</td></tr><tr><td>20261020233308_PreserveScopeAuthorizationWindow</td><td>PreserveScopeAuthorizationWindow</td></tr><tr><td>20261021024823_AddDataOriginsAndProjectPurpose</td><td>AddDataOriginsAndProjectPurpose</td></tr><tr><td>20261021034758_AddProjectQueryIndexes</td><td>AddProjectQueryIndexes</td></tr><tr><td>20261021040746_AddTargetJsonLogin</td><td>AddTargetJsonLogin</td></tr><tr><td>20261021042654_AddScopeRules</td><td>AddScopeRules</td></tr><tr><td>20261025101757_AddSourceReplaySafety</td><td>AddSourceReplaySafety</td></tr><tr><td>20261025175440_AddProjectRunProfiles</td><td>AddProjectRunProfiles</td></tr></tbody></table></div><div class=\"callout\"><span>Inventário estático de migrations; não confirma que foram aplicadas em uma instalação. Não execute recriação de banco para atualizar a documentação.</span></div></section>"
+  },
+  {
+    "id": "configuracao",
+    "title": "Configuração e instalação",
+    "group": "Operação e qualidade",
+    "lead": "Configure capacidades e caminhos; mantenha os valores privados fora do repositório.",
+    "sources": [
+      "Sentinel/Program.cs",
+      "Sentinel/Execution/PluginRuntime.cs",
+      "Sentinel/Evidence/S3EvidenceStorage.cs",
+      "scripts/start-local.ps1"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Configuração em camadas",
+        "paragraphs": [
+          "O host usa configuração ASP.NET Core. Variáveis de ambiente com duplo sublinhado representam seções hierárquicas. A connection string é resolvida no momento de criar o DbContext, respeitando substituições do host de testes.",
+          "As tabelas abaixo documentam nomes e finalidades, nunca valores de credenciais. O bootstrap local reutiliza configuração privada e containers existentes; não publique seus arquivos de estado ou logs."
+        ]
+      },
+      {
+        "title": "Parâmetros principais",
+        "paragraphs": [],
+        "table": [
+          [
+            "Chave",
+            "Finalidade"
+          ],
+          [
+            "ConnectionStrings:SentinelPostgres",
+            "Conexão PostgreSQL; sem fallback em memória"
+          ],
+          [
+            "SENTINEL_POSTGRES_PASSWORD",
+            "Senha externa quando ausente na connection string"
+          ],
+          [
+            "SENTINEL_RABBITMQ_PASSWORD",
+            "Senha externa do broker"
+          ],
+          [
+            "Identity:Authority / Audience / ClientId",
+            "Provedor e cliente OIDC"
+          ],
+          [
+            "Identity:RedirectUri / PostLogoutRedirectUri",
+            "Retornos autorizados do frontend"
+          ],
+          [
+            "PluginRuntime:Image / Mode",
+            "Imagem fixada e modo de execução"
+          ],
+          [
+            "PluginRuntime:DockerApiVersion",
+            "Override opcional major.minor para processos Docker próprios"
+          ],
+          [
+            "TargetCredentials:KeyDirectory",
+            "Keyring compartilhado e protegido"
+          ],
+          [
+            "TargetCredentials:ProtectionCertificateThumbprint",
+            "Proteção por certificado quando exigida"
+          ],
+          [
+            "TargetCredentials:MaximumJsonLoginLifetimeHours",
+            "Teto de validade do perfil JsonLogin"
+          ],
+          [
+            "Evidence:Provider / RootDirectory / StorageId",
+            "Armazenamento de artefatos"
+          ],
+          [
+            "SourceSnapshots:RootDirectory / StorageId",
+            "Volume privado dos snapshots"
+          ]
+        ]
+      },
+      {
+        "title": "S3 e produção",
+        "paragraphs": [
+          "Evidence:S3 configura Endpoint, Bucket, StorageId, Region, AccessKey, SecretKey e RetentionMode. Use configuração privada do serviço e usuário restrito ao prefixo necessário. HTTPS é exigido fora do loopback; versionamento é requisito de gravação.",
+          "A configuração local HTTP/H2 e o bootstrap de identidade são de desenvolvimento. O suporte de infraestrutura não habilita testes de produção: a política de auditoria continua bloqueando esse perfil."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Configuração em camadas</h2></div></div><div class=\"prose\"><p>O host usa configuração ASP.NET Core. Variáveis de ambiente com duplo sublinhado representam seções hierárquicas. A connection string é resolvida no momento de criar o DbContext, respeitando substituições do host de testes.</p></div><div class=\"prose\"><p>As tabelas abaixo documentam nomes e finalidades, nunca valores de credenciais. O bootstrap local reutiliza configuração privada e containers existentes; não publique seus arquivos de estado ou logs.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Parâmetros principais</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Parâmetros principais\"><table><thead><tr><th scope=\"col\">Chave</th><th scope=\"col\">Finalidade</th></tr></thead><tbody><tr><td>ConnectionStrings:SentinelPostgres</td><td>Conexão PostgreSQL; sem fallback em memória</td></tr><tr><td>SENTINEL_POSTGRES_PASSWORD</td><td>Senha externa quando ausente na connection string</td></tr><tr><td>SENTINEL_RABBITMQ_PASSWORD</td><td>Senha externa do broker</td></tr><tr><td>Identity:Authority / Audience / ClientId</td><td>Provedor e cliente OIDC</td></tr><tr><td>Identity:RedirectUri / PostLogoutRedirectUri</td><td>Retornos autorizados do frontend</td></tr><tr><td>PluginRuntime:Image / Mode</td><td>Imagem fixada e modo de execução</td></tr><tr><td>PluginRuntime:DockerApiVersion</td><td>Override opcional major.minor para processos Docker próprios</td></tr><tr><td>TargetCredentials:KeyDirectory</td><td>Keyring compartilhado e protegido</td></tr><tr><td>TargetCredentials:ProtectionCertificateThumbprint</td><td>Proteção por certificado quando exigida</td></tr><tr><td>TargetCredentials:MaximumJsonLoginLifetimeHours</td><td>Teto de validade do perfil JsonLogin</td></tr><tr><td>Evidence:Provider / RootDirectory / StorageId</td><td>Armazenamento de artefatos</td></tr><tr><td>SourceSnapshots:RootDirectory / StorageId</td><td>Volume privado dos snapshots</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>S3 e produção</h2></div></div><div class=\"prose\"><p>Evidence:S3 configura Endpoint, Bucket, StorageId, Region, AccessKey, SecretKey e RetentionMode. Use configuração privada do serviço e usuário restrito ao prefixo necessário. HTTPS é exigido fora do loopback; versionamento é requisito de gravação.</p></div><div class=\"prose\"><p>A configuração local HTTP/H2 e o bootstrap de identidade são de desenvolvimento. O suporte de infraestrutura não habilita testes de produção: a política de auditoria continua bloqueando esse perfil.</p></div></section>"
   }
 ];

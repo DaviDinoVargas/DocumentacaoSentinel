@@ -22,3 +22,4 @@
 - [Frontend e workspace](../index.html#frontend) — Um contexto de projeto consistente entre preparação, execução e investigação.
 - [Design e acessibilidade](../index.html#design-acessibilidade) — Hierarquia clara, estados legíveis e navegação previsível em telas grandes e pequenas.
 - [Persistência e recuperação](../index.html#persistencia) — Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.
+- [Configuração e instalação](../index.html#configuracao) — Configure capacidades e caminhos; mantenha os valores privados fora do repositório.
