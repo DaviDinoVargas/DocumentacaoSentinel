@@ -20,3 +20,4 @@
 - [Score e Performance Lab](../index.html#score-performance) — Números só fazem sentido quando o denominador e o limite da medição estão visíveis.
 - [Referência da API](../index.html#api) — Rotas extraídas dos controllers, com os contratos de contexto e autorização preservados.
 - [Frontend e workspace](../index.html#frontend) — Um contexto de projeto consistente entre preparação, execução e investigação.
+- [Design e acessibilidade](../index.html#design-acessibilidade) — Hierarquia clara, estados legíveis e navegação previsível em telas grandes e pequenas.

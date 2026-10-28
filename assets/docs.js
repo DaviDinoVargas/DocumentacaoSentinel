@@ -1949,5 +1949,42 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Área central do projeto</h2></div></div><div class=\"prose\"><p>Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.</p></div><div class=\"prose\"><p>O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Estado real e contexto</h2></div></div><div class=\"prose\"><p>Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.</p></div><div class=\"prose\"><p>A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Carregamento por rota</h2></div></div><div class=\"prose\"><p>As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Rotas do workspace</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Rotas do workspace\"><table><thead><tr><th scope=\"col\">Rota</th><th scope=\"col\">Uso</th></tr></thead><tbody><tr><td>projects / projects/:id</td><td>Lista e área do projeto</td></tr><tr><td>run</td><td>Preparação, confirmação e acompanhamento</td></tr><tr><td>audits / audits/:id</td><td>Histórico e detalhe da execução</td></tr><tr><td>findings / evidence / score</td><td>Investigação e síntese</td></tr><tr><td>source-analysis / dependencies / api-surface</td><td>Recortes de fonte e contratos</td></tr><tr><td>operations / plugins / coverage / identity</td><td>Infraestrutura, capacidades e acesso</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "design-acessibilidade",
+    "title": "Design e acessibilidade",
+    "group": "Desenvolvimento",
+    "lead": "Hierarquia clara, estados legíveis e navegação previsível em telas grandes e pequenas.",
+    "sources": [
+      "Sentinel.Web/DESIGN-SYSTEM.md",
+      "Sentinel.Web/src/styles.css",
+      "Sentinel.Web/scripts/check-contrast.mjs",
+      "Sentinel.Web/src/app/app.routes.ts"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Linguagem visual do produto",
+        "paragraphs": [
+          "A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.",
+          "Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas."
+        ]
+      },
+      {
+        "title": "Padrão desta documentação",
+        "paragraphs": [
+          "O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.",
+          "Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real."
+        ]
+      },
+      {
+        "title": "Verificação de acessibilidade",
+        "paragraphs": [
+          "O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.",
+          "A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Linguagem visual do produto</h2></div></div><div class=\"prose\"><p>A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.</p></div><div class=\"prose\"><p>Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Padrão desta documentação</h2></div></div><div class=\"prose\"><p>O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.</p></div><div class=\"prose\"><p>Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Verificação de acessibilidade</h2></div></div><div class=\"prose\"><p>O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.</p></div><div class=\"prose\"><p>A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador.</p></div></section>"
   }
 ];
