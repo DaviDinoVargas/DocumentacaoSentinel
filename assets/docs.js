@@ -631,8 +631,308 @@ window.SENTINEL_DOCS = [
           "Passed vale para o critério e o recorte efetivamente observados. Failed pode produzir candidato a achado, preservando confiança e severidade. Inconclusive registra lacunas e pré-condições não satisfeitas. Informational registra informação sem aprovação de segurança.",
           "SIM-001 é fixture determinística do pipeline, não teste do alvo. Manifestos válidos locais ainda são aprovados automaticamente; isso não equivale a admissão empresarial de extensões de terceiros."
         ]
+      },
+      {
+        "title": "Catálogo extraído dos manifestos",
+        "paragraphs": [],
+        "table": [
+          [
+            "Plugin",
+            "Versão",
+            "Controles",
+            "Modo / ativação",
+            "Prazo / memória"
+          ],
+          [
+            "sentinel.dast.zap-baseline",
+            "1.0.0",
+            "[DAST-01]",
+            "passive / explicit",
+            "240 s / 1536 MiB"
+          ],
+          [
+            "sentinel.fixture.sim-001",
+            "1.0.1",
+            "[SIM-001]",
+            "passive / automática",
+            "15 s / 64 MiB"
+          ],
+          [
+            "sentinel.http.cookie-security",
+            "1.0.0",
+            "[TLS-02]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.cors-reflection",
+            "1.0.0",
+            "[WEB-CFG-02]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.csp-quality",
+            "1.0.0",
+            "[WEB-CFG-07]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.error-disclosure",
+            "1.0.0",
+            "[WEB-CFG-04]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.exposed-endpoints",
+            "1.0.0",
+            "[WEB-CFG-05]",
+            "passive / automática",
+            "90 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.host-header-trust",
+            "1.0.0",
+            "[WEB-CFG-06]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.security-headers",
+            "1.0.0",
+            "[WEB-CFG-01]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.tech-fingerprint-headers",
+            "1.0.0",
+            "[WEB-CFG-09]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.transport-security",
+            "1.0.0",
+            "[TLS-01]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.http.waf-fingerprint",
+            "1.0.0",
+            "[NET-WAF-01]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.api-anonymous-access",
+            "1.0.0",
+            "[API-AUTHZ-01]",
+            "active / automática",
+            "18 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.auth-brute",
+            "1.0.0",
+            "[AUTH-BRUTE-01]",
+            "active / explicit",
+            "30 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.authenticated-access",
+            "1.1.0",
+            "[LAB-ACCESS-01]",
+            "active / automática",
+            "12 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.body-robustness",
+            "1.0.1",
+            "[WEB-INJ-03]",
+            "active / automática",
+            "40 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.bounded-http-load",
+            "1.0.0",
+            "[LAB-PERF-01]",
+            "active / automática",
+            "15 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.contract-fuzz",
+            "1.0.0",
+            "[FUZZ-05, WEB-INJ-07]",
+            "active / automática",
+            "90 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.endpoint-discovery",
+            "1.0.0",
+            "[LAB-DISC-01]",
+            "active / automática",
+            "25 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.function-level-authz",
+            "1.0.1",
+            "[API-AUTHZ-06]",
+            "active / automática",
+            "60 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.fuzz-surface",
+            "1.0.0",
+            "[FUZZ-01]",
+            "active / automática",
+            "90 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.injection-probe",
+            "1.0.1",
+            "[WEB-INJ-01, WEB-INJ-02]",
+            "active / automática",
+            "120 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.input-probes",
+            "1.0.0",
+            "[LAB-AUTH-01, LAB-INP-01]",
+            "active / automática",
+            "18 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.jwt-forgery",
+            "1.0.0",
+            "[AUTH-JWT-01]",
+            "active / automática",
+            "30 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.jwt-lifecycle",
+            "1.0.0",
+            "[AUTH-JWT-02]",
+            "active / automática",
+            "20 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.mass-assignment",
+            "1.0.0",
+            "[API-AUTHZ-04]",
+            "active / automática",
+            "60 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.object-level-authz",
+            "1.0.1",
+            "[API-AUTHZ-02]",
+            "active / automática",
+            "60 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.session-logout",
+            "1.0.0",
+            "[AUTH-SES-01-LOGOUT]",
+            "active / explicit",
+            "90 s / 128 MiB"
+          ],
+          [
+            "sentinel.lab.session-refresh",
+            "1.0.0",
+            "[AUTH-SES-01-REFRESH, AUTH-SES-02-FAMILY]",
+            "active / explicit",
+            "120 s / 128 MiB"
+          ],
+          [
+            "sentinel.net.asn-info",
+            "1.0.0",
+            "[NET-ASN-01]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.net.dns-info",
+            "1.0.0",
+            "[NET-DNS-01]",
+            "passive / automática",
+            "10 s / 128 MiB"
+          ],
+          [
+            "sentinel.net.port-scan",
+            "1.0.0",
+            "[NET-PORTS-01]",
+            "active / automática",
+            "15 s / 128 MiB"
+          ],
+          [
+            "sentinel.source.api-auth-declared",
+            "1.0.0",
+            "[API-AUTHZ-08]",
+            "passive / automática",
+            "90 s / 512 MiB"
+          ],
+          [
+            "sentinel.source.dependencies",
+            "1.0.0",
+            "[SUP-01]",
+            "passive / automática",
+            "150 s / 512 MiB"
+          ],
+          [
+            "sentinel.source.inventory",
+            "1.0.1",
+            "[SRC-INV-01]",
+            "passive / automática",
+            "30 s / 256 MiB"
+          ],
+          [
+            "sentinel.source.lockfile-integrity",
+            "1.0.0",
+            "[SUP-02]",
+            "passive / automática",
+            "20 s / 128 MiB"
+          ],
+          [
+            "sentinel.source.model-integrity",
+            "1.0.0",
+            "[SUP-03]",
+            "passive / automática",
+            "60 s / 256 MiB"
+          ],
+          [
+            "sentinel.source.openapi",
+            "1.0.0",
+            "[SRC-API-01]",
+            "passive / automática",
+            "90 s / 512 MiB"
+          ],
+          [
+            "sentinel.source.sbom-diff",
+            "1.0.1",
+            "[SUP-06]",
+            "passive / automática",
+            "15 s / 128 MiB"
+          ],
+          [
+            "sentinel.source.secrets",
+            "1.0.0",
+            "[SUP-04]",
+            "passive / automática",
+            "90 s / 512 MiB"
+          ],
+          [
+            "sentinel.source.unused-dependencies",
+            "1.0.0",
+            "[SUP-05]",
+            "passive / automática",
+            "30 s / 256 MiB"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Contrato antes da execução</h2></div></div><div class=\"prose\"><p>Cada plugin possui manifesto YAML validado por schema e um contrato de entrada/saída. O catálogo declara identificador, versão, controles, modo, permissões, capacidades de gateway, isolamento e recursos. Um manifesto presente não comprova execução bem-sucedida.</p></div><div class=\"prose\"><p>Plugins de ativação explicit exigem seleção e compatibilidade com o perfil. O gateway só libera capacidades declaradas e autorizadas. Contratos de login, escrita, dupla identidade e leitura de OpenAPI não são permissões genéricas de rede.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Interpretação dos controles</h2></div></div><div class=\"prose\"><p>Passed vale para o critério e o recorte efetivamente observados. Failed pode produzir candidato a achado, preservando confiança e severidade. Inconclusive registra lacunas e pré-condições não satisfeitas. Informational registra informação sem aprovação de segurança.</p></div><div class=\"prose\"><p>SIM-001 é fixture determinística do pipeline, não teste do alvo. Manifestos válidos locais ainda são aprovados automaticamente; isso não equivale a admissão empresarial de extensões de terceiros.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Contrato antes da execução</h2></div></div><div class=\"prose\"><p>Cada plugin possui manifesto YAML validado por schema e um contrato de entrada/saída. O catálogo declara identificador, versão, controles, modo, permissões, capacidades de gateway, isolamento e recursos. Um manifesto presente não comprova execução bem-sucedida.</p></div><div class=\"prose\"><p>Plugins de ativação explicit exigem seleção e compatibilidade com o perfil. O gateway só libera capacidades declaradas e autorizadas. Contratos de login, escrita, dupla identidade e leitura de OpenAPI não são permissões genéricas de rede.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Interpretação dos controles</h2></div></div><div class=\"prose\"><p>Passed vale para o critério e o recorte efetivamente observados. Failed pode produzir candidato a achado, preservando confiança e severidade. Inconclusive registra lacunas e pré-condições não satisfeitas. Informational registra informação sem aprovação de segurança.</p></div><div class=\"prose\"><p>SIM-001 é fixture determinística do pipeline, não teste do alvo. Manifestos válidos locais ainda são aprovados automaticamente; isso não equivale a admissão empresarial de extensões de terceiros.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Catálogo extraído dos manifestos</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Catálogo extraído dos manifestos\"><table><thead><tr><th scope=\"col\">Plugin</th><th scope=\"col\">Versão</th><th scope=\"col\">Controles</th><th scope=\"col\">Modo / ativação</th><th scope=\"col\">Prazo / memória</th></tr></thead><tbody><tr><td>sentinel.dast.zap-baseline</td><td>1.0.0</td><td>[DAST-01]</td><td>passive / explicit</td><td>240 s / 1536 MiB</td></tr><tr><td>sentinel.fixture.sim-001</td><td>1.0.1</td><td>[SIM-001]</td><td>passive / automática</td><td>15 s / 64 MiB</td></tr><tr><td>sentinel.http.cookie-security</td><td>1.0.0</td><td>[TLS-02]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.cors-reflection</td><td>1.0.0</td><td>[WEB-CFG-02]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.csp-quality</td><td>1.0.0</td><td>[WEB-CFG-07]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.error-disclosure</td><td>1.0.0</td><td>[WEB-CFG-04]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.exposed-endpoints</td><td>1.0.0</td><td>[WEB-CFG-05]</td><td>passive / automática</td><td>90 s / 128 MiB</td></tr><tr><td>sentinel.http.host-header-trust</td><td>1.0.0</td><td>[WEB-CFG-06]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.security-headers</td><td>1.0.0</td><td>[WEB-CFG-01]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.tech-fingerprint-headers</td><td>1.0.0</td><td>[WEB-CFG-09]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.transport-security</td><td>1.0.0</td><td>[TLS-01]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.http.waf-fingerprint</td><td>1.0.0</td><td>[NET-WAF-01]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.lab.api-anonymous-access</td><td>1.0.0</td><td>[API-AUTHZ-01]</td><td>active / automática</td><td>18 s / 128 MiB</td></tr><tr><td>sentinel.lab.auth-brute</td><td>1.0.0</td><td>[AUTH-BRUTE-01]</td><td>active / explicit</td><td>30 s / 128 MiB</td></tr><tr><td>sentinel.lab.authenticated-access</td><td>1.1.0</td><td>[LAB-ACCESS-01]</td><td>active / automática</td><td>12 s / 128 MiB</td></tr><tr><td>sentinel.lab.body-robustness</td><td>1.0.1</td><td>[WEB-INJ-03]</td><td>active / automática</td><td>40 s / 128 MiB</td></tr><tr><td>sentinel.lab.bounded-http-load</td><td>1.0.0</td><td>[LAB-PERF-01]</td><td>active / automática</td><td>15 s / 128 MiB</td></tr><tr><td>sentinel.lab.contract-fuzz</td><td>1.0.0</td><td>[FUZZ-05, WEB-INJ-07]</td><td>active / automática</td><td>90 s / 128 MiB</td></tr><tr><td>sentinel.lab.endpoint-discovery</td><td>1.0.0</td><td>[LAB-DISC-01]</td><td>active / automática</td><td>25 s / 128 MiB</td></tr><tr><td>sentinel.lab.function-level-authz</td><td>1.0.1</td><td>[API-AUTHZ-06]</td><td>active / automática</td><td>60 s / 128 MiB</td></tr><tr><td>sentinel.lab.fuzz-surface</td><td>1.0.0</td><td>[FUZZ-01]</td><td>active / automática</td><td>90 s / 128 MiB</td></tr><tr><td>sentinel.lab.injection-probe</td><td>1.0.1</td><td>[WEB-INJ-01, WEB-INJ-02]</td><td>active / automática</td><td>120 s / 128 MiB</td></tr><tr><td>sentinel.lab.input-probes</td><td>1.0.0</td><td>[LAB-AUTH-01, LAB-INP-01]</td><td>active / automática</td><td>18 s / 128 MiB</td></tr><tr><td>sentinel.lab.jwt-forgery</td><td>1.0.0</td><td>[AUTH-JWT-01]</td><td>active / automática</td><td>30 s / 128 MiB</td></tr><tr><td>sentinel.lab.jwt-lifecycle</td><td>1.0.0</td><td>[AUTH-JWT-02]</td><td>active / automática</td><td>20 s / 128 MiB</td></tr><tr><td>sentinel.lab.mass-assignment</td><td>1.0.0</td><td>[API-AUTHZ-04]</td><td>active / automática</td><td>60 s / 128 MiB</td></tr><tr><td>sentinel.lab.object-level-authz</td><td>1.0.1</td><td>[API-AUTHZ-02]</td><td>active / automática</td><td>60 s / 128 MiB</td></tr><tr><td>sentinel.lab.session-logout</td><td>1.0.0</td><td>[AUTH-SES-01-LOGOUT]</td><td>active / explicit</td><td>90 s / 128 MiB</td></tr><tr><td>sentinel.lab.session-refresh</td><td>1.0.0</td><td>[AUTH-SES-01-REFRESH, AUTH-SES-02-FAMILY]</td><td>active / explicit</td><td>120 s / 128 MiB</td></tr><tr><td>sentinel.net.asn-info</td><td>1.0.0</td><td>[NET-ASN-01]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.net.dns-info</td><td>1.0.0</td><td>[NET-DNS-01]</td><td>passive / automática</td><td>10 s / 128 MiB</td></tr><tr><td>sentinel.net.port-scan</td><td>1.0.0</td><td>[NET-PORTS-01]</td><td>active / automática</td><td>15 s / 128 MiB</td></tr><tr><td>sentinel.source.api-auth-declared</td><td>1.0.0</td><td>[API-AUTHZ-08]</td><td>passive / automática</td><td>90 s / 512 MiB</td></tr><tr><td>sentinel.source.dependencies</td><td>1.0.0</td><td>[SUP-01]</td><td>passive / automática</td><td>150 s / 512 MiB</td></tr><tr><td>sentinel.source.inventory</td><td>1.0.1</td><td>[SRC-INV-01]</td><td>passive / automática</td><td>30 s / 256 MiB</td></tr><tr><td>sentinel.source.lockfile-integrity</td><td>1.0.0</td><td>[SUP-02]</td><td>passive / automática</td><td>20 s / 128 MiB</td></tr><tr><td>sentinel.source.model-integrity</td><td>1.0.0</td><td>[SUP-03]</td><td>passive / automática</td><td>60 s / 256 MiB</td></tr><tr><td>sentinel.source.openapi</td><td>1.0.0</td><td>[SRC-API-01]</td><td>passive / automática</td><td>90 s / 512 MiB</td></tr><tr><td>sentinel.source.sbom-diff</td><td>1.0.1</td><td>[SUP-06]</td><td>passive / automática</td><td>15 s / 128 MiB</td></tr><tr><td>sentinel.source.secrets</td><td>1.0.0</td><td>[SUP-04]</td><td>passive / automática</td><td>90 s / 512 MiB</td></tr><tr><td>sentinel.source.unused-dependencies</td><td>1.0.0</td><td>[SUP-05]</td><td>passive / automática</td><td>30 s / 256 MiB</td></tr></tbody></table></div></section>"
   }
 ];
