@@ -1171,8 +1171,195 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor."
         ]
+      },
+      {
+        "title": "Dependências diretas da implementação",
+        "paragraphs": [],
+        "table": [
+          [
+            "Projeto",
+            "Pacote",
+            "Versão declarada"
+          ],
+          [
+            "Sentinel",
+            "AWSSDK.S3",
+            "4.0.104.5"
+          ],
+          [
+            "Sentinel",
+            "JsonSchema.Net",
+            "7.2.3"
+          ],
+          [
+            "Sentinel",
+            "Microsoft.AspNetCore.Authentication.JwtBearer",
+            "8.0.11"
+          ],
+          [
+            "Sentinel",
+            "Microsoft.EntityFrameworkCore.Design",
+            "8.0.11"
+          ],
+          [
+            "Sentinel",
+            "Npgsql.EntityFrameworkCore.PostgreSQL",
+            "8.0.11"
+          ],
+          [
+            "Sentinel",
+            "RabbitMQ.Client",
+            "6.8.1"
+          ],
+          [
+            "Sentinel",
+            "Swashbuckle.AspNetCore",
+            "6.6.2"
+          ],
+          [
+            "Sentinel",
+            "YamlDotNet",
+            "16.2.1"
+          ],
+          [
+            "Sentinel.PluginHost",
+            "YamlDotNet",
+            "16.2.1"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/cdk",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/common",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/compiler",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/core",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/forms",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/material",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/platform-browser",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@angular/router",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "@spartan-ng/brain",
+            "1.8.0"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "clsx",
+            "2.1.1"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "luxon",
+            "3.7.2"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "oidc-client-ts",
+            "3.5.0"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "rxjs",
+            "7.8.2"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "tslib",
+            "2.8.1"
+          ],
+          [
+            "Sentinel.Web / dependencies",
+            "tw-animate-css",
+            "1.3.8"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "@angular/build",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "@angular/cli",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "@angular/compiler-cli",
+            "22.2.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "@tailwindcss/postcss",
+            "4.3.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "axe-core",
+            "4.14.0"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "jsdom",
+            "30.1.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "postcss",
+            "8.5.31"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "prettier",
+            "3.9.10"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "tailwindcss",
+            "4.3.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "typescript",
+            "6.0.3"
+          ],
+          [
+            "Sentinel.Web / devDependencies",
+            "vitest",
+            "5.0.5"
+          ]
+        ],
+        "note": "Inventário extraído de csproj e package.json do Sentinel. Versão declarada não é auditoria de vulnerabilidades e não inclui todas as dependências transitivas."
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Vulnerabilidades offline</h2></div></div><div class=\"prose\"><p>Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.</p></div><div class=\"prose\"><p>Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Inventário de declarações</h2></div></div><div class=\"prose\"><p>O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.</p></div><div class=\"prose\"><p>A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Controles complementares</h2></div></div><div class=\"prose\"><p>Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Vulnerabilidades offline</h2></div></div><div class=\"prose\"><p>Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.</p></div><div class=\"prose\"><p>Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Inventário de declarações</h2></div></div><div class=\"prose\"><p>O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.</p></div><div class=\"prose\"><p>A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Controles complementares</h2></div></div><div class=\"prose\"><p>Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Dependências diretas da implementação</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Dependências diretas da implementação\"><table><thead><tr><th scope=\"col\">Projeto</th><th scope=\"col\">Pacote</th><th scope=\"col\">Versão declarada</th></tr></thead><tbody><tr><td>Sentinel</td><td>AWSSDK.S3</td><td>4.0.104.5</td></tr><tr><td>Sentinel</td><td>JsonSchema.Net</td><td>7.2.3</td></tr><tr><td>Sentinel</td><td>Microsoft.AspNetCore.Authentication.JwtBearer</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>Microsoft.EntityFrameworkCore.Design</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>Npgsql.EntityFrameworkCore.PostgreSQL</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>RabbitMQ.Client</td><td>6.8.1</td></tr><tr><td>Sentinel</td><td>Swashbuckle.AspNetCore</td><td>6.6.2</td></tr><tr><td>Sentinel</td><td>YamlDotNet</td><td>16.2.1</td></tr><tr><td>Sentinel.PluginHost</td><td>YamlDotNet</td><td>16.2.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/cdk</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/common</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/compiler</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/core</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/forms</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/material</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/platform-browser</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/router</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@spartan-ng/brain</td><td>1.8.0</td></tr><tr><td>Sentinel.Web / dependencies</td><td>clsx</td><td>2.1.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>luxon</td><td>3.7.2</td></tr><tr><td>Sentinel.Web / dependencies</td><td>oidc-client-ts</td><td>3.5.0</td></tr><tr><td>Sentinel.Web / dependencies</td><td>rxjs</td><td>7.8.2</td></tr><tr><td>Sentinel.Web / dependencies</td><td>tslib</td><td>2.8.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>tw-animate-css</td><td>1.3.8</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/build</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/cli</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/compiler-cli</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@tailwindcss/postcss</td><td>4.3.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>axe-core</td><td>4.14.0</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>jsdom</td><td>30.1.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>postcss</td><td>8.5.31</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>prettier</td><td>3.9.10</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>tailwindcss</td><td>4.3.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>typescript</td><td>6.0.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>vitest</td><td>5.0.5</td></tr></tbody></table></div><div class=\"callout\"><span>Inventário extraído de csproj e package.json do Sentinel. Versão declarada não é auditoria de vulnerabilidades e não inclui todas as dependências transitivas.</span></div></section>"
   }
 ];
