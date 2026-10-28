@@ -1,0 +1,37 @@
+{
+  "id": "primeiros-passos",
+  "title": "Primeiros passos",
+  "group": "Comece aqui",
+  "lead": "Prepare um laboratório local, abra o workspace e siga o primeiro fluxo autorizado.",
+  "sources": [
+    "README.md",
+    "scripts/README.md",
+    "scripts/start-local.ps1",
+    "scripts/build-plugin-sandbox.ps1"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Pré-requisitos e preparação",
+      "paragraphs": [
+        "O README requer SDKs .NET 8/9, Node/npm e Rancher Desktop com PostgreSQL e RabbitMQ locais já configurados. Consulte os TargetFramework dos projetos antes de instalar SDKs. O bootstrap reutiliza recursos existentes; não é um provisionador universal de uma máquina vazia.",
+        "Instale as dependências do frontend com npm ci em Sentinel.Web. Construa a imagem de plugins com o script próprio. Os comandos abaixo devem ser executados na raiz do código Sentinel, não na pasta desta documentação."
+      ],
+      "code": "cd Sentinel.Web\nnpm ci\ncd ..\n.\\scripts\\build-plugin-sandbox.ps1\n.\\scripts\\start-local.ps1"
+    },
+    {
+      "title": "Entrada na aplicação",
+      "paragraphs": [
+        "A interface local usa http://localhost:4200; a API, http://localhost:5161. O Swagger fica em /swagger no ambiente Development. O script verifica saúde, configuração OIDC e página. Entre pelo provedor de identidade e selecione a organização autorizada.",
+        "Cadastre um projeto de software, abra sua área e registre um escopo para um alvo de laboratório sob sua autorização. Defina explicitamente métodos, perfil e expiração. Salvar o plano de testes não inicia tráfego nem renova o escopo."
+      ]
+    },
+    {
+      "title": "Primeiro resultado",
+      "paragraphs": [
+        "Na tela Rodar testes, confira as modalidades disponíveis e confirme a execução desejada. Acompanhe o identificador retornado no histórico. Um bloqueio de política também pode ser persistido: leia o motivo antes de tentar novamente.",
+        "Abra o detalhe, examine os controles e verifique a evidência. Separe Failed, Inconclusive e erro de execução. O site de documentação não cria projetos nem envia requisições ao alvo."
+      ]
+    }
+  ]
+}
