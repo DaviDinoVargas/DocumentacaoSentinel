@@ -478,5 +478,42 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Origem declarada, sem inferência</h2></div></div><div class=\"prose\"><p>SoftwareUnderTest identifica resultados do software avaliado. SyntheticCorpus identifica validação sintética. Unknown preserva entradas legadas sem classificação. O nome do projeto, uma pasta ou uma URL não prova a origem.</p></div><div class=\"prose\"><p>Projetos comuns não recebem corpus automaticamente. Projetos SentinelValidation são dedicados à validação e exigem criação com privilégio apropriado. A API impede novas combinações incompatíveis de propósito e origem.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Classificação do legado</h2></div></div><div class=\"prose\"><p>A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.</p></div><div class=\"prose\"><p>Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Impacto nas leituras</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Impacto nas leituras\"><table><thead><tr><th scope=\"col\">Consulta</th><th scope=\"col\">Regra de interpretação</th></tr></thead><tbody><tr><td>Score</td><td>Exclui corpus, desconhecidos e fixtures</td></tr><tr><td>Achados</td><td>Não mistura origens conhecidas em uma mesma conclusão</td></tr><tr><td>Histórico</td><td>Pode mostrar todas as origens autorizadas, com filtros explícitos</td></tr><tr><td>Classificação</td><td>Declaração do operador; não é prova independente de procedência</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "execucao",
+    "title": "Execução e concorrência",
+    "group": "Motor de auditoria",
+    "lead": "Fila, posse, orçamento e checkpoints controlam o trabalho entre processos.",
+    "sources": [
+      "Sentinel/Execution/ExecutionCoordinator.cs",
+      "Sentinel/Execution/LeaseHeartbeat.cs",
+      "Sentinel/Execution/ExecutionReconciler.cs",
+      "Sentinel/Workers/AuditWorker.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Uma posse válida por vez",
+        "paragraphs": [
+          "O PostgreSQL coordena locks, fencing token e lease de doze segundos. O heartbeat renova a posse a cada 500 ms por thread dedicada. O relógio do banco define a validade; paralisia do processo, indisponibilidade do banco e perda de posse continuam relevantes.",
+          "Uma auditoria por host/porta compartilha orçamento entre projetos e perfis. localhost, IPv4 e IPv6 de loopback são agrupados; aliases DNS externos e portas distintas não são automaticamente tratados como o mesmo alvo. A taxa global varia de uma a dez permissões por segundo."
+        ]
+      },
+      {
+        "title": "Checkpoints e retomada",
+        "paragraphs": [
+          "O checkpoint de cada plugin persiste controles e evidências atomicamente. Queda entre plugins permite retomar o trabalho sem repetir checkpoints, dentro do limite de posses. Queda durante um plugin preserva resultados e pode terminar como Interrupted após a reserva de segurança.",
+          "Fencing e checkpoint reduzem repetição, mas não oferecem desfazer efeitos já enviados. Cancelamento persistido recusa novas permissões e o monitor encerra o filho. O estado Cancelling precisa ser acompanhado até Cancelled ou outro terminal."
+        ]
+      },
+      {
+        "title": "Histórico completo por cursor",
+        "paragraphs": [
+          "O snapshot da execução mostra os últimos cem eventos. O endpoint /execution/events aceita beforeId, pageSize de 1 a 500, kind e pluginId; nextBeforeId permite acessar páginas anteriores. O tamanho de página não limita o histórico total.",
+          "O reconciliador usa outbox para republicar trabalhos em espera. Não confunda uma contagem de fila vazia com execução concluída: o trabalho pode estar em processamento ou aguardando orçamento."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Uma posse válida por vez</h2></div></div><div class=\"prose\"><p>O PostgreSQL coordena locks, fencing token e lease de doze segundos. O heartbeat renova a posse a cada 500 ms por thread dedicada. O relógio do banco define a validade; paralisia do processo, indisponibilidade do banco e perda de posse continuam relevantes.</p></div><div class=\"prose\"><p>Uma auditoria por host/porta compartilha orçamento entre projetos e perfis. localhost, IPv4 e IPv6 de loopback são agrupados; aliases DNS externos e portas distintas não são automaticamente tratados como o mesmo alvo. A taxa global varia de uma a dez permissões por segundo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Checkpoints e retomada</h2></div></div><div class=\"prose\"><p>O checkpoint de cada plugin persiste controles e evidências atomicamente. Queda entre plugins permite retomar o trabalho sem repetir checkpoints, dentro do limite de posses. Queda durante um plugin preserva resultados e pode terminar como Interrupted após a reserva de segurança.</p></div><div class=\"prose\"><p>Fencing e checkpoint reduzem repetição, mas não oferecem desfazer efeitos já enviados. Cancelamento persistido recusa novas permissões e o monitor encerra o filho. O estado Cancelling precisa ser acompanhado até Cancelled ou outro terminal.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Histórico completo por cursor</h2></div></div><div class=\"prose\"><p>O snapshot da execução mostra os últimos cem eventos. O endpoint /execution/events aceita beforeId, pageSize de 1 a 500, kind e pluginId; nextBeforeId permite acessar páginas anteriores. O tamanho de página não limita o histórico total.</p></div><div class=\"prose\"><p>O reconciliador usa outbox para republicar trabalhos em espera. Não confunda uma contagem de fila vazia com execução concluída: o trabalho pode estar em processamento ou aguardando orçamento.</p></div></section>"
   }
 ];
