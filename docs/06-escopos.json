@@ -31,6 +31,12 @@
         "Revogação exige permissão scopes.manage e motivo de 8 a 1000 caracteres. O primeiro ator/motivo é preservado em chamadas concorrentes. A operação solicita cancelamento dos trabalhos associados, sem reativação do registro. Para nova autorização, crie outro escopo.",
         "Revogar impede novas permissões, mas não desfaz requisições já admitidas. Acompanhe as auditorias até o estado terminal. Regras não são editadas no lugar: revogue e registre a substituição."
       ]
+    },
+    {
+      "title": "Exemplo didático de regras",
+      "paragraphs": [],
+      "code": "{\n  \"startsAtUtc\": null,\n  \"methods\": [\"GET\"],\n  \"actions\": [\"simulated\"],\n  \"exclusions\": [\"/api/admin\"]\n}",
+      "note": "O exemplo é somente o objeto rules. O cadastro completo também precisa de targetBaseUrl, environment e expiresAtUtc futuro. Nenhum exemplo deste site executa tráfego."
     }
   ]
 }
