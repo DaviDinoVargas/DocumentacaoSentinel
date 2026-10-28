@@ -1,0 +1,35 @@
+{
+  "id": "dependencias",
+  "title": "Dependências e inventário",
+  "group": "Investigações",
+  "lead": "Declare o recorte, verifique a base offline e interprete diferenças sem inventar cobertura.",
+  "sources": [
+    "Sentinel.PluginHost/Checks/SourceDependenciesCheck.cs",
+    "Sentinel.PluginHost/Checks/SourceInventoryCheck.cs",
+    "Sentinel.PluginHost/Checks/SbomDiffCheck.cs",
+    "infra/plugins/trivy.lock.json"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Vulnerabilidades offline",
+      "paragraphs": [
+        "Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.",
+        "Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base."
+      ]
+    },
+    {
+      "title": "Inventário de declarações",
+      "paragraphs": [
+        "O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.",
+        "A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências."
+      ]
+    },
+    {
+      "title": "Controles complementares",
+      "paragraphs": [
+        "Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor."
+      ]
+    }
+  ]
+}

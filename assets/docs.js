@@ -1138,5 +1138,41 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato de entrada</h2></div></div><div class=\"prose\"><p>O upload recebe ZIP binário application/zip, sourceKey estável e revision. O snapshot fica cifrado por uma hora. Cada execução revalida hash, validade e autorização exata; o outbox contém referências e metadados, não os bytes do arquivo.</p></div><div class=\"prose\"><p>O parser recusa links, arquivos especiais, caminhos perigosos, colisões e diretórios privados proibidos. Não há clone remoto, leitura arbitrária do servidor, build, restore ou execução de scripts do snapshot.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Limites do arquivo</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Limites do arquivo\"><table><thead><tr><th scope=\"col\">Limite</th><th scope=\"col\">Valor</th></tr></thead><tbody><tr><td>ZIP compactado</td><td>20 MiB</td></tr><tr><td>Conteúdo expandido</td><td>100 MiB</td></tr><tr><td>Arquivo individual</td><td>2 MiB</td></tr><tr><td>Arquivos</td><td>5.000</td></tr><tr><td>Uploads simultâneos</td><td>2 por processo</td></tr><tr><td>Snapshots retidos</td><td>10 por projeto; 100 na instalação</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Candidatos a segredo</h2></div></div><div class=\"prose\"><p>Gitleaks executa offline com configuração da plataforma. Dispensas do próprio repositório não eliminam achados. O resultado agrupa arquivo/regra e linhas; valores, trechos e relatório bruto são descartados.</p></div><div class=\"prose\"><p>Candidatos têm confiança Hypothesis e não são testados contra provedores. Ausência de candidatos é Informational, não comprovação de inexistência de segredos. O recorte não cobre todo histórico Git, binários ou arquivos compactados aninhados.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Retenção e revogação</h2></div></div><div class=\"prose\"><p>Snapshots continuam em volume privado, mesmo quando evidências usam S3. Workers compartilham volume lógico, StorageId e keyring. Revogação solicita cancelamento; expiração bloqueia novos plugins e o expurgo remove conteúdo em lotes.</p></div><div class=\"prose\"><p>Preserve os metadados e a revisão do recorte para interpretar o relatório. Uma análise de ZIP parcial não equivale à cobertura de todo o repositório.</p></div></section>"
+  },
+  {
+    "id": "dependencias",
+    "title": "Dependências e inventário",
+    "group": "Investigações",
+    "lead": "Declare o recorte, verifique a base offline e interprete diferenças sem inventar cobertura.",
+    "sources": [
+      "Sentinel.PluginHost/Checks/SourceDependenciesCheck.cs",
+      "Sentinel.PluginHost/Checks/SourceInventoryCheck.cs",
+      "Sentinel.PluginHost/Checks/SbomDiffCheck.cs",
+      "infra/plugins/trivy.lock.json"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Vulnerabilidades offline",
+        "paragraphs": [
+          "Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.",
+          "Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base."
+        ]
+      },
+      {
+        "title": "Inventário de declarações",
+        "paragraphs": [
+          "O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.",
+          "A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências."
+        ]
+      },
+      {
+        "title": "Controles complementares",
+        "paragraphs": [
+          "Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Vulnerabilidades offline</h2></div></div><div class=\"prose\"><p>Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.</p></div><div class=\"prose\"><p>Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Inventário de declarações</h2></div></div><div class=\"prose\"><p>O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.</p></div><div class=\"prose\"><p>A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Controles complementares</h2></div></div><div class=\"prose\"><p>Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor.</p></div></section>"
   }
 ];
