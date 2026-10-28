@@ -6,3 +6,4 @@
 - [Domínio e dados](../index.html#dominio) — Projetos dão contexto; escopos autorizam; auditorias registram o que aconteceu.
 - [Identidade e organizações](../index.html#identidade) — Autenticação do operador, permissões e isolamento dos dados por organização.
 - [Escopos e políticas](../index.html#escopos) — A autorização é um contrato verificável de alvo, janela, método e ação.
+- [Origem dos resultados](../index.html#origens) — Separe software avaliado, corpus sintético e legado desconhecido antes de comparar.
