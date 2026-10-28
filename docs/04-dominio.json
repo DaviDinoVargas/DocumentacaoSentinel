@@ -1,0 +1,104 @@
+{
+  "id": "dominio",
+  "title": "Domínio e dados",
+  "group": "Estrutura do sistema",
+  "lead": "Projetos dão contexto; escopos autorizam; auditorias registram o que aconteceu.",
+  "sources": [
+    "Sentinel/Core/Domain.cs",
+    "Sentinel/Core/DataOrigins.cs",
+    "Sentinel/Core/ProjectRunProfile.cs",
+    "Sentinel/Findings/FindingModel.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Entidades e relações",
+      "paragraphs": [],
+      "table": [
+        [
+          "Entidade",
+          "Papel",
+          "Relação"
+        ],
+        [
+          "Projeto",
+          "Nome, propósito e contexto de trabalho",
+          "Agrupa escopos, auditorias e fontes"
+        ],
+        [
+          "Escopo autorizado",
+          "Alvo, ambiente, janela e regras",
+          "Pertence a um projeto"
+        ],
+        [
+          "Auditoria",
+          "Pedido, estado e origem declarada",
+          "Vincula alvo, escopo, controles e evidências"
+        ],
+        [
+          "Controle",
+          "Avaliação de um critério",
+          "Preserva plugin, versão, confiança e severidade"
+        ],
+        [
+          "Evidência",
+          "Conteúdo verificável e metadados",
+          "Hash, retenção e referência de armazenamento"
+        ],
+        [
+          "Achado",
+          "Consolidação temporal para triagem",
+          "Agrupa ocorrências comparáveis"
+        ],
+        [
+          "Plano",
+          "Preferências reutilizáveis de execução",
+          "Referências a credencial e snapshot do projeto"
+        ]
+      ]
+    },
+    {
+      "title": "Referência não é segredo",
+      "paragraphs": [
+        "O plano persiste URLs e identificadores de credenciais/snapshots. A configuração usa expectedVersion para evitar sobrescrita concorrente, inclusive no primeiro salvamento. Referências de outro projeto são recusadas.",
+        "Tokens e senhas permanecem no cofre. A validade do perfil e do escopo continua sendo verificada quando o plano é executado. Salvar uma configuração não cria uma autorização nova."
+      ]
+    },
+    {
+      "title": "Leitura dos estados",
+      "paragraphs": [
+        "AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis."
+      ]
+    },
+    {
+      "title": "Estados terminais",
+      "paragraphs": [],
+      "table": [
+        [
+          "Estado",
+          "Interpretação"
+        ],
+        [
+          "Completed",
+          "Execução concluída; controles ainda podem falhar ou ser inconclusivos"
+        ],
+        [
+          "Blocked",
+          "Política recusou a execução"
+        ],
+        [
+          "Failed",
+          "Falha operacional da auditoria"
+        ],
+        [
+          "Cancelled",
+          "Cancelamento concluído"
+        ],
+        [
+          "Interrupted",
+          "Execução interrompida, com efeitos incertos que não devem ser repetidos automaticamente"
+        ]
+      ]
+    }
+  ]
+}
