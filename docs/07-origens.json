@@ -1,0 +1,28 @@
+{
+  "id": "origens",
+  "title": "Origem dos resultados",
+  "group": "Governança",
+  "lead": "Separe software avaliado, corpus sintético e legado desconhecido antes de comparar.",
+  "sources": [
+    "Sentinel/Core/DataOrigins.cs",
+    "Sentinel/Core/DataOriginClassification.cs",
+    "Sentinel/Controllers/DataOriginsController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Origem declarada, sem inferência",
+      "paragraphs": [
+        "SoftwareUnderTest identifica resultados do software avaliado. SyntheticCorpus identifica validação sintética. Unknown preserva entradas legadas sem classificação. O nome do projeto, uma pasta ou uma URL não prova a origem.",
+        "Projetos comuns não recebem corpus automaticamente. Projetos SentinelValidation são dedicados à validação e exigem criação com privilégio apropriado. A API impede novas combinações incompatíveis de propósito e origem."
+      ]
+    },
+    {
+      "title": "Classificação do legado",
+      "paragraphs": [
+        "A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.",
+        "Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software."
+      ]
+    }
+  ]
+}
