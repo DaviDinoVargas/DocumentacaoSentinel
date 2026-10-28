@@ -1,0 +1,58 @@
+{
+  "id": "superficie-api",
+  "title": "Superfície e sondagens HTTP",
+  "group": "Investigações",
+  "lead": "Contratos OpenAPI orientam o recorte; respostas reais ainda precisam de interpretação.",
+  "sources": [
+    "Sentinel.PluginHost/Checks/SourceOpenApiCheck.cs",
+    "Sentinel/Execution/OpenApiInventoryReader.cs",
+    "Sentinel.PluginHost/Checks/InjectionProbeCheck.cs",
+    "Sentinel.PluginHost/Checks/BodyRobustnessCheck.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Contrato declarado e superfície observada",
+      "paragraphs": [
+        "A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.",
+        "A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão."
+      ]
+    },
+    {
+      "title": "Injeção: candidato não é exploração comprovada",
+      "paragraphs": [
+        "As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.",
+        "Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança."
+      ]
+    },
+    {
+      "title": "Corpos, cabeçalhos e protocolos",
+      "paragraphs": [
+        "O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.",
+        "CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto."
+      ]
+    },
+    {
+      "title": "Leitura correta de cobertura",
+      "paragraphs": [],
+      "items": [
+        [
+          "Tentada",
+          "Uma etapa foi tentada; o gateway ainda pode recusar o envio."
+        ],
+        [
+          "Avaliada",
+          "A observação satisfez os requisitos de interpretação do controle."
+        ],
+        [
+          "Não avaliada",
+          "Faltou resposta completa, referência válida ou outra pré-condição."
+        ],
+        [
+          "Não tentada",
+          "Prazo, orçamento ou interrupção impediu chegar à etapa."
+        ]
+      ]
+    }
+  ]
+}

@@ -1361,5 +1361,64 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Vulnerabilidades offline</h2></div></div><div class=\"prose\"><p>Trivy 0.76.0 usa base fixada no build por digest e verificada por SHA-256. As auditorias não atualizam dependências nem executam configurações do alvo. Uma base vencida impede avaliação de CVEs e produz Inconclusive.</p></div><div class=\"prose\"><p>Na revisão de 27/10/2026, o README registra atualização da base e limite de sete dias. Esse dado descreve aquela revisão; não assegura prontidão em uma execução futura. A saúde HTTP da API não valida a idade da base.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Inventário de declarações</h2></div></div><div class=\"prose\"><p>O inventário lê package.json e csproj sem resolver MSBuild, pacotes transitivos ou executar restore. O exportador tem orçamento e sinaliza incompletude. Ele não deve ser apresentado como SBOM completo de qualquer ecossistema.</p></div><div class=\"prose\"><p>A comparação SUP-06 seleciona revisão anterior concluída da mesma fonte, projeto e origem. Verifica integridade, completude e vínculo ao snapshot. Inventário inválido, ambíguo ou truncado não vira lista vazia nem prova remoção de dependências.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Controles complementares</h2></div></div><div class=\"prose\"><p>Lockfile, dependências possivelmente não utilizadas e integridade de artefatos têm plugins específicos. A existência de um controle não garante cobertura semântica profunda nem exploração confirmada. Leia a evidência e as limitações de cada produtor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Dependências diretas da implementação</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Dependências diretas da implementação\"><table><thead><tr><th scope=\"col\">Projeto</th><th scope=\"col\">Pacote</th><th scope=\"col\">Versão declarada</th></tr></thead><tbody><tr><td>Sentinel</td><td>AWSSDK.S3</td><td>4.0.104.5</td></tr><tr><td>Sentinel</td><td>JsonSchema.Net</td><td>7.2.3</td></tr><tr><td>Sentinel</td><td>Microsoft.AspNetCore.Authentication.JwtBearer</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>Microsoft.EntityFrameworkCore.Design</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>Npgsql.EntityFrameworkCore.PostgreSQL</td><td>8.0.11</td></tr><tr><td>Sentinel</td><td>RabbitMQ.Client</td><td>6.8.1</td></tr><tr><td>Sentinel</td><td>Swashbuckle.AspNetCore</td><td>6.6.2</td></tr><tr><td>Sentinel</td><td>YamlDotNet</td><td>16.2.1</td></tr><tr><td>Sentinel.PluginHost</td><td>YamlDotNet</td><td>16.2.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/cdk</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/common</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/compiler</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/core</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/forms</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/material</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/platform-browser</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@angular/router</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / dependencies</td><td>@spartan-ng/brain</td><td>1.8.0</td></tr><tr><td>Sentinel.Web / dependencies</td><td>clsx</td><td>2.1.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>luxon</td><td>3.7.2</td></tr><tr><td>Sentinel.Web / dependencies</td><td>oidc-client-ts</td><td>3.5.0</td></tr><tr><td>Sentinel.Web / dependencies</td><td>rxjs</td><td>7.8.2</td></tr><tr><td>Sentinel.Web / dependencies</td><td>tslib</td><td>2.8.1</td></tr><tr><td>Sentinel.Web / dependencies</td><td>tw-animate-css</td><td>1.3.8</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/build</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/cli</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@angular/compiler-cli</td><td>22.2.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>@tailwindcss/postcss</td><td>4.3.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>axe-core</td><td>4.14.0</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>jsdom</td><td>30.1.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>postcss</td><td>8.5.31</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>prettier</td><td>3.9.10</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>tailwindcss</td><td>4.3.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>typescript</td><td>6.0.3</td></tr><tr><td>Sentinel.Web / devDependencies</td><td>vitest</td><td>5.0.5</td></tr></tbody></table></div><div class=\"callout\"><span>Inventário extraído de csproj e package.json do Sentinel. Versão declarada não é auditoria de vulnerabilidades e não inclui todas as dependências transitivas.</span></div></section>"
+  },
+  {
+    "id": "superficie-api",
+    "title": "Superfície e sondagens HTTP",
+    "group": "Investigações",
+    "lead": "Contratos OpenAPI orientam o recorte; respostas reais ainda precisam de interpretação.",
+    "sources": [
+      "Sentinel.PluginHost/Checks/SourceOpenApiCheck.cs",
+      "Sentinel/Execution/OpenApiInventoryReader.cs",
+      "Sentinel.PluginHost/Checks/InjectionProbeCheck.cs",
+      "Sentinel.PluginHost/Checks/BodyRobustnessCheck.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Contrato declarado e superfície observada",
+        "paragraphs": [
+          "A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.",
+          "A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão."
+        ]
+      },
+      {
+        "title": "Injeção: candidato não é exploração comprovada",
+        "paragraphs": [
+          "As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.",
+          "Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança."
+        ]
+      },
+      {
+        "title": "Corpos, cabeçalhos e protocolos",
+        "paragraphs": [
+          "O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.",
+          "CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto."
+        ]
+      },
+      {
+        "title": "Leitura correta de cobertura",
+        "paragraphs": [],
+        "items": [
+          [
+            "Tentada",
+            "Uma etapa foi tentada; o gateway ainda pode recusar o envio."
+          ],
+          [
+            "Avaliada",
+            "A observação satisfez os requisitos de interpretação do controle."
+          ],
+          [
+            "Não avaliada",
+            "Faltou resposta completa, referência válida ou outra pré-condição."
+          ],
+          [
+            "Não tentada",
+            "Prazo, orçamento ou interrupção impediu chegar à etapa."
+          ]
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato declarado e superfície observada</h2></div></div><div class=\"prose\"><p>A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.</p></div><div class=\"prose\"><p>A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Injeção: candidato não é exploração comprovada</h2></div></div><div class=\"prose\"><p>As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.</p></div><div class=\"prose\"><p>Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Corpos, cabeçalhos e protocolos</h2></div></div><div class=\"prose\"><p>O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.</p></div><div class=\"prose\"><p>CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Leitura correta de cobertura</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Tentada</h3><p>Uma etapa foi tentada; o gateway ainda pode recusar o envio.</p></article><article class=\"card\"><h3>Avaliada</h3><p>A observação satisfez os requisitos de interpretação do controle.</p></article><article class=\"card\"><h3>Não avaliada</h3><p>Faltou resposta completa, referência válida ou outra pré-condição.</p></article><article class=\"card\"><h3>Não tentada</h3><p>Prazo, orçamento ou interrupção impediu chegar à etapa.</p></article></div></section>"
   }
 ];
