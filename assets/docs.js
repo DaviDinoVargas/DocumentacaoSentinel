@@ -284,8 +284,38 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis."
         ]
+      },
+      {
+        "title": "Estados terminais",
+        "paragraphs": [],
+        "table": [
+          [
+            "Estado",
+            "Interpretação"
+          ],
+          [
+            "Completed",
+            "Execução concluída; controles ainda podem falhar ou ser inconclusivos"
+          ],
+          [
+            "Blocked",
+            "Política recusou a execução"
+          ],
+          [
+            "Failed",
+            "Falha operacional da auditoria"
+          ],
+          [
+            "Cancelled",
+            "Cancelamento concluído"
+          ],
+          [
+            "Interrupted",
+            "Execução interrompida, com efeitos incertos que não devem ser repetidos automaticamente"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Entidades e relações</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Entidades e relações\"><table><thead><tr><th scope=\"col\">Entidade</th><th scope=\"col\">Papel</th><th scope=\"col\">Relação</th></tr></thead><tbody><tr><td>Projeto</td><td>Nome, propósito e contexto de trabalho</td><td>Agrupa escopos, auditorias e fontes</td></tr><tr><td>Escopo autorizado</td><td>Alvo, ambiente, janela e regras</td><td>Pertence a um projeto</td></tr><tr><td>Auditoria</td><td>Pedido, estado e origem declarada</td><td>Vincula alvo, escopo, controles e evidências</td></tr><tr><td>Controle</td><td>Avaliação de um critério</td><td>Preserva plugin, versão, confiança e severidade</td></tr><tr><td>Evidência</td><td>Conteúdo verificável e metadados</td><td>Hash, retenção e referência de armazenamento</td></tr><tr><td>Achado</td><td>Consolidação temporal para triagem</td><td>Agrupa ocorrências comparáveis</td></tr><tr><td>Plano</td><td>Preferências reutilizáveis de execução</td><td>Referências a credencial e snapshot do projeto</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Referência não é segredo</h2></div></div><div class=\"prose\"><p>O plano persiste URLs e identificadores de credenciais/snapshots. A configuração usa expectedVersion para evitar sobrescrita concorrente, inclusive no primeiro salvamento. Referências de outro projeto são recusadas.</p></div><div class=\"prose\"><p>Tokens e senhas permanecem no cofre. A validade do perfil e do escopo continua sendo verificada quando o plano é executado. Salvar uma configuração não cria uma autorização nova.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Leitura dos estados</h2></div></div><div class=\"prose\"><p>AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Entidades e relações</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Entidades e relações\"><table><thead><tr><th scope=\"col\">Entidade</th><th scope=\"col\">Papel</th><th scope=\"col\">Relação</th></tr></thead><tbody><tr><td>Projeto</td><td>Nome, propósito e contexto de trabalho</td><td>Agrupa escopos, auditorias e fontes</td></tr><tr><td>Escopo autorizado</td><td>Alvo, ambiente, janela e regras</td><td>Pertence a um projeto</td></tr><tr><td>Auditoria</td><td>Pedido, estado e origem declarada</td><td>Vincula alvo, escopo, controles e evidências</td></tr><tr><td>Controle</td><td>Avaliação de um critério</td><td>Preserva plugin, versão, confiança e severidade</td></tr><tr><td>Evidência</td><td>Conteúdo verificável e metadados</td><td>Hash, retenção e referência de armazenamento</td></tr><tr><td>Achado</td><td>Consolidação temporal para triagem</td><td>Agrupa ocorrências comparáveis</td></tr><tr><td>Plano</td><td>Preferências reutilizáveis de execução</td><td>Referências a credencial e snapshot do projeto</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Referência não é segredo</h2></div></div><div class=\"prose\"><p>O plano persiste URLs e identificadores de credenciais/snapshots. A configuração usa expectedVersion para evitar sobrescrita concorrente, inclusive no primeiro salvamento. Referências de outro projeto são recusadas.</p></div><div class=\"prose\"><p>Tokens e senhas permanecem no cofre. A validade do perfil e do escopo continua sendo verificada quando o plano é executado. Salvar uma configuração não cria uma autorização nova.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Leitura dos estados</h2></div></div><div class=\"prose\"><p>AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Estados terminais</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Estados terminais\"><table><thead><tr><th scope=\"col\">Estado</th><th scope=\"col\">Interpretação</th></tr></thead><tbody><tr><td>Completed</td><td>Execução concluída; controles ainda podem falhar ou ser inconclusivos</td></tr><tr><td>Blocked</td><td>Política recusou a execução</td></tr><tr><td>Failed</td><td>Falha operacional da auditoria</td></tr><tr><td>Cancelled</td><td>Cancelamento concluído</td></tr><tr><td>Interrupted</td><td>Execução interrompida, com efeitos incertos que não devem ser repetidos automaticamente</td></tr></tbody></table></div></section>"
   }
 ];

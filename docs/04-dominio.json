@@ -69,6 +69,36 @@
       "paragraphs": [
         "AuditState contém Queued, WaitingForBudget, Running, Cancelling, Cancelled, Interrupted, Completed, Blocked e Failed. O estado da auditoria representa o ciclo de execução. O estado de cada controle representa sua avaliação; os dois não são intercambiáveis."
       ]
+    },
+    {
+      "title": "Estados terminais",
+      "paragraphs": [],
+      "table": [
+        [
+          "Estado",
+          "Interpretação"
+        ],
+        [
+          "Completed",
+          "Execução concluída; controles ainda podem falhar ou ser inconclusivos"
+        ],
+        [
+          "Blocked",
+          "Política recusou a execução"
+        ],
+        [
+          "Failed",
+          "Falha operacional da auditoria"
+        ],
+        [
+          "Cancelled",
+          "Cancelamento concluído"
+        ],
+        [
+          "Interrupted",
+          "Execução interrompida, com efeitos incertos que não devem ser repetidos automaticamente"
+        ]
+      ]
     }
   ]
 }
