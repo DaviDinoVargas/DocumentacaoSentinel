@@ -1983,8 +1983,30 @@ window.SENTINEL_DOCS = [
           "O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.",
           "A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador."
         ]
+      },
+      {
+        "title": "Critérios de revisão",
+        "paragraphs": [],
+        "items": [
+          [
+            "Orientação",
+            "Página ativa, grupo, título e sequência de leitura permanecem visíveis."
+          ],
+          [
+            "Interação",
+            "Teclado, Escape, foco e retorno seguem caminhos previsíveis."
+          ],
+          [
+            "Leitura",
+            "Contraste, tamanho e largura das linhas preservam legibilidade nos dois temas."
+          ],
+          [
+            "Responsividade",
+            "Conteúdo continua disponível no celular sem esconder informações essenciais."
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Linguagem visual do produto</h2></div></div><div class=\"prose\"><p>A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.</p></div><div class=\"prose\"><p>Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Padrão desta documentação</h2></div></div><div class=\"prose\"><p>O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.</p></div><div class=\"prose\"><p>Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Verificação de acessibilidade</h2></div></div><div class=\"prose\"><p>O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.</p></div><div class=\"prose\"><p>A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Linguagem visual do produto</h2></div></div><div class=\"prose\"><p>A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.</p></div><div class=\"prose\"><p>Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Padrão desta documentação</h2></div></div><div class=\"prose\"><p>O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.</p></div><div class=\"prose\"><p>Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Verificação de acessibilidade</h2></div></div><div class=\"prose\"><p>O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.</p></div><div class=\"prose\"><p>A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Critérios de revisão</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Orientação</h3><p>Página ativa, grupo, título e sequência de leitura permanecem visíveis.</p></article><article class=\"card\"><h3>Interação</h3><p>Teclado, Escape, foco e retorno seguem caminhos previsíveis.</p></article><article class=\"card\"><h3>Leitura</h3><p>Contraste, tamanho e largura das linhas preservam legibilidade nos dois temas.</p></article><article class=\"card\"><h3>Responsividade</h3><p>Conteúdo continua disponível no celular sem esconder informações essenciais.</p></article></div></section>"
   }
 ];

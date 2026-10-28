@@ -31,6 +31,28 @@
         "O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.",
         "A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador."
       ]
+    },
+    {
+      "title": "Critérios de revisão",
+      "paragraphs": [],
+      "items": [
+        [
+          "Orientação",
+          "Página ativa, grupo, título e sequência de leitura permanecem visíveis."
+        ],
+        [
+          "Interação",
+          "Teclado, Escape, foco e retorno seguem caminhos previsíveis."
+        ],
+        [
+          "Leitura",
+          "Contraste, tamanho e largura das linhas preservam legibilidade nos dois temas."
+        ],
+        [
+          "Responsividade",
+          "Conteúdo continua disponível no celular sem esconder informações essenciais."
+        ]
+      ]
     }
   ]
 }
