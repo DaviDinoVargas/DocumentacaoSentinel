@@ -1,0 +1,62 @@
+{
+  "id": "identidade",
+  "title": "Identidade e organizações",
+  "group": "Governança",
+  "lead": "Autenticação do operador, permissões e isolamento dos dados por organização.",
+  "sources": [
+    "Sentinel/Identity/IdentitySetup.cs",
+    "Sentinel/Identity/TenantAccess.cs",
+    "Sentinel/Persistence/SentinelDbContext.cs",
+    "Sentinel/Controllers/IdentityController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Entrada com OIDC",
+      "paragraphs": [
+        "O frontend utiliza Authorization Code com PKCE S256. Tokens ficam na memória da aba; o estado temporário do protocolo usa sessionStorage. Recarregar a aplicação exige entrar novamente, podendo reaproveitar a sessão no provedor.",
+        "A API valida assinatura, emissor, audiência, prazo, papéis e vínculo com uma única organização existente. Rotas de saúde e configuração de identidade são públicas; rotas de negócio exigem autenticação e políticas aplicáveis."
+      ]
+    },
+    {
+      "title": "Isolamento por organização",
+      "paragraphs": [
+        "Filtros globais do EF Core limitam os recursos HTTP ao tenant. Uma requisição anônima não herda a organização histórica. Serviços de background trabalham com envelopes persistidos entre organizações e precisam manter os vínculos de cada operação.",
+        "Administradores de plataforma gerenciam organizações e infraestrutura global, mas consultas a projetos continuam no contexto da organização do token. Atribuição de papéis e organização acontece no provedor."
+      ]
+    },
+    {
+      "title": "Credenciais diferentes, fronteiras diferentes",
+      "paragraphs": [
+        "O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo."
+      ]
+    },
+    {
+      "title": "Papéis e responsabilidades",
+      "paragraphs": [],
+      "table": [
+        [
+          "Papel",
+          "Capacidade principal"
+        ],
+        [
+          "ReadOnly / Auditor",
+          "Consultar recursos autorizados da organização"
+        ],
+        [
+          "Developer",
+          "Consultar, cadastrar projetos, executar baixo risco, cancelar e fazer triagem permitida"
+        ],
+        [
+          "SecurityEngineer / OrganizationAdmin",
+          "Também gerenciar escopos e executar laboratório ativo"
+        ],
+        [
+          "PlatformAdmin",
+          "Também administrar organizações, infraestrutura e orçamento global por alvo"
+        ]
+      ],
+      "note": "As políticas do servidor são a autoridade. Permissões por projeto e aprovação de produção não devem ser presumidas a partir de um papel global."
+    }
+  ]
+}
