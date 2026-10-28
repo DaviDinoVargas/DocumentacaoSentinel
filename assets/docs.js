@@ -1520,8 +1520,30 @@ window.SENTINEL_DOCS = [
           "Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.",
           "A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica."
         ]
+      },
+      {
+        "title": "Sequência de trabalho",
+        "paragraphs": [],
+        "items": [
+          [
+            "Conferir",
+            "Abra ocorrência, evidência, escopo e versão do produtor."
+          ],
+          [
+            "Classificar",
+            "Registre motivo, prioridade e decisão dentro das permissões."
+          ],
+          [
+            "Corrigir",
+            "Faça a alteração no software avaliado com rastreabilidade própria."
+          ],
+          [
+            "Reavaliar",
+            "Execute recorte comparável e confira a projeção posterior."
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Da ocorrência ao achado</h2></div></div><div class=\"prose\"><p>Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.</p></div><div class=\"prose\"><p>A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Triagem com revisão otimista</h2></div></div><div class=\"prose\"><p>Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.</p></div><div class=\"prose\"><p>AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Resolver exige comparação válida</h2></div></div><div class=\"prose\"><p>Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.</p></div><div class=\"prose\"><p>A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Da ocorrência ao achado</h2></div></div><div class=\"prose\"><p>Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.</p></div><div class=\"prose\"><p>A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Triagem com revisão otimista</h2></div></div><div class=\"prose\"><p>Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.</p></div><div class=\"prose\"><p>AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Resolver exige comparação válida</h2></div></div><div class=\"prose\"><p>Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.</p></div><div class=\"prose\"><p>A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Sequência de trabalho</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Conferir</h3><p>Abra ocorrência, evidência, escopo e versão do produtor.</p></article><article class=\"card\"><h3>Classificar</h3><p>Registre motivo, prioridade e decisão dentro das permissões.</p></article><article class=\"card\"><h3>Corrigir</h3><p>Faça a alteração no software avaliado com rastreabilidade própria.</p></article><article class=\"card\"><h3>Reavaliar</h3><p>Execute recorte comparável e confira a projeção posterior.</p></article></div></section>"
   }
 ];

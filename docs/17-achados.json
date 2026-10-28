@@ -30,6 +30,28 @@
         "Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.",
         "A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica."
       ]
+    },
+    {
+      "title": "Sequência de trabalho",
+      "paragraphs": [],
+      "items": [
+        [
+          "Conferir",
+          "Abra ocorrência, evidência, escopo e versão do produtor."
+        ],
+        [
+          "Classificar",
+          "Registre motivo, prioridade e decisão dentro das permissões."
+        ],
+        [
+          "Corrigir",
+          "Faça a alteração no software avaliado com rastreabilidade própria."
+        ],
+        [
+          "Reavaliar",
+          "Execute recorte comparável e confira a projeção posterior."
+        ]
+      ]
     }
   ]
 }
