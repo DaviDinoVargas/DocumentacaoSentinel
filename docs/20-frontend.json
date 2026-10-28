@@ -1,0 +1,69 @@
+{
+  "id": "frontend",
+  "title": "Frontend e workspace",
+  "group": "Desenvolvimento",
+  "lead": "Um contexto de projeto consistente entre preparação, execução e investigação.",
+  "sources": [
+    "Sentinel.Web/src/app/app.routes.ts",
+    "Sentinel.Web/DESIGN-SYSTEM.md",
+    "Sentinel.Web/src/app/pages/run.ts",
+    "Sentinel.Web/src/app/core/workspace.service.ts"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Área central do projeto",
+      "paragraphs": [
+        "Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.",
+        "O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas."
+      ]
+    },
+    {
+      "title": "Estado real e contexto",
+      "paragraphs": [
+        "Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.",
+        "A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido."
+      ]
+    },
+    {
+      "title": "Carregamento por rota",
+      "paragraphs": [
+        "As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor."
+      ]
+    },
+    {
+      "title": "Rotas do workspace",
+      "paragraphs": [],
+      "table": [
+        [
+          "Rota",
+          "Uso"
+        ],
+        [
+          "projects / projects/:id",
+          "Lista e área do projeto"
+        ],
+        [
+          "run",
+          "Preparação, confirmação e acompanhamento"
+        ],
+        [
+          "audits / audits/:id",
+          "Histórico e detalhe da execução"
+        ],
+        [
+          "findings / evidence / score",
+          "Investigação e síntese"
+        ],
+        [
+          "source-analysis / dependencies / api-surface",
+          "Recortes de fonte e contratos"
+        ],
+        [
+          "operations / plugins / coverage / identity",
+          "Infraestrutura, capacidades e acesso"
+        ]
+      ]
+    }
+  ]
+}

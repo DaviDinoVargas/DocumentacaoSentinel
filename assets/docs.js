@@ -1879,5 +1879,75 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Convenções e autenticação</h2></div></div><div class=\"prose\"><p>As rotas usam /api/v1. ASP.NET serializa enums como strings. Parâmetros :guid no catálogo representam restrições de rota, não texto que o cliente deva enviar. Use o Swagger do ambiente Development para conferir schemas e exemplos completos.</p></div><div class=\"prose\"><p>Saúde e configuração OIDC são públicas. Demais recursos são sujeitos a autenticação, organização e políticas por operação. Ausência de um atributo no método não significa que o recurso é público: a configuração global também participa.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Paginação e concorrência</h2></div></div><div class=\"prose\"><p>Projetos oferecem busca por nome/descrição, propósito e ordenação. Históricos usam limit/offset; eventos de execução usam cursor beforeId. Use o total e o cursor retornados em vez de presumir que a primeira página é o conjunto completo.</p></div><div class=\"prose\"><p>run-profile usa expectedVersion. Triagem usa revisão otimista. Ao receber conflito, recarregue o registro e reconcilie a alteração. Após falha de conexão em um POST, consulte o histórico antes de repetir.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Contratos essenciais</h2></div></div><pre class=\"codebox\"><code>// Corpo ilustrativo de um pedido de auditoria HTTP\n{\n  &quot;targetUrl&quot;: &quot;http://localhost:8080/api/status&quot;,\n  &quot;action&quot;: &quot;simulated&quot;,\n  &quot;confirmActive&quot;: false,\n  &quot;dataOrigin&quot;: &quot;SoftwareUnderTest&quot;\n}</code></pre><div class=\"callout\"><span>O projeto e o escopo devem existir e autorizar esse alvo. O exemplo contém somente endereço de loopback; não inclui autenticação nem dispara requisições.</span></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Catálogo de rotas</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Catálogo de rotas\"><table><thead><tr><th scope=\"col\">Método</th><th scope=\"col\">Rota</th><th scope=\"col\">Controller</th></tr></thead><tbody><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/api-surface/preview</td><td>ApiSurfaceController</td></tr><tr><td>GET</td><td>/api/v1/audits/{auditId:guid}/execution</td><td>AuditsController</td></tr><tr><td>GET</td><td>/api/v1/audits/{auditId:guid}/execution/events</td><td>AuditsController</td></tr><tr><td>POST</td><td>/api/v1/audits/{auditId:guid}/cancel</td><td>AuditsController</td></tr><tr><td>PUT</td><td>/api/v1/audits/{auditId:guid}/target-budget</td><td>AuditsController</td></tr><tr><td>GET</td><td>/api/v1/audits/{auditId:guid}</td><td>AuditsController</td></tr><tr><td>GET</td><td>/api/v1/audits/{auditId:guid}/report</td><td>AuditsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/data-origins/events</td><td>DataOriginsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/data-origins/classify</td><td>DataOriginsController</td></tr><tr><td>GET</td><td>/api/v1/audits/{auditId:guid}/evidence/{evidenceId}/artifact</td><td>EvidenceController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/evidence-policy</td><td>EvidencePolicyController</td></tr><tr><td>PUT</td><td>/api/v1/projects/{projectId:guid}/evidence-policy</td><td>EvidencePolicyController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/findings</td><td>FindingsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/findings/{id:guid}</td><td>FindingsController</td></tr><tr><td>PUT</td><td>/api/v1/projects/{projectId:guid}/findings/{id:guid}/triage</td><td>FindingsController</td></tr><tr><td>GET</td><td>/api/v1/identity/configuration</td><td>IdentityController</td></tr><tr><td>GET</td><td>/api/v1/identity</td><td>IdentityController</td></tr><tr><td>GET</td><td>/api/v1/identity/organizations</td><td>IdentityController</td></tr><tr><td>POST</td><td>/api/v1/identity/organizations</td><td>IdentityController</td></tr><tr><td>GET</td><td>/api/v1/operations</td><td>OperationsController</td></tr><tr><td>GET</td><td>/api/v1/plugins</td><td>PluginsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/run-profile</td><td>ProjectRunProfilesController</td></tr><tr><td>PUT</td><td>/api/v1/projects/{projectId:guid}/run-profile</td><td>ProjectRunProfilesController</td></tr><tr><td>GET</td><td>/api/v1/projects</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/search</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/scopes</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/audits</td><td>ProjectsController</td></tr><tr><td>POST</td><td>/api/v1/projects</td><td>ProjectsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/scopes</td><td>ProjectsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/audits</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/security-score</td><td>ProjectsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/scopes/{scopeId:guid}/events</td><td>ScopeLifecycleController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/scopes/{scopeId:guid}/revoke</td><td>ScopeLifecycleController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/source-snapshots</td><td>SourceSnapshotsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/source-snapshots</td><td>SourceSnapshotsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/source-snapshots/{id:guid}/audits</td><td>SourceSnapshotsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/source-snapshots/{id:guid}/revoke</td><td>SourceSnapshotsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/target-credentials</td><td>TargetCredentialsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/target-credentials</td><td>TargetCredentialsController</td></tr><tr><td>PUT</td><td>/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}</td><td>TargetCredentialsController</td></tr><tr><td>POST</td><td>/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}/revoke</td><td>TargetCredentialsController</td></tr><tr><td>GET</td><td>/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}/events</td><td>TargetCredentialsController</td></tr><tr><td>GET</td><td>/api/v1/health</td><td>Program.cs</td></tr></tbody></table></div><div class=\"callout\"><span>Extração estática dos atributos de rota, acrescida da saúde mapeada em Program.cs. O catálogo não substitui schemas, políticas e validações do método.</span></div></section>"
+  },
+  {
+    "id": "frontend",
+    "title": "Frontend e workspace",
+    "group": "Desenvolvimento",
+    "lead": "Um contexto de projeto consistente entre preparação, execução e investigação.",
+    "sources": [
+      "Sentinel.Web/src/app/app.routes.ts",
+      "Sentinel.Web/DESIGN-SYSTEM.md",
+      "Sentinel.Web/src/app/pages/run.ts",
+      "Sentinel.Web/src/app/core/workspace.service.ts"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Área central do projeto",
+        "paragraphs": [
+          "Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.",
+          "O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas."
+        ]
+      },
+      {
+        "title": "Estado real e contexto",
+        "paragraphs": [
+          "Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.",
+          "A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido."
+        ]
+      },
+      {
+        "title": "Carregamento por rota",
+        "paragraphs": [
+          "As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor."
+        ]
+      },
+      {
+        "title": "Rotas do workspace",
+        "paragraphs": [],
+        "table": [
+          [
+            "Rota",
+            "Uso"
+          ],
+          [
+            "projects / projects/:id",
+            "Lista e área do projeto"
+          ],
+          [
+            "run",
+            "Preparação, confirmação e acompanhamento"
+          ],
+          [
+            "audits / audits/:id",
+            "Histórico e detalhe da execução"
+          ],
+          [
+            "findings / evidence / score",
+            "Investigação e síntese"
+          ],
+          [
+            "source-analysis / dependencies / api-surface",
+            "Recortes de fonte e contratos"
+          ],
+          [
+            "operations / plugins / coverage / identity",
+            "Infraestrutura, capacidades e acesso"
+          ]
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Área central do projeto</h2></div></div><div class=\"prose\"><p>Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.</p></div><div class=\"prose\"><p>O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Estado real e contexto</h2></div></div><div class=\"prose\"><p>Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.</p></div><div class=\"prose\"><p>A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Carregamento por rota</h2></div></div><div class=\"prose\"><p>As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Rotas do workspace</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Rotas do workspace\"><table><thead><tr><th scope=\"col\">Rota</th><th scope=\"col\">Uso</th></tr></thead><tbody><tr><td>projects / projects/:id</td><td>Lista e área do projeto</td></tr><tr><td>run</td><td>Preparação, confirmação e acompanhamento</td></tr><tr><td>audits / audits/:id</td><td>Histórico e detalhe da execução</td></tr><tr><td>findings / evidence / score</td><td>Investigação e síntese</td></tr><tr><td>source-analysis / dependencies / api-surface</td><td>Recortes de fonte e contratos</td></tr><tr><td>operations / plugins / coverage / identity</td><td>Infraestrutura, capacidades e acesso</td></tr></tbody></table></div></section>"
   }
 ];
