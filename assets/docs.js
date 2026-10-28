@@ -512,8 +512,39 @@ window.SENTINEL_DOCS = [
           "O snapshot da execução mostra os últimos cem eventos. O endpoint /execution/events aceita beforeId, pageSize de 1 a 500, kind e pluginId; nextBeforeId permite acessar páginas anteriores. O tamanho de página não limita o histórico total.",
           "O reconciliador usa outbox para republicar trabalhos em espera. Não confunda uma contagem de fila vazia com execução concluída: o trabalho pode estar em processamento ou aguardando orçamento."
         ]
+      },
+      {
+        "title": "Fluxo de estados",
+        "paragraphs": [],
+        "table": [
+          [
+            "Etapa",
+            "Condição observável"
+          ],
+          [
+            "Queued",
+            "Pedido persistido e pendente de processamento"
+          ],
+          [
+            "WaitingForBudget",
+            "Aguarda disponibilidade global do alvo"
+          ],
+          [
+            "Running",
+            "Posse válida e execução em andamento"
+          ],
+          [
+            "Cancelling",
+            "Cancelamento solicitado; efeitos em trânsito podem concluir"
+          ],
+          [
+            "Completed / Failed / Interrupted",
+            "Conclusão, falha ou interrupção conforme o resultado operacional"
+          ]
+        ],
+        "note": "O diagrama didático da página não reproduz todas as transições internas. Consulte os eventos persistidos para diagnosticar uma execução real."
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Uma posse válida por vez</h2></div></div><div class=\"prose\"><p>O PostgreSQL coordena locks, fencing token e lease de doze segundos. O heartbeat renova a posse a cada 500 ms por thread dedicada. O relógio do banco define a validade; paralisia do processo, indisponibilidade do banco e perda de posse continuam relevantes.</p></div><div class=\"prose\"><p>Uma auditoria por host/porta compartilha orçamento entre projetos e perfis. localhost, IPv4 e IPv6 de loopback são agrupados; aliases DNS externos e portas distintas não são automaticamente tratados como o mesmo alvo. A taxa global varia de uma a dez permissões por segundo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Checkpoints e retomada</h2></div></div><div class=\"prose\"><p>O checkpoint de cada plugin persiste controles e evidências atomicamente. Queda entre plugins permite retomar o trabalho sem repetir checkpoints, dentro do limite de posses. Queda durante um plugin preserva resultados e pode terminar como Interrupted após a reserva de segurança.</p></div><div class=\"prose\"><p>Fencing e checkpoint reduzem repetição, mas não oferecem desfazer efeitos já enviados. Cancelamento persistido recusa novas permissões e o monitor encerra o filho. O estado Cancelling precisa ser acompanhado até Cancelled ou outro terminal.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Histórico completo por cursor</h2></div></div><div class=\"prose\"><p>O snapshot da execução mostra os últimos cem eventos. O endpoint /execution/events aceita beforeId, pageSize de 1 a 500, kind e pluginId; nextBeforeId permite acessar páginas anteriores. O tamanho de página não limita o histórico total.</p></div><div class=\"prose\"><p>O reconciliador usa outbox para republicar trabalhos em espera. Não confunda uma contagem de fila vazia com execução concluída: o trabalho pode estar em processamento ou aguardando orçamento.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Uma posse válida por vez</h2></div></div><div class=\"prose\"><p>O PostgreSQL coordena locks, fencing token e lease de doze segundos. O heartbeat renova a posse a cada 500 ms por thread dedicada. O relógio do banco define a validade; paralisia do processo, indisponibilidade do banco e perda de posse continuam relevantes.</p></div><div class=\"prose\"><p>Uma auditoria por host/porta compartilha orçamento entre projetos e perfis. localhost, IPv4 e IPv6 de loopback são agrupados; aliases DNS externos e portas distintas não são automaticamente tratados como o mesmo alvo. A taxa global varia de uma a dez permissões por segundo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Checkpoints e retomada</h2></div></div><div class=\"prose\"><p>O checkpoint de cada plugin persiste controles e evidências atomicamente. Queda entre plugins permite retomar o trabalho sem repetir checkpoints, dentro do limite de posses. Queda durante um plugin preserva resultados e pode terminar como Interrupted após a reserva de segurança.</p></div><div class=\"prose\"><p>Fencing e checkpoint reduzem repetição, mas não oferecem desfazer efeitos já enviados. Cancelamento persistido recusa novas permissões e o monitor encerra o filho. O estado Cancelling precisa ser acompanhado até Cancelled ou outro terminal.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Histórico completo por cursor</h2></div></div><div class=\"prose\"><p>O snapshot da execução mostra os últimos cem eventos. O endpoint /execution/events aceita beforeId, pageSize de 1 a 500, kind e pluginId; nextBeforeId permite acessar páginas anteriores. O tamanho de página não limita o histórico total.</p></div><div class=\"prose\"><p>O reconciliador usa outbox para republicar trabalhos em espera. Não confunda uma contagem de fila vazia com execução concluída: o trabalho pode estar em processamento ou aguardando orçamento.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Fluxo de estados</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Fluxo de estados\"><table><thead><tr><th scope=\"col\">Etapa</th><th scope=\"col\">Condição observável</th></tr></thead><tbody><tr><td>Queued</td><td>Pedido persistido e pendente de processamento</td></tr><tr><td>WaitingForBudget</td><td>Aguarda disponibilidade global do alvo</td></tr><tr><td>Running</td><td>Posse válida e execução em andamento</td></tr><tr><td>Cancelling</td><td>Cancelamento solicitado; efeitos em trânsito podem concluir</td></tr><tr><td>Completed / Failed / Interrupted</td><td>Conclusão, falha ou interrupção conforme o resultado operacional</td></tr></tbody></table></div><div class=\"callout\"><span>O diagrama didático da página não reproduz todas as transições internas. Consulte os eventos persistidos para diagnosticar uma execução real.</span></div></section>"
   }
 ];
