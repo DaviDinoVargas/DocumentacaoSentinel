@@ -28,6 +28,7 @@
     const links = (p.sources || []).map(s => `<a href="https://github.com/DaviDinoVargas/Sentinel/blob/${p.revision}/${s}" target="_blank" rel="noreferrer"><code>${esc(s)}</code><span>↗</span></a>`).join('');
     const hero = n === 0 ? `<div class="hero-stats"><div class="stat"><strong>${docs.length}</strong><span>PÁGINAS TEMÁTICAS</span></div><div class="stat"><strong>4</strong><span>PERFIS DE EXECUÇÃO</span></div><div class="stat"><strong>28/10</strong><span>REVISÃO · 2026</span></div><div class="stat"><strong>∞</strong><span>LEITURA LOCAL</span></div></div>` : '';
     content.innerHTML = `<div class="page-intro"><p class="eyebrow">${String(n+1).padStart(2,'0')} — ${esc(p.group)}</p><h1 class="page-title">${esc(p.title)}</h1><p class="page-lead">${esc(p.lead)}</p></div>${hero}${p.body}<section class="source-panel"><div><p class="eyebrow">LEITURA DIRETA</p><h2>Fontes no código</h2><p>Revisão ${p.revision.slice(0,12)} · 28/10/2026. Arquivos relativos ao repositório Sentinel.</p></div><div class="source-links">${links}</div></section><nav class="page-pagination" aria-label="Sequência de leitura">${n ? `<a class="button secondary" href="#${docs[n-1].id}">← ${esc(docs[n-1].title)}</a>` : '<span></span>'}${n < docs.length-1 ? `<a class="button" href="#${docs[n+1].id}">${esc(docs[n+1].title)} →</a>` : '<a class="button" href="#visao-geral">Voltar ao início ↑</a>'}</nav>`;
+    window.SentinelExperience?.mount(p, content);
     document.title = p.title + ' · Sentinel';
     $('#crumb-current').textContent = p.title;
     navigation(); closeMenu();
