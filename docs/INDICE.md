@@ -21,3 +21,4 @@
 - [Referência da API](../index.html#api) — Rotas extraídas dos controllers, com os contratos de contexto e autorização preservados.
 - [Frontend e workspace](../index.html#frontend) — Um contexto de projeto consistente entre preparação, execução e investigação.
 - [Design e acessibilidade](../index.html#design-acessibilidade) — Hierarquia clara, estados legíveis e navegação previsível em telas grandes e pequenas.
+- [Persistência e recuperação](../index.html#persistencia) — Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.

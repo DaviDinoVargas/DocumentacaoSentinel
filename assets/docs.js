@@ -2008,5 +2008,141 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Linguagem visual do produto</h2></div></div><div class=\"prose\"><p>A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.</p></div><div class=\"prose\"><p>Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Padrão desta documentação</h2></div></div><div class=\"prose\"><p>O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.</p></div><div class=\"prose\"><p>Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Verificação de acessibilidade</h2></div></div><div class=\"prose\"><p>O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.</p></div><div class=\"prose\"><p>A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Critérios de revisão</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Orientação</h3><p>Página ativa, grupo, título e sequência de leitura permanecem visíveis.</p></article><article class=\"card\"><h3>Interação</h3><p>Teclado, Escape, foco e retorno seguem caminhos previsíveis.</p></article><article class=\"card\"><h3>Leitura</h3><p>Contraste, tamanho e largura das linhas preservam legibilidade nos dois temas.</p></article><article class=\"card\"><h3>Responsividade</h3><p>Conteúdo continua disponível no celular sem esconder informações essenciais.</p></article></div></section>"
+  },
+  {
+    "id": "persistencia",
+    "title": "Persistência e recuperação",
+    "group": "Operação e qualidade",
+    "lead": "Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.",
+    "sources": [
+      "Sentinel/Persistence/SentinelDbContext.cs",
+      "Sentinel/Persistence/PostgresSentinelStore.cs",
+      "Sentinel/Program.cs",
+      "Sentinel/Evidence/EvidenceArtifactStore.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "PostgreSQL como fonte de verdade",
+        "paragraphs": [
+          "Projetos, autorizações, auditorias, resultados, outbox, posse e metadados vivem no banco. As migrações são aplicadas no startup. Alterações recentes adicionam tabelas, índices e atributos preservando histórico, mas uma implantação deve avaliar compatibilidade de todas as instâncias.",
+          "O plano de execução usa JSONB e versão otimista. Operações de coordenação e projeção usam transações e locks. JSONB não elimina os vínculos de projeto/organização nem as validações do serviço."
+        ]
+      },
+      {
+        "title": "Conteúdo cifrado e identidade de armazenamento",
+        "paragraphs": [
+          "Credenciais, evidências e snapshots dependem de Data Protection. No Windows, a proteção usa DPAPI; fora do laboratório Windows, o host exige certificado configurado. Workers devem compartilhar keyring e proteção compatíveis.",
+          "StorageId identifica o volume lógico. Um worker em volume diferente não deve apagar conteúdo alheio nem presumir que consegue materializá-lo. Para S3, preserve bucket, versões, StorageId e keyring; mudar o provider não move os artefatos históricos."
+        ]
+      },
+      {
+        "title": "Roteiro de recuperação proposto",
+        "paragraphs": [
+          "Planeje cópias coordenadas do PostgreSQL, conteúdo privado ainda retido e keyring protegido, com acesso restrito. Em ambiente isolado, restaure as partes, valide organização e metadados, leia uma evidência de teste pelo endpoint autenticado e confira seu hash.",
+          "Esse roteiro é orientação operacional desta documentação, não declaração de backup automatizado ou teste de restauração executado. Preserve janelas de retenção e não reintroduza segredos expirados sem política definida."
+        ]
+      },
+      {
+        "title": "Migrações presentes na revisão",
+        "paragraphs": [],
+        "table": [
+          [
+            "Migration",
+            "Objetivo pelo nome"
+          ],
+          [
+            "20261019032325_InitialPostgres",
+            "InitialPostgres"
+          ],
+          [
+            "20261019041650_AddAuditJobsAndSeverity",
+            "AddAuditJobsAndSeverity"
+          ],
+          [
+            "20261019093403_AddPluginMetadataToAuditControls",
+            "AddPluginMetadataToAuditControls"
+          ],
+          [
+            "20261019103735_ReplaceJobQueueWithOutbox",
+            "ReplaceJobQueueWithOutbox"
+          ],
+          [
+            "20261019234923_AddDistributedExecutionControl",
+            "AddDistributedExecutionControl"
+          ],
+          [
+            "20261020000243_AddOrganizationsAndTenantIsolation",
+            "AddOrganizationsAndTenantIsolation"
+          ],
+          [
+            "20261020004618_AddTargetCredentials",
+            "AddTargetCredentials"
+          ],
+          [
+            "20261020011834_AddPrivateEvidenceArtifacts",
+            "AddPrivateEvidenceArtifacts"
+          ],
+          [
+            "20261020012146_AddEvidenceRetentionPolicy",
+            "AddEvidenceRetentionPolicy"
+          ],
+          [
+            "20261020013435_AddEvidenceStorageIdentity",
+            "AddEvidenceStorageIdentity"
+          ],
+          [
+            "20261020014433_AddCanonicalFindings",
+            "AddCanonicalFindings"
+          ],
+          [
+            "20261020015111_AddFindingObservationClock",
+            "AddFindingObservationClock"
+          ],
+          [
+            "20261020020221_AddSourceSnapshotsAndLocations",
+            "AddSourceSnapshotsAndLocations"
+          ],
+          [
+            "20261020020730_AddSourceRevocationAudit",
+            "AddSourceRevocationAudit"
+          ],
+          [
+            "20261020232335_AddScopeRevocationLifecycle",
+            "AddScopeRevocationLifecycle"
+          ],
+          [
+            "20261020233308_PreserveScopeAuthorizationWindow",
+            "PreserveScopeAuthorizationWindow"
+          ],
+          [
+            "20261021024823_AddDataOriginsAndProjectPurpose",
+            "AddDataOriginsAndProjectPurpose"
+          ],
+          [
+            "20261021034758_AddProjectQueryIndexes",
+            "AddProjectQueryIndexes"
+          ],
+          [
+            "20261021040746_AddTargetJsonLogin",
+            "AddTargetJsonLogin"
+          ],
+          [
+            "20261021042654_AddScopeRules",
+            "AddScopeRules"
+          ],
+          [
+            "20261025101757_AddSourceReplaySafety",
+            "AddSourceReplaySafety"
+          ],
+          [
+            "20261025175440_AddProjectRunProfiles",
+            "AddProjectRunProfiles"
+          ]
+        ],
+        "note": "Inventário estático de migrations; não confirma que foram aplicadas em uma instalação. Não execute recriação de banco para atualizar a documentação."
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>PostgreSQL como fonte de verdade</h2></div></div><div class=\"prose\"><p>Projetos, autorizações, auditorias, resultados, outbox, posse e metadados vivem no banco. As migrações são aplicadas no startup. Alterações recentes adicionam tabelas, índices e atributos preservando histórico, mas uma implantação deve avaliar compatibilidade de todas as instâncias.</p></div><div class=\"prose\"><p>O plano de execução usa JSONB e versão otimista. Operações de coordenação e projeção usam transações e locks. JSONB não elimina os vínculos de projeto/organização nem as validações do serviço.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Conteúdo cifrado e identidade de armazenamento</h2></div></div><div class=\"prose\"><p>Credenciais, evidências e snapshots dependem de Data Protection. No Windows, a proteção usa DPAPI; fora do laboratório Windows, o host exige certificado configurado. Workers devem compartilhar keyring e proteção compatíveis.</p></div><div class=\"prose\"><p>StorageId identifica o volume lógico. Um worker em volume diferente não deve apagar conteúdo alheio nem presumir que consegue materializá-lo. Para S3, preserve bucket, versões, StorageId e keyring; mudar o provider não move os artefatos históricos.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Roteiro de recuperação proposto</h2></div></div><div class=\"prose\"><p>Planeje cópias coordenadas do PostgreSQL, conteúdo privado ainda retido e keyring protegido, com acesso restrito. Em ambiente isolado, restaure as partes, valide organização e metadados, leia uma evidência de teste pelo endpoint autenticado e confira seu hash.</p></div><div class=\"prose\"><p>Esse roteiro é orientação operacional desta documentação, não declaração de backup automatizado ou teste de restauração executado. Preserve janelas de retenção e não reintroduza segredos expirados sem política definida.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Migrações presentes na revisão</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Migrações presentes na revisão\"><table><thead><tr><th scope=\"col\">Migration</th><th scope=\"col\">Objetivo pelo nome</th></tr></thead><tbody><tr><td>20261019032325_InitialPostgres</td><td>InitialPostgres</td></tr><tr><td>20261019041650_AddAuditJobsAndSeverity</td><td>AddAuditJobsAndSeverity</td></tr><tr><td>20261019093403_AddPluginMetadataToAuditControls</td><td>AddPluginMetadataToAuditControls</td></tr><tr><td>20261019103735_ReplaceJobQueueWithOutbox</td><td>ReplaceJobQueueWithOutbox</td></tr><tr><td>20261019234923_AddDistributedExecutionControl</td><td>AddDistributedExecutionControl</td></tr><tr><td>20261020000243_AddOrganizationsAndTenantIsolation</td><td>AddOrganizationsAndTenantIsolation</td></tr><tr><td>20261020004618_AddTargetCredentials</td><td>AddTargetCredentials</td></tr><tr><td>20261020011834_AddPrivateEvidenceArtifacts</td><td>AddPrivateEvidenceArtifacts</td></tr><tr><td>20261020012146_AddEvidenceRetentionPolicy</td><td>AddEvidenceRetentionPolicy</td></tr><tr><td>20261020013435_AddEvidenceStorageIdentity</td><td>AddEvidenceStorageIdentity</td></tr><tr><td>20261020014433_AddCanonicalFindings</td><td>AddCanonicalFindings</td></tr><tr><td>20261020015111_AddFindingObservationClock</td><td>AddFindingObservationClock</td></tr><tr><td>20261020020221_AddSourceSnapshotsAndLocations</td><td>AddSourceSnapshotsAndLocations</td></tr><tr><td>20261020020730_AddSourceRevocationAudit</td><td>AddSourceRevocationAudit</td></tr><tr><td>20261020232335_AddScopeRevocationLifecycle</td><td>AddScopeRevocationLifecycle</td></tr><tr><td>20261020233308_PreserveScopeAuthorizationWindow</td><td>PreserveScopeAuthorizationWindow</td></tr><tr><td>20261021024823_AddDataOriginsAndProjectPurpose</td><td>AddDataOriginsAndProjectPurpose</td></tr><tr><td>20261021034758_AddProjectQueryIndexes</td><td>AddProjectQueryIndexes</td></tr><tr><td>20261021040746_AddTargetJsonLogin</td><td>AddTargetJsonLogin</td></tr><tr><td>20261021042654_AddScopeRules</td><td>AddScopeRules</td></tr><tr><td>20261025101757_AddSourceReplaySafety</td><td>AddSourceReplaySafety</td></tr><tr><td>20261025175440_AddProjectRunProfiles</td><td>AddProjectRunProfiles</td></tr></tbody></table></div><div class=\"callout\"><span>Inventário estático de migrations; não confirma que foram aplicadas em uma instalação. Não execute recriação de banco para atualizar a documentação.</span></div></section>"
   }
 ];

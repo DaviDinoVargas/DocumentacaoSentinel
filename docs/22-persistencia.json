@@ -1,0 +1,135 @@
+{
+  "id": "persistencia",
+  "title": "Persistência e recuperação",
+  "group": "Operação e qualidade",
+  "lead": "Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.",
+  "sources": [
+    "Sentinel/Persistence/SentinelDbContext.cs",
+    "Sentinel/Persistence/PostgresSentinelStore.cs",
+    "Sentinel/Program.cs",
+    "Sentinel/Evidence/EvidenceArtifactStore.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "PostgreSQL como fonte de verdade",
+      "paragraphs": [
+        "Projetos, autorizações, auditorias, resultados, outbox, posse e metadados vivem no banco. As migrações são aplicadas no startup. Alterações recentes adicionam tabelas, índices e atributos preservando histórico, mas uma implantação deve avaliar compatibilidade de todas as instâncias.",
+        "O plano de execução usa JSONB e versão otimista. Operações de coordenação e projeção usam transações e locks. JSONB não elimina os vínculos de projeto/organização nem as validações do serviço."
+      ]
+    },
+    {
+      "title": "Conteúdo cifrado e identidade de armazenamento",
+      "paragraphs": [
+        "Credenciais, evidências e snapshots dependem de Data Protection. No Windows, a proteção usa DPAPI; fora do laboratório Windows, o host exige certificado configurado. Workers devem compartilhar keyring e proteção compatíveis.",
+        "StorageId identifica o volume lógico. Um worker em volume diferente não deve apagar conteúdo alheio nem presumir que consegue materializá-lo. Para S3, preserve bucket, versões, StorageId e keyring; mudar o provider não move os artefatos históricos."
+      ]
+    },
+    {
+      "title": "Roteiro de recuperação proposto",
+      "paragraphs": [
+        "Planeje cópias coordenadas do PostgreSQL, conteúdo privado ainda retido e keyring protegido, com acesso restrito. Em ambiente isolado, restaure as partes, valide organização e metadados, leia uma evidência de teste pelo endpoint autenticado e confira seu hash.",
+        "Esse roteiro é orientação operacional desta documentação, não declaração de backup automatizado ou teste de restauração executado. Preserve janelas de retenção e não reintroduza segredos expirados sem política definida."
+      ]
+    },
+    {
+      "title": "Migrações presentes na revisão",
+      "paragraphs": [],
+      "table": [
+        [
+          "Migration",
+          "Objetivo pelo nome"
+        ],
+        [
+          "20261019032325_InitialPostgres",
+          "InitialPostgres"
+        ],
+        [
+          "20261019041650_AddAuditJobsAndSeverity",
+          "AddAuditJobsAndSeverity"
+        ],
+        [
+          "20261019093403_AddPluginMetadataToAuditControls",
+          "AddPluginMetadataToAuditControls"
+        ],
+        [
+          "20261019103735_ReplaceJobQueueWithOutbox",
+          "ReplaceJobQueueWithOutbox"
+        ],
+        [
+          "20261019234923_AddDistributedExecutionControl",
+          "AddDistributedExecutionControl"
+        ],
+        [
+          "20261020000243_AddOrganizationsAndTenantIsolation",
+          "AddOrganizationsAndTenantIsolation"
+        ],
+        [
+          "20261020004618_AddTargetCredentials",
+          "AddTargetCredentials"
+        ],
+        [
+          "20261020011834_AddPrivateEvidenceArtifacts",
+          "AddPrivateEvidenceArtifacts"
+        ],
+        [
+          "20261020012146_AddEvidenceRetentionPolicy",
+          "AddEvidenceRetentionPolicy"
+        ],
+        [
+          "20261020013435_AddEvidenceStorageIdentity",
+          "AddEvidenceStorageIdentity"
+        ],
+        [
+          "20261020014433_AddCanonicalFindings",
+          "AddCanonicalFindings"
+        ],
+        [
+          "20261020015111_AddFindingObservationClock",
+          "AddFindingObservationClock"
+        ],
+        [
+          "20261020020221_AddSourceSnapshotsAndLocations",
+          "AddSourceSnapshotsAndLocations"
+        ],
+        [
+          "20261020020730_AddSourceRevocationAudit",
+          "AddSourceRevocationAudit"
+        ],
+        [
+          "20261020232335_AddScopeRevocationLifecycle",
+          "AddScopeRevocationLifecycle"
+        ],
+        [
+          "20261020233308_PreserveScopeAuthorizationWindow",
+          "PreserveScopeAuthorizationWindow"
+        ],
+        [
+          "20261021024823_AddDataOriginsAndProjectPurpose",
+          "AddDataOriginsAndProjectPurpose"
+        ],
+        [
+          "20261021034758_AddProjectQueryIndexes",
+          "AddProjectQueryIndexes"
+        ],
+        [
+          "20261021040746_AddTargetJsonLogin",
+          "AddTargetJsonLogin"
+        ],
+        [
+          "20261021042654_AddScopeRules",
+          "AddScopeRules"
+        ],
+        [
+          "20261025101757_AddSourceReplaySafety",
+          "AddSourceReplaySafety"
+        ],
+        [
+          "20261025175440_AddProjectRunProfiles",
+          "AddProjectRunProfiles"
+        ]
+      ],
+      "note": "Inventário estático de migrations; não confirma que foram aplicadas em uma instalação. Não execute recriação de banco para atualizar a documentação."
+    }
+  ]
+}
