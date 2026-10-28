@@ -579,8 +579,30 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "O painel operacional usa consulta passiva do AMQP para mensagens prontas e consumidores. Não lê payloads privados nem consome a fila para medir seu estado. Uma contagem instantânea não mede throughput."
         ]
+      },
+      {
+        "title": "Roteiro de diagnóstico",
+        "paragraphs": [],
+        "items": [
+          [
+            "Outbox crescendo",
+            "Verifique conectividade do broker, confirmação de publicação e erros do dispatcher."
+          ],
+          [
+            "Fila pronta crescendo",
+            "Verifique consumidores e disponibilidade de workers; depois orçamento e sandbox."
+          ],
+          [
+            "Sem mensagens prontas",
+            "Consulte auditorias Running e WaitingForBudget antes de concluir que não existe trabalho."
+          ],
+          [
+            "DLQ com entradas",
+            "Investigue redeliveries e estado persistido; preserve o histórico do pedido."
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Por que existe uma outbox</h2></div></div><div class=\"prose\"><p>A criação de auditoria e sua mensagem pendente pertencem à mesma transação PostgreSQL. Assim, um pedido Queued não depende de publicar no broker durante a requisição HTTP. O dispatcher tenta entregar a notificação e registra seu progresso.</p></div><div class=\"prose\"><p>A topologia usa filas quorum, publisher confirms, confirmação manual, prefetch 1, limite de redelivery e dead-letter queue. Confirmação de publicação indica aceitação pelo broker, não término do plugin.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Mensagem não é autoridade</h2></div></div><div class=\"prose\"><p>O worker recebe uma notificação e carrega o envelope persistido. Alvo, escopo e confirmação não são aceitos cegamente do payload AMQP. Redelivery não deve duplicar um checkpoint concluído.</p></div><div class=\"prose\"><p>A DLQ é observada pelo consumidor dedicado. Antes de reenviar manualmente um trabalho, verifique estado, lease, checkpoints e causa da falha; uma execução com efeito incerto não deve ser tratada como pedido novo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Observar sem consumir</h2></div></div><div class=\"prose\"><p>O painel operacional usa consulta passiva do AMQP para mensagens prontas e consumidores. Não lê payloads privados nem consome a fila para medir seu estado. Uma contagem instantânea não mede throughput.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Por que existe uma outbox</h2></div></div><div class=\"prose\"><p>A criação de auditoria e sua mensagem pendente pertencem à mesma transação PostgreSQL. Assim, um pedido Queued não depende de publicar no broker durante a requisição HTTP. O dispatcher tenta entregar a notificação e registra seu progresso.</p></div><div class=\"prose\"><p>A topologia usa filas quorum, publisher confirms, confirmação manual, prefetch 1, limite de redelivery e dead-letter queue. Confirmação de publicação indica aceitação pelo broker, não término do plugin.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Mensagem não é autoridade</h2></div></div><div class=\"prose\"><p>O worker recebe uma notificação e carrega o envelope persistido. Alvo, escopo e confirmação não são aceitos cegamente do payload AMQP. Redelivery não deve duplicar um checkpoint concluído.</p></div><div class=\"prose\"><p>A DLQ é observada pelo consumidor dedicado. Antes de reenviar manualmente um trabalho, verifique estado, lease, checkpoints e causa da falha; uma execução com efeito incerto não deve ser tratada como pedido novo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Observar sem consumir</h2></div></div><div class=\"prose\"><p>O painel operacional usa consulta passiva do AMQP para mensagens prontas e consumidores. Não lê payloads privados nem consome a fila para medir seu estado. Uma contagem instantânea não mede throughput.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Roteiro de diagnóstico</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Outbox crescendo</h3><p>Verifique conectividade do broker, confirmação de publicação e erros do dispatcher.</p></article><article class=\"card\"><h3>Fila pronta crescendo</h3><p>Verifique consumidores e disponibilidade de workers; depois orçamento e sandbox.</p></article><article class=\"card\"><h3>Sem mensagens prontas</h3><p>Consulte auditorias Running e WaitingForBudget antes de concluir que não existe trabalho.</p></article><article class=\"card\"><h3>DLQ com entradas</h3><p>Investigue redeliveries e estado persistido; preserve o histórico do pedido.</p></article></div></section>"
   }
 ];

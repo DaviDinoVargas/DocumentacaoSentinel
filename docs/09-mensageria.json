@@ -30,6 +30,28 @@
       "paragraphs": [
         "O painel operacional usa consulta passiva do AMQP para mensagens prontas e consumidores. Não lê payloads privados nem consome a fila para medir seu estado. Uma contagem instantânea não mede throughput."
       ]
+    },
+    {
+      "title": "Roteiro de diagnóstico",
+      "paragraphs": [],
+      "items": [
+        [
+          "Outbox crescendo",
+          "Verifique conectividade do broker, confirmação de publicação e erros do dispatcher."
+        ],
+        [
+          "Fila pronta crescendo",
+          "Verifique consumidores e disponibilidade de workers; depois orçamento e sandbox."
+        ],
+        [
+          "Sem mensagens prontas",
+          "Consulte auditorias Running e WaitingForBudget antes de concluir que não existe trabalho."
+        ],
+        [
+          "DLQ com entradas",
+          "Investigue redeliveries e estado persistido; preserve o histórico do pedido."
+        ]
+      ]
     }
   ]
 }
