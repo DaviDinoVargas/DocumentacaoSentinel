@@ -15,3 +15,4 @@
 - [Snapshots e segredos](../index.html#fontes) — Análise offline de um recorte autorizado, sem executar o projeto enviado.
 - [Dependências e inventário](../index.html#dependencias) — Declare o recorte, verifique a base offline e interprete diferenças sem inventar cobertura.
 - [Superfície e sondagens HTTP](../index.html#superficie-api) — Contratos OpenAPI orientam o recorte; respostas reais ainda precisam de interpretação.
+- [Evidências e relatórios](../index.html#evidencias) — Integridade, proveniência e retenção acompanham os bytes que sustentam a análise.
