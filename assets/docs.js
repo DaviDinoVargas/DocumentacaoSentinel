@@ -124,5 +124,57 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Pré-requisitos e preparação</h2></div></div><div class=\"prose\"><p>O README requer SDKs .NET 8/9, Node/npm e Rancher Desktop com PostgreSQL e RabbitMQ locais já configurados. Consulte os TargetFramework dos projetos antes de instalar SDKs. O bootstrap reutiliza recursos existentes; não é um provisionador universal de uma máquina vazia.</p></div><div class=\"prose\"><p>Instale as dependências do frontend com npm ci em Sentinel.Web. Construa a imagem de plugins com o script próprio. Os comandos abaixo devem ser executados na raiz do código Sentinel, não na pasta desta documentação.</p></div><pre class=\"codebox\"><code>cd Sentinel.Web\nnpm ci\ncd ..\n.\\scripts\\build-plugin-sandbox.ps1\n.\\scripts\\start-local.ps1</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Entrada na aplicação</h2></div></div><div class=\"prose\"><p>A interface local usa http://localhost:4200; a API, http://localhost:5161. O Swagger fica em /swagger no ambiente Development. O script verifica saúde, configuração OIDC e página. Entre pelo provedor de identidade e selecione a organização autorizada.</p></div><div class=\"prose\"><p>Cadastre um projeto de software, abra sua área e registre um escopo para um alvo de laboratório sob sua autorização. Defina explicitamente métodos, perfil e expiração. Salvar o plano de testes não inicia tráfego nem renova o escopo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Primeiro resultado</h2></div></div><div class=\"prose\"><p>Na tela Rodar testes, confira as modalidades disponíveis e confirme a execução desejada. Acompanhe o identificador retornado no histórico. Um bloqueio de política também pode ser persistido: leia o motivo antes de tentar novamente.</p></div><div class=\"prose\"><p>Abra o detalhe, examine os controles e verifique a evidência. Separe Failed, Inconclusive e erro de execução. O site de documentação não cria projetos nem envia requisições ao alvo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Retomar após alterações</h2></div></div><pre class=\"codebox\"><code>.\\scripts\\start-local.ps1 -RestartApi</code></pre><div class=\"callout\"><span>Se a conexão cair durante o envio de uma auditoria, consulte o histórico antes de reenviar: a API pode já ter aceitado o pedido. O bootstrap local e as credenciais de laboratório não devem ser usados como configuração de produção.</span></div></section>"
+  },
+  {
+    "id": "arquitetura",
+    "title": "Arquitetura",
+    "group": "Estrutura do sistema",
+    "lead": "Camadas explícitas entre apresentação, política, coordenação, execução e armazenamento.",
+    "sources": [
+      "Sentinel/Program.cs",
+      "Sentinel/Workers/AuditWorker.cs",
+      "Sentinel/Execution/OutboxDispatcher.cs",
+      "Sentinel/Execution/ScopedHttpGateway.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Composição do host",
+        "paragraphs": [
+          "Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.",
+          "A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime."
+        ]
+      },
+      {
+        "title": "Fronteiras de responsabilidade",
+        "paragraphs": [],
+        "items": [
+          [
+            "Sentinel.Web",
+            "Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria."
+          ],
+          [
+            "Sentinel",
+            "ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo."
+          ],
+          [
+            "Sentinel.Contracts",
+            "Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost."
+          ],
+          [
+            "Sentinel.PluginHost",
+            "Implementações dos controles executadas com entrada limitada, prazo e resposta validada."
+          ]
+        ]
+      },
+      {
+        "title": "Do pedido ao checkpoint",
+        "paragraphs": [
+          "Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.",
+          "Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Composição do host</h2></div></div><div class=\"prose\"><p>Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.</p></div><div class=\"prose\"><p>A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Fronteiras de responsabilidade</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Sentinel.Web</h3><p>Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria.</p></article><article class=\"card\"><h3>Sentinel</h3><p>ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo.</p></article><article class=\"card\"><h3>Sentinel.Contracts</h3><p>Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost.</p></article><article class=\"card\"><h3>Sentinel.PluginHost</h3><p>Implementações dos controles executadas com entrada limitada, prazo e resposta validada.</p></article></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Do pedido ao checkpoint</h2></div></div><div class=\"prose\"><p>Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.</p></div><div class=\"prose\"><p>Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado.</p></div></section>"
   }
 ];

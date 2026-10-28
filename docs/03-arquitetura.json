@@ -1,0 +1,51 @@
+{
+  "id": "arquitetura",
+  "title": "Arquitetura",
+  "group": "Estrutura do sistema",
+  "lead": "Camadas explícitas entre apresentação, política, coordenação, execução e armazenamento.",
+  "sources": [
+    "Sentinel/Program.cs",
+    "Sentinel/Workers/AuditWorker.cs",
+    "Sentinel/Execution/OutboxDispatcher.cs",
+    "Sentinel/Execution/ScopedHttpGateway.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Composição do host",
+      "paragraphs": [
+        "Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.",
+        "A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime."
+      ]
+    },
+    {
+      "title": "Fronteiras de responsabilidade",
+      "paragraphs": [],
+      "items": [
+        [
+          "Sentinel.Web",
+          "Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria."
+        ],
+        [
+          "Sentinel",
+          "ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo."
+        ],
+        [
+          "Sentinel.Contracts",
+          "Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost."
+        ],
+        [
+          "Sentinel.PluginHost",
+          "Implementações dos controles executadas com entrada limitada, prazo e resposta validada."
+        ]
+      ]
+    },
+    {
+      "title": "Do pedido ao checkpoint",
+      "paragraphs": [
+        "Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.",
+        "Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado."
+      ]
+    }
+  ]
+}
