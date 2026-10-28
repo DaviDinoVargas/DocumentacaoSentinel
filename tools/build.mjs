@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { createHash } from 'node:crypto';
 const root = path.resolve(import.meta.dirname, '..');
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const files = fs.readdirSync(path.join(root, 'docs')).filter(f => f.endsWith('.json')).sort();
@@ -10,4 +11,10 @@ const pages = files.map(file => {
 });
 fs.writeFileSync(path.join(root, 'assets/docs.js'), 'window.SENTINEL_DOCS = ' + JSON.stringify(pages, null, 2) + ';\n');
 fs.writeFileSync(path.join(root, 'docs/INDICE.md'), '# Documentação Sentinel\n\n' + pages.map(p => `- [${p.title}](../index.html#${p.id}) — ${p.lead}`).join('\n') + '\n');
-console.log(`${pages.length} páginas geradas.`);
+const indexPath = path.join(root, 'index.html');
+const index = fs.readFileSync(indexPath, 'utf8').replace(/((?:src|href)=")((?:assets\/)[^"?]+)(?:\?[^"\s]*)?(")/g, (_, prefix, asset, suffix) => {
+  const hash = createHash('sha256').update(fs.readFileSync(path.join(root, asset))).digest('hex').slice(0,12);
+  return `${prefix}${asset}?v=${hash}${suffix}`;
+});
+fs.writeFileSync(indexPath, index);
+console.log(`${pages.length} páginas geradas; recursos versionados por conteúdo.`);
