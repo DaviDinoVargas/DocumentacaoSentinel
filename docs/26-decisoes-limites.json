@@ -65,6 +65,13 @@
         "Trechos antigos do README citam S3 e revogação como pendentes. A revisão atual contém S3EvidenceStorage, ciclo de revogação e regras de escopo: essas implementações são descritas como existentes, preservando os limites operacionais.",
         "O backend aceita segunda identidade JsonLogin, enquanto a interface ainda limita a seleção secundária a Bearer. Recursos de sessão/logout/refresh são descritos pelo contrato implementado, sem declarar todo o roadmap encerrado."
       ]
+    },
+    {
+      "title": "Próximas verificações recomendadas",
+      "paragraphs": [
+        "Priorize baseline integrada, prontidão da base offline, recuperação do conjunto banco/blobs/chaves e experiência de diagnóstico. Valide no ambiente autorizado antes de promover uma mudança de infraestrutura.",
+        "Recomendações são propostas desta leitura, não promessas de funcionalidades já entregues."
+      ]
     }
   ]
 }
