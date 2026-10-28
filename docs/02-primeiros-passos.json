@@ -32,6 +32,12 @@
         "Na tela Rodar testes, confira as modalidades disponíveis e confirme a execução desejada. Acompanhe o identificador retornado no histórico. Um bloqueio de política também pode ser persistido: leia o motivo antes de tentar novamente.",
         "Abra o detalhe, examine os controles e verifique a evidência. Separe Failed, Inconclusive e erro de execução. O site de documentação não cria projetos nem envia requisições ao alvo."
       ]
+    },
+    {
+      "title": "Retomar após alterações",
+      "paragraphs": [],
+      "code": ".\\scripts\\start-local.ps1 -RestartApi",
+      "note": "Se a conexão cair durante o envio de uma auditoria, consulte o histórico antes de reenviar: a API pode já ter aceitado o pedido. O bootstrap local e as credenciais de laboratório não devem ser usados como configuração de produção."
     }
   ]
 }
