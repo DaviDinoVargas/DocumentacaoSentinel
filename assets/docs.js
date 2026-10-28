@@ -967,8 +967,38 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "Containers compartilham o kernel da VM Docker e o host confia no daemon local. O código contém modo de processo para desenvolvimento; isso não é equivalente ao isolamento de container e não suporta análise de fontes. Não apresente esse modo como fallback seguro de produção."
         ]
+      },
+      {
+        "title": "O que conferir em uma falha",
+        "paragraphs": [],
+        "table": [
+          [
+            "Sinal",
+            "Verificação"
+          ],
+          [
+            "daemon-unavailable",
+            "Disponibilidade do daemon e diagnóstico da sandbox"
+          ],
+          [
+            "Imagem inválida",
+            "Digest configurado e build da imagem"
+          ],
+          [
+            "Prazo excedido",
+            "Timeout do manifesto, prazo do escopo e progresso do plugin"
+          ],
+          [
+            "Lease perdido",
+            "Estado persistido, banco e heartbeat"
+          ],
+          [
+            "Protocolo rejeitado",
+            "Schema, tamanho, término e compatibilidade da saída"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Isolamento aplicado</h2></div></div><div class=\"prose\"><p>O modo padrão é container: rede none, usuário sem privilégios, raiz somente leitura, tmpfs e limites de memória, CPU e PIDs. A alocação é calculada por manifesto aprovado e limitada pelos tetos do runtime; não presuma que todos os plugins usam o mesmo orçamento.</p></div><div class=\"prose\"><p>O filho recebe uma allowlist de ambiente. Não recebe senhas de PostgreSQL/RabbitMQ, keyring, socket Docker ou diretórios arbitrários. Para análise de fonte, somente o snapshot autorizado é materializado e montado como leitura.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Rede mediada por permissão</h2></div></div><div class=\"prose\"><p>O plugin conversa com o host pelo protocolo. Cada requisição precisa de escopo, posse e orçamento válidos. O gateway verifica DNS/TLS e restringe capacidades. Redirecionamentos automáticos e herança de proxies não devem ampliar o alvo autorizado.</p></div><div class=\"prose\"><p>O resultado completo validado encerra o protocolo. Novas requisições após esse resultado não são despachadas; a limpeza da sandbox ainda faz parte da devolução. Timeout, saída excessiva e cancelamento são limites operacionais distintos.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Limites de confiança</h2></div></div><div class=\"prose\"><p>Containers compartilham o kernel da VM Docker e o host confia no daemon local. O código contém modo de processo para desenvolvimento; isso não é equivalente ao isolamento de container e não suporta análise de fontes. Não apresente esse modo como fallback seguro de produção.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Isolamento aplicado</h2></div></div><div class=\"prose\"><p>O modo padrão é container: rede none, usuário sem privilégios, raiz somente leitura, tmpfs e limites de memória, CPU e PIDs. A alocação é calculada por manifesto aprovado e limitada pelos tetos do runtime; não presuma que todos os plugins usam o mesmo orçamento.</p></div><div class=\"prose\"><p>O filho recebe uma allowlist de ambiente. Não recebe senhas de PostgreSQL/RabbitMQ, keyring, socket Docker ou diretórios arbitrários. Para análise de fonte, somente o snapshot autorizado é materializado e montado como leitura.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Rede mediada por permissão</h2></div></div><div class=\"prose\"><p>O plugin conversa com o host pelo protocolo. Cada requisição precisa de escopo, posse e orçamento válidos. O gateway verifica DNS/TLS e restringe capacidades. Redirecionamentos automáticos e herança de proxies não devem ampliar o alvo autorizado.</p></div><div class=\"prose\"><p>O resultado completo validado encerra o protocolo. Novas requisições após esse resultado não são despachadas; a limpeza da sandbox ainda faz parte da devolução. Timeout, saída excessiva e cancelamento são limites operacionais distintos.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>Limites de confiança</h2></div></div><div class=\"prose\"><p>Containers compartilham o kernel da VM Docker e o host confia no daemon local. O código contém modo de processo para desenvolvimento; isso não é equivalente ao isolamento de container e não suporta análise de fontes. Não apresente esse modo como fallback seguro de produção.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Motor de auditoria</p><h2>O que conferir em uma falha</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"O que conferir em uma falha\"><table><thead><tr><th scope=\"col\">Sinal</th><th scope=\"col\">Verificação</th></tr></thead><tbody><tr><td>daemon-unavailable</td><td>Disponibilidade do daemon e diagnóstico da sandbox</td></tr><tr><td>Imagem inválida</td><td>Digest configurado e build da imagem</td></tr><tr><td>Prazo excedido</td><td>Timeout do manifesto, prazo do escopo e progresso do plugin</td></tr><tr><td>Lease perdido</td><td>Estado persistido, banco e heartbeat</td></tr><tr><td>Protocolo rejeitado</td><td>Schema, tamanho, término e compatibilidade da saída</td></tr></tbody></table></div></section>"
   }
 ];

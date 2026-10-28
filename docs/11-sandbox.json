@@ -30,6 +30,36 @@
       "paragraphs": [
         "Containers compartilham o kernel da VM Docker e o host confia no daemon local. O código contém modo de processo para desenvolvimento; isso não é equivalente ao isolamento de container e não suporta análise de fontes. Não apresente esse modo como fallback seguro de produção."
       ]
+    },
+    {
+      "title": "O que conferir em uma falha",
+      "paragraphs": [],
+      "table": [
+        [
+          "Sinal",
+          "Verificação"
+        ],
+        [
+          "daemon-unavailable",
+          "Disponibilidade do daemon e diagnóstico da sandbox"
+        ],
+        [
+          "Imagem inválida",
+          "Digest configurado e build da imagem"
+        ],
+        [
+          "Prazo excedido",
+          "Timeout do manifesto, prazo do escopo e progresso do plugin"
+        ],
+        [
+          "Lease perdido",
+          "Estado persistido, banco e heartbeat"
+        ],
+        [
+          "Protocolo rejeitado",
+          "Schema, tamanho, término e compatibilidade da saída"
+        ]
+      ]
     }
   ]
 }
