@@ -11,3 +11,4 @@
 - [Outbox e mensageria](../index.html#mensageria) — Entrega confirmada e reconciliação conectam o pedido persistido à execução.
 - [Plugins e controles](../index.html#plugins) — Manifestos declaram capacidades, controles, permissões e limites de cada execução.
 - [Sandbox e gateway](../index.html#sandbox) — O host governa a rede e os segredos; o plugin recebe somente o contrato necessário.
+- [Acessos e sessões do alvo](../index.html#autenticacao-alvo) — Perfis privados, login governado e comparações de identidade no laboratório.

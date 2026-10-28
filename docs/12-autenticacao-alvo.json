@@ -1,0 +1,36 @@
+{
+  "id": "autenticacao-alvo",
+  "title": "Acessos e sessões do alvo",
+  "group": "Investigações",
+  "lead": "Perfis privados, login governado e comparações de identidade no laboratório.",
+  "sources": [
+    "Sentinel/Execution/TargetCredentialVault.cs",
+    "Sentinel/Execution/TargetJsonLogin.cs",
+    "Sentinel/Execution/ScopedHttpGateway.Logout.cs",
+    "Sentinel/Execution/ScopedHttpGateway.Refresh.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Bearer e login JSON",
+      "paragraphs": [
+        "Perfis pertencem ao projeto e ao escopo. Bearer guarda token cifrado; JsonLogin guarda o contrato e os dados privados necessários ao login. Consultas retornam metadados, nunca segredos. O host mantém tokens obtidos por login e exporta somente observações permitidas.",
+        "Rotação muda a versão e revogação invalida usos posteriores. O prazo fica limitado ao escopo; Bearer usa teto de 24 horas, enquanto JsonLogin tem política configurável MaximumJsonLoginLifetimeHours, padrão de 24 horas. Configuração privada do laboratório pode alterar esse teto."
+      ]
+    },
+    {
+      "title": "Comparar acesso permitido e negado",
+      "paragraphs": [
+        "O cenário verifica recusa anônima e acesso autenticado. Para negação esperada, precisa de referência permitida recente da mesma identidade/versão. 401 não prova autorização correta; 403/404 precisam do contexto previsto pelo contrato.",
+        "Uma segunda identidade pode ser Bearer ou JsonLogin no backend, do mesmo projeto/escopo e diferente da primária. Tokens, estados de login e diagnósticos ficam separados. Na revisão analisada, o seletor secundário da interface ainda se restringe a Bearer."
+      ]
+    },
+    {
+      "title": "Logout e refresh são contratos explícitos",
+      "paragraphs": [
+        "Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.",
+        "Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo."
+      ]
+    }
+  ]
+}
