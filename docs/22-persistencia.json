@@ -1,0 +1,36 @@
+{
+  "id": "persistencia",
+  "title": "Persistência e recuperação",
+  "group": "Operação e qualidade",
+  "lead": "Banco, blobs e chaves formam um conjunto de recuperação; nenhum deles basta sozinho.",
+  "sources": [
+    "Sentinel/Persistence/SentinelDbContext.cs",
+    "Sentinel/Persistence/PostgresSentinelStore.cs",
+    "Sentinel/Program.cs",
+    "Sentinel/Evidence/EvidenceArtifactStore.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "PostgreSQL como fonte de verdade",
+      "paragraphs": [
+        "Projetos, autorizações, auditorias, resultados, outbox, posse e metadados vivem no banco. As migrações são aplicadas no startup. Alterações recentes adicionam tabelas, índices e atributos preservando histórico, mas uma implantação deve avaliar compatibilidade de todas as instâncias.",
+        "O plano de execução usa JSONB e versão otimista. Operações de coordenação e projeção usam transações e locks. JSONB não elimina os vínculos de projeto/organização nem as validações do serviço."
+      ]
+    },
+    {
+      "title": "Conteúdo cifrado e identidade de armazenamento",
+      "paragraphs": [
+        "Credenciais, evidências e snapshots dependem de Data Protection. No Windows, a proteção usa DPAPI; fora do laboratório Windows, o host exige certificado configurado. Workers devem compartilhar keyring e proteção compatíveis.",
+        "StorageId identifica o volume lógico. Um worker em volume diferente não deve apagar conteúdo alheio nem presumir que consegue materializá-lo. Para S3, preserve bucket, versões, StorageId e keyring; mudar o provider não move os artefatos históricos."
+      ]
+    },
+    {
+      "title": "Roteiro de recuperação proposto",
+      "paragraphs": [
+        "Planeje cópias coordenadas do PostgreSQL, conteúdo privado ainda retido e keyring protegido, com acesso restrito. Em ambiente isolado, restaure as partes, valide organização e metadados, leia uma evidência de teste pelo endpoint autenticado e confira seu hash.",
+        "Esse roteiro é orientação operacional desta documentação, não declaração de backup automatizado ou teste de restauração executado. Preserve janelas de retenção e não reintroduza segredos expirados sem política definida."
+      ]
+    }
+  ]
+}
