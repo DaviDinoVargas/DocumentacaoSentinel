@@ -25,7 +25,7 @@ for(const p of pages){
   assert(!/\b[A-Z]:[\\/]/.test(JSON.stringify(p)),'Caminho privado no conteúdo.');
 }
 const html=read('index.html');
-for(const [,asset] of html.matchAll(/(?:src|href)="(assets\/[^"#]+)"/g)){assert(fs.existsSync(path.join(root,asset)),asset);}
+for(const [,asset] of html.matchAll(/(?:src|href)="(assets\/[^"#]+)"/g)){assert(fs.existsSync(path.join(root,asset.split('?')[0])),asset);}
 for(const file of ['assets/app.js','assets/experience.js']){
   const js=read(file);execFileSync(process.execPath,['--check',path.join(root,file)]);
   for(const [,id] of js.matchAll(/href="#([a-z0-9-]+)"/g))assert(ids.has(id)||id==='main',id);
