@@ -4,3 +4,4 @@
 - [Primeiros passos](../index.html#primeiros-passos) — Prepare um laboratório local, abra o workspace e siga o primeiro fluxo autorizado.
 - [Arquitetura](../index.html#arquitetura) — Camadas explícitas entre apresentação, política, coordenação, execução e armazenamento.
 - [Domínio e dados](../index.html#dominio) — Projetos dão contexto; escopos autorizam; auditorias registram o que aconteceu.
+- [Identidade e organizações](../index.html#identidade) — Autenticação do operador, permissões e isolamento dos dados por organização.
