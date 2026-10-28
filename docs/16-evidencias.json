@@ -1,0 +1,66 @@
+{
+  "id": "evidencias",
+  "title": "Evidências e relatórios",
+  "group": "Resultados",
+  "lead": "Integridade, proveniência e retenção acompanham os bytes que sustentam a análise.",
+  "sources": [
+    "Sentinel/Evidence/EvidenceArtifactStore.cs",
+    "Sentinel/Evidence/EvidenceSanitizer.cs",
+    "Sentinel/Evidence/S3EvidenceStorage.cs",
+    "Sentinel/Controllers/EvidenceController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Do resultado ao artefato",
+      "paragraphs": [
+        "O documento JSON é redigido e cifrado antes de persistir. PostgreSQL mantém referência, hash, produtor, horário e retenção. O SHA-256 corresponde aos bytes exportados; API e navegador verificam a integridade antes de apresentar o conteúdo.",
+        "Consulta exige organização autorizada, proveniência correta e retenção válida. Resumos legados sem conteúdo verificável são identificados como tal. Um hash não é assinatura digital nem prova de correção da conclusão."
+      ]
+    },
+    {
+      "title": "Filesystem e S3/MinIO",
+      "paragraphs": [
+        "O provider local mantém arquivos privados cifrados. Provider S3 grava em bucket privado versionado, usa PUT condicional e persiste a versão exata do objeto. Sem versionamento a gravação é recusada. O browser consulta pela API, sem receber credenciais do bucket.",
+        "Object Lock pode usar GOVERNANCE ou COMPLIANCE até o prazo da evidência. O expurgo só marca a remoção após confirmação. Conteúdo local anterior não é migrado automaticamente; preserve seu volume, identidade e keyring."
+      ]
+    },
+    {
+      "title": "Privacidade e retenção",
+      "paragraphs": [
+        "A política aceita de um a trinta dias para novas evidências; mudar a política não reescreve a retenção histórica. Conteúdo vencido é expurgado em lotes, mantendo metadados e hash. Falhas de storage e retenção remota preservam pendências.",
+        "basic-v1 redige padrões de credenciais com orçamento por artefato. Não garante anonimização de todo dado pessoal. Compartilhar relatórios exige revisão do conteúdo e do contexto, mesmo quando o hash confere."
+      ]
+    },
+    {
+      "title": "Checklist de interpretação",
+      "paragraphs": [],
+      "table": [
+        [
+          "Pergunta",
+          "Onde conferir"
+        ],
+        [
+          "Quem produziu?",
+          "Plugin, versão e proveniência"
+        ],
+        [
+          "O que foi enviado?",
+          "Perfil, escopo, modalidade e recorte descrito"
+        ],
+        [
+          "O conteúdo está íntegro?",
+          "Verificação do hash na API e no navegador"
+        ],
+        [
+          "Ainda pode ser consultado?",
+          "Retenção, provider, versão e StorageId"
+        ],
+        [
+          "O que conclui?",
+          "Controle, confiança, severidade e limitações — não apenas o hash"
+        ]
+      ]
+    }
+  ]
+}

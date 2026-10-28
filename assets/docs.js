@@ -1420,5 +1420,72 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Contrato declarado e superfície observada</h2></div></div><div class=\"prose\"><p>A análise de fonte pode produzir inventário OpenAPI. O host seleciona somente artefatos íntegros, completos e da mesma origem/projeto; registra InventorySelected ou InventoryUnavailable. O contrato histórico não prova que a implantação atual corresponde a ele.</p></div><div class=\"prose\"><p>A prévia concatena base e caminho e distingue templates sem valores, métodos sem adaptador e rotas fora do escopo. Vínculo histórico por URL GET e resultado comparável não representa cobertura completa por endpoint, papel, parâmetros ou revisão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Injeção: candidato não é exploração comprovada</h2></div></div><div class=\"prose\"><p>As sondagens GET usam valores sintéticos de referência derivados de tipos, formatos e enums. Cada mutação preserva os outros parâmetros; referências incompletas ou incompatíveis impedem a avaliação.</p></div><div class=\"prose\"><p>Erro SQL específico repetível e correlação booleana são candidatos inferidos. Reflexão HTML não comprova execução de XSS; reflexão JSON não é classificada como XSS. Ausência de sinal, truncamento e orçamento esgotado não aprovam segurança.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Corpos, cabeçalhos e protocolos</h2></div></div><div class=\"prose\"><p>O controle de robustez exige avaliação das sete sondagens declaradas para aprovar seu recorte. Respostas incompatíveis, truncamento e interrupções deixam lacunas explícitas. 429 e Retry-After encerram sondagens posteriores.</p></div><div class=\"prose\"><p>CSP combina políticas obrigatórias sem persistir nonces brutos; CORS avalia a origem enviada sem afirmar vazamento universal. Uma observação de cabeçalho não substitui teste em navegador nem prova de impacto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Leitura correta de cobertura</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Tentada</h3><p>Uma etapa foi tentada; o gateway ainda pode recusar o envio.</p></article><article class=\"card\"><h3>Avaliada</h3><p>A observação satisfez os requisitos de interpretação do controle.</p></article><article class=\"card\"><h3>Não avaliada</h3><p>Faltou resposta completa, referência válida ou outra pré-condição.</p></article><article class=\"card\"><h3>Não tentada</h3><p>Prazo, orçamento ou interrupção impediu chegar à etapa.</p></article></div></section>"
+  },
+  {
+    "id": "evidencias",
+    "title": "Evidências e relatórios",
+    "group": "Resultados",
+    "lead": "Integridade, proveniência e retenção acompanham os bytes que sustentam a análise.",
+    "sources": [
+      "Sentinel/Evidence/EvidenceArtifactStore.cs",
+      "Sentinel/Evidence/EvidenceSanitizer.cs",
+      "Sentinel/Evidence/S3EvidenceStorage.cs",
+      "Sentinel/Controllers/EvidenceController.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Do resultado ao artefato",
+        "paragraphs": [
+          "O documento JSON é redigido e cifrado antes de persistir. PostgreSQL mantém referência, hash, produtor, horário e retenção. O SHA-256 corresponde aos bytes exportados; API e navegador verificam a integridade antes de apresentar o conteúdo.",
+          "Consulta exige organização autorizada, proveniência correta e retenção válida. Resumos legados sem conteúdo verificável são identificados como tal. Um hash não é assinatura digital nem prova de correção da conclusão."
+        ]
+      },
+      {
+        "title": "Filesystem e S3/MinIO",
+        "paragraphs": [
+          "O provider local mantém arquivos privados cifrados. Provider S3 grava em bucket privado versionado, usa PUT condicional e persiste a versão exata do objeto. Sem versionamento a gravação é recusada. O browser consulta pela API, sem receber credenciais do bucket.",
+          "Object Lock pode usar GOVERNANCE ou COMPLIANCE até o prazo da evidência. O expurgo só marca a remoção após confirmação. Conteúdo local anterior não é migrado automaticamente; preserve seu volume, identidade e keyring."
+        ]
+      },
+      {
+        "title": "Privacidade e retenção",
+        "paragraphs": [
+          "A política aceita de um a trinta dias para novas evidências; mudar a política não reescreve a retenção histórica. Conteúdo vencido é expurgado em lotes, mantendo metadados e hash. Falhas de storage e retenção remota preservam pendências.",
+          "basic-v1 redige padrões de credenciais com orçamento por artefato. Não garante anonimização de todo dado pessoal. Compartilhar relatórios exige revisão do conteúdo e do contexto, mesmo quando o hash confere."
+        ]
+      },
+      {
+        "title": "Checklist de interpretação",
+        "paragraphs": [],
+        "table": [
+          [
+            "Pergunta",
+            "Onde conferir"
+          ],
+          [
+            "Quem produziu?",
+            "Plugin, versão e proveniência"
+          ],
+          [
+            "O que foi enviado?",
+            "Perfil, escopo, modalidade e recorte descrito"
+          ],
+          [
+            "O conteúdo está íntegro?",
+            "Verificação do hash na API e no navegador"
+          ],
+          [
+            "Ainda pode ser consultado?",
+            "Retenção, provider, versão e StorageId"
+          ],
+          [
+            "O que conclui?",
+            "Controle, confiança, severidade e limitações — não apenas o hash"
+          ]
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Do resultado ao artefato</h2></div></div><div class=\"prose\"><p>O documento JSON é redigido e cifrado antes de persistir. PostgreSQL mantém referência, hash, produtor, horário e retenção. O SHA-256 corresponde aos bytes exportados; API e navegador verificam a integridade antes de apresentar o conteúdo.</p></div><div class=\"prose\"><p>Consulta exige organização autorizada, proveniência correta e retenção válida. Resumos legados sem conteúdo verificável são identificados como tal. Um hash não é assinatura digital nem prova de correção da conclusão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Filesystem e S3/MinIO</h2></div></div><div class=\"prose\"><p>O provider local mantém arquivos privados cifrados. Provider S3 grava em bucket privado versionado, usa PUT condicional e persiste a versão exata do objeto. Sem versionamento a gravação é recusada. O browser consulta pela API, sem receber credenciais do bucket.</p></div><div class=\"prose\"><p>Object Lock pode usar GOVERNANCE ou COMPLIANCE até o prazo da evidência. O expurgo só marca a remoção após confirmação. Conteúdo local anterior não é migrado automaticamente; preserve seu volume, identidade e keyring.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Privacidade e retenção</h2></div></div><div class=\"prose\"><p>A política aceita de um a trinta dias para novas evidências; mudar a política não reescreve a retenção histórica. Conteúdo vencido é expurgado em lotes, mantendo metadados e hash. Falhas de storage e retenção remota preservam pendências.</p></div><div class=\"prose\"><p>basic-v1 redige padrões de credenciais com orçamento por artefato. Não garante anonimização de todo dado pessoal. Compartilhar relatórios exige revisão do conteúdo e do contexto, mesmo quando o hash confere.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Checklist de interpretação</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Checklist de interpretação\"><table><thead><tr><th scope=\"col\">Pergunta</th><th scope=\"col\">Onde conferir</th></tr></thead><tbody><tr><td>Quem produziu?</td><td>Plugin, versão e proveniência</td></tr><tr><td>O que foi enviado?</td><td>Perfil, escopo, modalidade e recorte descrito</td></tr><tr><td>O conteúdo está íntegro?</td><td>Verificação do hash na API e no navegador</td></tr><tr><td>Ainda pode ser consultado?</td><td>Retenção, provider, versão e StorageId</td></tr><tr><td>O que conclui?</td><td>Controle, confiança, severidade e limitações — não apenas o hash</td></tr></tbody></table></div></section>"
   }
 ];
