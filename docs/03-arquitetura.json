@@ -46,6 +46,42 @@
         "Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.",
         "Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado."
       ]
+    },
+    {
+      "title": "Dependências operacionais",
+      "paragraphs": [],
+      "table": [
+        [
+          "Componente",
+          "Responsabilidade",
+          "Falha relevante"
+        ],
+        [
+          "PostgreSQL",
+          "Estado, outbox, orçamento, lease e metadados",
+          "Sem banco não há autorização distribuída confiável"
+        ],
+        [
+          "RabbitMQ",
+          "Notificação durável de trabalho",
+          "Atraso de fila não elimina o pedido persistido"
+        ],
+        [
+          "Docker",
+          "Execução isolada dos plugins",
+          "Imagem ou daemon indisponível impede sandbox"
+        ],
+        [
+          "OIDC",
+          "Identidade e papéis",
+          "Token inválido impede acesso às rotas protegidas"
+        ],
+        [
+          "Filesystem / S3",
+          "Conteúdo cifrado das evidências",
+          "Metadados existentes não garantem disponibilidade do artefato"
+        ]
+      ]
     }
   ]
 }

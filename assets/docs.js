@@ -173,8 +173,44 @@ window.SENTINEL_DOCS = [
           "Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.",
           "Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado."
         ]
+      },
+      {
+        "title": "Dependências operacionais",
+        "paragraphs": [],
+        "table": [
+          [
+            "Componente",
+            "Responsabilidade",
+            "Falha relevante"
+          ],
+          [
+            "PostgreSQL",
+            "Estado, outbox, orçamento, lease e metadados",
+            "Sem banco não há autorização distribuída confiável"
+          ],
+          [
+            "RabbitMQ",
+            "Notificação durável de trabalho",
+            "Atraso de fila não elimina o pedido persistido"
+          ],
+          [
+            "Docker",
+            "Execução isolada dos plugins",
+            "Imagem ou daemon indisponível impede sandbox"
+          ],
+          [
+            "OIDC",
+            "Identidade e papéis",
+            "Token inválido impede acesso às rotas protegidas"
+          ],
+          [
+            "Filesystem / S3",
+            "Conteúdo cifrado das evidências",
+            "Metadados existentes não garantem disponibilidade do artefato"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Composição do host</h2></div></div><div class=\"prose\"><p>Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.</p></div><div class=\"prose\"><p>A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Fronteiras de responsabilidade</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Sentinel.Web</h3><p>Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria.</p></article><article class=\"card\"><h3>Sentinel</h3><p>ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo.</p></article><article class=\"card\"><h3>Sentinel.Contracts</h3><p>Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost.</p></article><article class=\"card\"><h3>Sentinel.PluginHost</h3><p>Implementações dos controles executadas com entrada limitada, prazo e resposta validada.</p></article></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Do pedido ao checkpoint</h2></div></div><div class=\"prose\"><p>Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.</p></div><div class=\"prose\"><p>Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Composição do host</h2></div></div><div class=\"prose\"><p>Program.cs registra controllers, serialização de enums, identidade, DbContextFactory, armazenamento, políticas, coordenação e serviços de background. Migrações EF Core são aplicadas na inicialização. Não há fallback em memória quando PostgreSQL está indisponível.</p></div><div class=\"prose\"><p>A API e os workers usam serviços registrados no mesmo host. Não confunda a fronteira lógica do worker com a exigência de um executável independente: a separação principal do plugin ocorre no PluginHost, governado pelo runtime.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Fronteiras de responsabilidade</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Sentinel.Web</h3><p>Angular apresenta contexto, formulários, histórico e artefatos. A interface não concede autorização por conta própria.</p></article><article class=\"card\"><h3>Sentinel</h3><p>ASP.NET Core aplica identidade e política, persiste pedidos, coordena a fila e governa acessos ao alvo.</p></article><article class=\"card\"><h3>Sentinel.Contracts</h3><p>Contratos de manifesto, protocolo e regras de snapshots compartilhados pelo host e PluginHost.</p></article><article class=\"card\"><h3>Sentinel.PluginHost</h3><p>Implementações dos controles executadas com entrada limitada, prazo e resposta validada.</p></article></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Do pedido ao checkpoint</h2></div></div><div class=\"prose\"><p>Auditoria e outbox são gravados na mesma transação. O dispatcher publica no RabbitMQ com confirmação. O worker resolve o envelope persistido e adquire a posse antes de executar. O plugin solicita operações ao gateway, em vez de herdar acesso livre à rede ou credenciais do host.</p></div><div class=\"prose\"><p>Controles e referências de evidências são persistidos por checkpoint. Projeção de achados e expurgo de conteúdo são serviços posteriores, com estados e limites próprios. A interface pode observar essa defasagem sem assumir perda de resultado.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Estrutura do sistema</p><h2>Dependências operacionais</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Dependências operacionais\"><table><thead><tr><th scope=\"col\">Componente</th><th scope=\"col\">Responsabilidade</th><th scope=\"col\">Falha relevante</th></tr></thead><tbody><tr><td>PostgreSQL</td><td>Estado, outbox, orçamento, lease e metadados</td><td>Sem banco não há autorização distribuída confiável</td></tr><tr><td>RabbitMQ</td><td>Notificação durável de trabalho</td><td>Atraso de fila não elimina o pedido persistido</td></tr><tr><td>Docker</td><td>Execução isolada dos plugins</td><td>Imagem ou daemon indisponível impede sandbox</td></tr><tr><td>OIDC</td><td>Identidade e papéis</td><td>Token inválido impede acesso às rotas protegidas</td></tr><tr><td>Filesystem / S3</td><td>Conteúdo cifrado das evidências</td><td>Metadados existentes não garantem disponibilidade do artefato</td></tr></tbody></table></div></section>"
   }
 ];
