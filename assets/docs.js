@@ -449,8 +449,34 @@ window.SENTINEL_DOCS = [
           "A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.",
           "Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software."
         ]
+      },
+      {
+        "title": "Impacto nas leituras",
+        "paragraphs": [],
+        "table": [
+          [
+            "Consulta",
+            "Regra de interpretação"
+          ],
+          [
+            "Score",
+            "Exclui corpus, desconhecidos e fixtures"
+          ],
+          [
+            "Achados",
+            "Não mistura origens conhecidas em uma mesma conclusão"
+          ],
+          [
+            "Histórico",
+            "Pode mostrar todas as origens autorizadas, com filtros explícitos"
+          ],
+          [
+            "Classificação",
+            "Declaração do operador; não é prova independente de procedência"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Origem declarada, sem inferência</h2></div></div><div class=\"prose\"><p>SoftwareUnderTest identifica resultados do software avaliado. SyntheticCorpus identifica validação sintética. Unknown preserva entradas legadas sem classificação. O nome do projeto, uma pasta ou uma URL não prova a origem.</p></div><div class=\"prose\"><p>Projetos comuns não recebem corpus automaticamente. Projetos SentinelValidation são dedicados à validação e exigem criação com privilégio apropriado. A API impede novas combinações incompatíveis de propósito e origem.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Classificação do legado</h2></div></div><div class=\"prose\"><p>A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.</p></div><div class=\"prose\"><p>Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Origem declarada, sem inferência</h2></div></div><div class=\"prose\"><p>SoftwareUnderTest identifica resultados do software avaliado. SyntheticCorpus identifica validação sintética. Unknown preserva entradas legadas sem classificação. O nome do projeto, uma pasta ou uma URL não prova a origem.</p></div><div class=\"prose\"><p>Projetos comuns não recebem corpus automaticamente. Projetos SentinelValidation são dedicados à validação e exigem criação com privilégio apropriado. A API impede novas combinações incompatíveis de propósito e origem.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Classificação do legado</h2></div></div><div class=\"prose\"><p>A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.</p></div><div class=\"prose\"><p>Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Impacto nas leituras</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Impacto nas leituras\"><table><thead><tr><th scope=\"col\">Consulta</th><th scope=\"col\">Regra de interpretação</th></tr></thead><tbody><tr><td>Score</td><td>Exclui corpus, desconhecidos e fixtures</td></tr><tr><td>Achados</td><td>Não mistura origens conhecidas em uma mesma conclusão</td></tr><tr><td>Histórico</td><td>Pode mostrar todas as origens autorizadas, com filtros explícitos</td></tr><tr><td>Classificação</td><td>Declaração do operador; não é prova independente de procedência</td></tr></tbody></table></div></section>"
   }
 ];

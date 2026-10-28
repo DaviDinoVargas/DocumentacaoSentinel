@@ -23,6 +23,32 @@
         "A operação de classificação recebe grupos de auditorias encerradas, motivo e origem; registra ator e evento append-only. Preserva IDs, evidências e decisões humanas. Grupos incompletos, colisões e substituição de origem já declarada são recusados.",
         "Consultas por contexto aplicam origem antes de paginar. Relatórios individuais mantêm a origem histórica. A separação também participa de fingerprints: uma aprovação sintética não resolve um achado do software."
       ]
+    },
+    {
+      "title": "Impacto nas leituras",
+      "paragraphs": [],
+      "table": [
+        [
+          "Consulta",
+          "Regra de interpretação"
+        ],
+        [
+          "Score",
+          "Exclui corpus, desconhecidos e fixtures"
+        ],
+        [
+          "Achados",
+          "Não mistura origens conhecidas em uma mesma conclusão"
+        ],
+        [
+          "Histórico",
+          "Pode mostrar todas as origens autorizadas, com filtros explícitos"
+        ],
+        [
+          "Classificação",
+          "Declaração do operador; não é prova independente de procedência"
+        ]
+      ]
     }
   ]
 }
