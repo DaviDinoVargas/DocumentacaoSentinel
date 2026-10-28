@@ -2238,5 +2238,77 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Configuração em camadas</h2></div></div><div class=\"prose\"><p>O host usa configuração ASP.NET Core. Variáveis de ambiente com duplo sublinhado representam seções hierárquicas. A connection string é resolvida no momento de criar o DbContext, respeitando substituições do host de testes.</p></div><div class=\"prose\"><p>As tabelas abaixo documentam nomes e finalidades, nunca valores de credenciais. O bootstrap local reutiliza configuração privada e containers existentes; não publique seus arquivos de estado ou logs.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Parâmetros principais</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Parâmetros principais\"><table><thead><tr><th scope=\"col\">Chave</th><th scope=\"col\">Finalidade</th></tr></thead><tbody><tr><td>ConnectionStrings:SentinelPostgres</td><td>Conexão PostgreSQL; sem fallback em memória</td></tr><tr><td>SENTINEL_POSTGRES_PASSWORD</td><td>Senha externa quando ausente na connection string</td></tr><tr><td>SENTINEL_RABBITMQ_PASSWORD</td><td>Senha externa do broker</td></tr><tr><td>Identity:Authority / Audience / ClientId</td><td>Provedor e cliente OIDC</td></tr><tr><td>Identity:RedirectUri / PostLogoutRedirectUri</td><td>Retornos autorizados do frontend</td></tr><tr><td>PluginRuntime:Image / Mode</td><td>Imagem fixada e modo de execução</td></tr><tr><td>PluginRuntime:DockerApiVersion</td><td>Override opcional major.minor para processos Docker próprios</td></tr><tr><td>TargetCredentials:KeyDirectory</td><td>Keyring compartilhado e protegido</td></tr><tr><td>TargetCredentials:ProtectionCertificateThumbprint</td><td>Proteção por certificado quando exigida</td></tr><tr><td>TargetCredentials:MaximumJsonLoginLifetimeHours</td><td>Teto de validade do perfil JsonLogin</td></tr><tr><td>Evidence:Provider / RootDirectory / StorageId</td><td>Armazenamento de artefatos</td></tr><tr><td>SourceSnapshots:RootDirectory / StorageId</td><td>Volume privado dos snapshots</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>S3 e produção</h2></div></div><div class=\"prose\"><p>Evidence:S3 configura Endpoint, Bucket, StorageId, Region, AccessKey, SecretKey e RetentionMode. Use configuração privada do serviço e usuário restrito ao prefixo necessário. HTTPS é exigido fora do loopback; versionamento é requisito de gravação.</p></div><div class=\"prose\"><p>A configuração local HTTP/H2 e o bootstrap de identidade são de desenvolvimento. O suporte de infraestrutura não habilita testes de produção: a política de auditoria continua bloqueando esse perfil.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Exemplo sem segredo</h2></div></div><pre class=\"codebox\"><code># Exemplo de sintaxe de variável hierárquica\n$env:Evidence__Provider = &quot;S3&quot;\n# Demais valores vêm da configuração privada aprovada do serviço.</code></pre><div class=\"callout\"><span>Não grave tokens, senhas, access keys ou connection strings completas em README, screenshots, commits ou comandos compartilhados.</span></div></section>"
+  },
+  {
+    "id": "operacao",
+    "title": "Operação e diagnóstico",
+    "group": "Operação e qualidade",
+    "lead": "Investigue a camada que falhou sem confundir saúde da API com prontidão da auditoria.",
+    "sources": [
+      "Sentinel/Controllers/OperationsController.cs",
+      "Sentinel/Execution/PluginRuntime.cs",
+      "Sentinel.Web/src/app/pages/operations.ts",
+      "scripts/README.md"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Sinais independentes",
+        "paragraphs": [
+          "GET /api/v1/health verifica conexão com PostgreSQL. Não confirma broker, imagem, base Trivy, login do alvo ou leitura de evidências. O painel de infraestrutura complementa a visão com outbox, filas e monitor da sandbox.",
+          "O frontend oferece pausa e intervalos de 5/15/30/60 segundos. Guarda até sessenta amostras válidas durante a visita. Contagens passivas de AMQP não permitem inferir taxa de entrega ou mensagens sem confirmação."
+        ]
+      },
+      {
+        "title": "Diagnóstico por sintoma",
+        "paragraphs": [],
+        "table": [
+          [
+            "Sintoma",
+            "Investigar primeiro"
+          ],
+          [
+            "401 no Sentinel",
+            "Token OIDC, validade e configuração de identidade"
+          ],
+          [
+            "Auditoria Blocked",
+            "Motivo de política, janela, ambiente, método e origem"
+          ],
+          [
+            "WaitingForBudget persistente",
+            "Posse global, auditorias do mesmo host/porta e heartbeat"
+          ],
+          [
+            "Falha da sandbox",
+            "Daemon, imagem, recursos, compatibilidade e diagnóstico registrado"
+          ],
+          [
+            "CVE inconclusiva",
+            "Idade/integridade da base offline e recorte de dependências"
+          ],
+          [
+            "Evidência indisponível",
+            "Retenção, StorageId, volume/bucket, versão e keyring"
+          ],
+          [
+            "Achado ainda não apareceu",
+            "Estado terminal e fila da projeção"
+          ],
+          [
+            "Erro após alteração de plano",
+            "Versão otimista e referências ainda válidas"
+          ]
+        ]
+      },
+      {
+        "title": "Atualizar instâncias em conjunto",
+        "paragraphs": [
+          "Mudanças de política distribuída exigem atualizar API e todos os workers antes de liberar auditorias. Um worker antigo pode desconhecer restrições novas. Preserve banco, volumes, versões de objetos e proteção de chaves.",
+          "Para reiniciar a API local, o script verifica se o processo da porta pertence ao checkout. Não encerre processos desconhecidos nem recrie volumes como solução padrão de diagnóstico."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Sinais independentes</h2></div></div><div class=\"prose\"><p>GET /api/v1/health verifica conexão com PostgreSQL. Não confirma broker, imagem, base Trivy, login do alvo ou leitura de evidências. O painel de infraestrutura complementa a visão com outbox, filas e monitor da sandbox.</p></div><div class=\"prose\"><p>O frontend oferece pausa e intervalos de 5/15/30/60 segundos. Guarda até sessenta amostras válidas durante a visita. Contagens passivas de AMQP não permitem inferir taxa de entrega ou mensagens sem confirmação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Diagnóstico por sintoma</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Diagnóstico por sintoma\"><table><thead><tr><th scope=\"col\">Sintoma</th><th scope=\"col\">Investigar primeiro</th></tr></thead><tbody><tr><td>401 no Sentinel</td><td>Token OIDC, validade e configuração de identidade</td></tr><tr><td>Auditoria Blocked</td><td>Motivo de política, janela, ambiente, método e origem</td></tr><tr><td>WaitingForBudget persistente</td><td>Posse global, auditorias do mesmo host/porta e heartbeat</td></tr><tr><td>Falha da sandbox</td><td>Daemon, imagem, recursos, compatibilidade e diagnóstico registrado</td></tr><tr><td>CVE inconclusiva</td><td>Idade/integridade da base offline e recorte de dependências</td></tr><tr><td>Evidência indisponível</td><td>Retenção, StorageId, volume/bucket, versão e keyring</td></tr><tr><td>Achado ainda não apareceu</td><td>Estado terminal e fila da projeção</td></tr><tr><td>Erro após alteração de plano</td><td>Versão otimista e referências ainda válidas</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Atualizar instâncias em conjunto</h2></div></div><div class=\"prose\"><p>Mudanças de política distribuída exigem atualizar API e todos os workers antes de liberar auditorias. Um worker antigo pode desconhecer restrições novas. Preserve banco, volumes, versões de objetos e proteção de chaves.</p></div><div class=\"prose\"><p>Para reiniciar a API local, o script verifica se o processo da porta pertence ao checkout. Não encerre processos desconhecidos nem recrie volumes como solução padrão de diagnóstico.</p></div></section>"
   }
 ];
