@@ -1,6 +1,6 @@
 # Documentação Sentinel
 
-Documentação técnica em português do Sentinel, organizada no padrão visual e editorial das documentações Locadora e DinoTube: navegação lateral, busca, páginas temáticas, tabelas, fontes locais e tema claro/escuro. A identidade visual usa as cores e o símbolo original da harpia brasileira do Sentinel.
+Documentação técnica em português do Sentinel, organizada no padrão visual e editorial das documentações Locadora e DinoTube: navegação lateral, busca, páginas temáticas, tabelas, fontes locais e tema claro/escuro. A identidade visual usa as cores do Sentinel e uma nova interpretação vetorial da harpia brasileira.
 
 **Site:** https://davidinovargas.github.io/DocumentacaoSentinel/
 

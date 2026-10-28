@@ -22,7 +22,7 @@
     {
       "title": "Padrão desta documentação",
       "paragraphs": [
-        "O site preserva a estrutura editorial das referências e aplica a identidade Harpia do Sentinel: grafite #080d14, azul #76a9e8 e branco frio #e8eef6 no tema escuro; canvas #f2f5f9 e azul #315f9f no claro. O símbolo vetorial original do projeto destaca penacho, disco facial, bico e olhos em âmbar natural da harpia brasileira.",
+        "O site preserva a estrutura editorial das referências e aplica a identidade Harpia do Sentinel: grafite #080d14, azul #76a9e8 e branco frio #e8eef6 no tema escuro; canvas #f2f5f9 e azul #315f9f no claro. A nova interpretação vetorial da documentação destaca penacho, disco facial, bico e olhos em âmbar natural da harpia brasileira.",
         "Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real."
       ]
     },
