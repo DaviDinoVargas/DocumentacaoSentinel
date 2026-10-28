@@ -30,6 +30,36 @@
       "paragraphs": [
         "Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor."
       ]
+    },
+    {
+      "title": "Perguntas antes de comparar",
+      "paragraphs": [],
+      "table": [
+        [
+          "Dimensão",
+          "Verifique"
+        ],
+        [
+          "População",
+          "Mesma origem, projeto e critérios de elegibilidade"
+        ],
+        [
+          "Método",
+          "Mesma versão do algoritmo/plugin e tipo de medição"
+        ],
+        [
+          "Carga",
+          "Mesma URL, autenticação, orçamento e condições do ambiente"
+        ],
+        [
+          "Completude",
+          "Interrupções, recusas, truncamento e quantidade avaliada"
+        ],
+        [
+          "Tempo",
+          "Janela observada e ordem efetiva dos checkpoints"
+        ]
+      ]
     }
   ]
 }

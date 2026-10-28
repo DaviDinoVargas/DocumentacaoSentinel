@@ -1578,8 +1578,38 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor."
         ]
+      },
+      {
+        "title": "Perguntas antes de comparar",
+        "paragraphs": [],
+        "table": [
+          [
+            "Dimensão",
+            "Verifique"
+          ],
+          [
+            "População",
+            "Mesma origem, projeto e critérios de elegibilidade"
+          ],
+          [
+            "Método",
+            "Mesma versão do algoritmo/plugin e tipo de medição"
+          ],
+          [
+            "Carga",
+            "Mesma URL, autenticação, orçamento e condições do ambiente"
+          ],
+          [
+            "Completude",
+            "Interrupções, recusas, truncamento e quantidade avaliada"
+          ],
+          [
+            "Tempo",
+            "Janela observada e ordem efetiva dos checkpoints"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Security Score</h2></div></div><div class=\"prose\"><p>O algoritmo P0-2.0 considera controles Passed/Failed de auditorias Completed com origem SoftwareUnderTest. Exclui corpus, desconhecidos e controles demonstrativos. O retorno informa versão, fórmula, componentes, confiança, contagens e limitações.</p></div><div class=\"prose\"><p>Cobertura observada é uma proporção do conjunto de auditorias elegíveis, não cobertura de todos os endpoints ou controles possíveis. Comparar notas de versões diferentes do algoritmo exige contexto. Ausência de dados elegíveis não deve virar aprovação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Carga limitada de laboratório</h2></div></div><div class=\"prose\"><p>O controle de carga usa até quarenta GETs, concorrência dois e orçamento global do alvo. Para em sinais como 429, 5xx, transporte falho, latência excessiva, redirect ou prazo. A medição é do recorte executado, não um benchmark geral da aplicação.</p></div><div class=\"prose\"><p>Percentis p50/p95/p99 usam nearest-rank. Taxa observada depende da janela e das requisições realizadas. Cabeçalhos e cenário autenticado têm contratos diferentes; não misture seus números como se medissem a mesma operação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Evite conclusões fora da amostra</h2></div></div><div class=\"prose\"><p>Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Security Score</h2></div></div><div class=\"prose\"><p>O algoritmo P0-2.0 considera controles Passed/Failed de auditorias Completed com origem SoftwareUnderTest. Exclui corpus, desconhecidos e controles demonstrativos. O retorno informa versão, fórmula, componentes, confiança, contagens e limitações.</p></div><div class=\"prose\"><p>Cobertura observada é uma proporção do conjunto de auditorias elegíveis, não cobertura de todos os endpoints ou controles possíveis. Comparar notas de versões diferentes do algoritmo exige contexto. Ausência de dados elegíveis não deve virar aprovação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Carga limitada de laboratório</h2></div></div><div class=\"prose\"><p>O controle de carga usa até quarenta GETs, concorrência dois e orçamento global do alvo. Para em sinais como 429, 5xx, transporte falho, latência excessiva, redirect ou prazo. A medição é do recorte executado, não um benchmark geral da aplicação.</p></div><div class=\"prose\"><p>Percentis p50/p95/p99 usam nearest-rank. Taxa observada depende da janela e das requisições realizadas. Cabeçalhos e cenário autenticado têm contratos diferentes; não misture seus números como se medissem a mesma operação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Evite conclusões fora da amostra</h2></div></div><div class=\"prose\"><p>Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Perguntas antes de comparar</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Perguntas antes de comparar\"><table><thead><tr><th scope=\"col\">Dimensão</th><th scope=\"col\">Verifique</th></tr></thead><tbody><tr><td>População</td><td>Mesma origem, projeto e critérios de elegibilidade</td></tr><tr><td>Método</td><td>Mesma versão do algoritmo/plugin e tipo de medição</td></tr><tr><td>Carga</td><td>Mesma URL, autenticação, orçamento e condições do ambiente</td></tr><tr><td>Completude</td><td>Interrupções, recusas, truncamento e quantidade avaliada</td></tr><tr><td>Tempo</td><td>Janela observada e ordem efetiva dos checkpoints</td></tr></tbody></table></div></section>"
   }
 ];
