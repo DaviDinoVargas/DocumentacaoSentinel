@@ -2360,5 +2360,83 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Backend e integração</h2></div></div><div class=\"prose\"><p>A suíte usa banco sentinel_test e filas com sufixo de integração. Ela exige explicitamente o banco de testes e não deve apontar para a instalação de desenvolvimento. Cenários de container requerem imagem preparada e infraestrutura real.</p></div><div class=\"prose\"><p>O projeto inclui testes de políticas, identidade, protocolo, concorrência, credenciais, fontes, evidências e controles. Fixtures locais não acessam aplicações de clientes. A presença de um arquivo de teste não significa que todos os casos passaram nesta revisão.</p></div><pre class=\"codebox\"><code>dotnet build Sentinel.sln -c Release\n.\\scripts\\test-local.ps1\n# Alternativa documentada, com ambiente e imagem de testes preparados:\ndotnet test tests/Sentinel.IntegrationTests/Sentinel.IntegrationTests.csproj -c Integration</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Frontend</h2></div></div><pre class=\"codebox\"><code>cd Sentinel.Web\nnpm test -- --watch=false\nnpm run test:contrast\nnpm run build</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Resultados históricos com limite explícito</h2></div></div><div class=\"prose\"><p>O README registra regressão V54 com 692 de 695 testes aprovados e três falhas de asserção em cabeçalhos autenticados e autoria de trilhas de escrita. Esses números são históricos, não foram medidos novamente para esta documentação e não significam homologação empresarial.</p></div><div class=\"prose\"><p>Recortes focados aprovados podem se sobrepor. Não some suas contagens para anunciar cobertura total nem use um recorte para apagar uma falha da baseline integrada.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Verificar a documentação</h2></div></div><div class=\"prose\"><p>npm test verifica estrutura das páginas, referências internas, arquivos estáticos e coerência do conteúdo gerado. A revisão de navegador confere navegação, busca, temas, layout e interações. A documentação não executa a suíte do software Sentinel.</p></div><div class=\"prose\"><p>Não são apresentados percentuais de cobertura, Lighthouse ou desempenho que não tenham sido medidos e registrados para este site.</p></div></section>"
+  },
+  {
+    "id": "decisoes-limites",
+    "title": "Decisões e limites",
+    "group": "Conclusão",
+    "lead": "O desenho protege fronteiras conhecidas e torna lacunas explícitas para a próxima evolução.",
+    "sources": [
+      "README.md",
+      "Sentinel/Execution/PluginRuntime.cs",
+      "Sentinel/Core/PolicyAndAuditService.cs",
+      "Sentinel.Web/DESIGN-SYSTEM.md"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Decisões de arquitetura",
+        "paragraphs": [],
+        "table": [
+          [
+            "Escolha",
+            "Benefício",
+            "Custo / limite"
+          ],
+          [
+            "Outbox e fila",
+            "Pedido durável sem depender do broker na transação HTTP",
+            "Mais estados operacionais e reconciliação"
+          ],
+          [
+            "Lease e fencing",
+            "Coordenação entre processos",
+            "Dependência do banco e efeitos já admitidos"
+          ],
+          [
+            "Gateway mediado",
+            "Escopo, orçamento e segredos no host",
+            "Adaptadores limitam os protocolos suportados"
+          ],
+          [
+            "Container sem rede",
+            "Redução de acesso direto do plugin",
+            "Confiança no daemon e kernel compartilhado"
+          ],
+          [
+            "Artefato cifrado e hash",
+            "Privacidade e verificação dos bytes",
+            "Gestão de chaves, retenção e backup"
+          ],
+          [
+            "Origem explícita",
+            "Separação entre corpus e software",
+            "Legado precisa de classificação governada"
+          ]
+        ]
+      },
+      {
+        "title": "Lacunas conhecidas",
+        "paragraphs": [
+          "O perfil de produção exige aprovação e guardas ainda indisponíveis. A admissão de plugins de terceiros não está concluída. Ampliação de adaptadores, análise profunda de código e escala operacional depende de desenvolvimento e validação.",
+          "Sessão não cobre todos os esquemas de autenticação. Sondagens de injeção não comprovam exploração universal. Inventário de dependências não resolve todos os ecossistemas. Evidências redigidas não garantem anonimização completa."
+        ]
+      },
+      {
+        "title": "Divergências históricas resolvidas nesta leitura",
+        "paragraphs": [
+          "Trechos antigos do README citam S3 e revogação como pendentes. A revisão atual contém S3EvidenceStorage, ciclo de revogação e regras de escopo: essas implementações são descritas como existentes, preservando os limites operacionais.",
+          "O backend aceita segunda identidade JsonLogin, enquanto a interface ainda limita a seleção secundária a Bearer. Recursos de sessão/logout/refresh são descritos pelo contrato implementado, sem declarar todo o roadmap encerrado."
+        ]
+      },
+      {
+        "title": "Próximas verificações recomendadas",
+        "paragraphs": [
+          "Priorize baseline integrada, prontidão da base offline, recuperação do conjunto banco/blobs/chaves e experiência de diagnóstico. Valide no ambiente autorizado antes de promover uma mudança de infraestrutura.",
+          "Recomendações são propostas desta leitura, não promessas de funcionalidades já entregues."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Decisões de arquitetura</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Decisões de arquitetura\"><table><thead><tr><th scope=\"col\">Escolha</th><th scope=\"col\">Benefício</th><th scope=\"col\">Custo / limite</th></tr></thead><tbody><tr><td>Outbox e fila</td><td>Pedido durável sem depender do broker na transação HTTP</td><td>Mais estados operacionais e reconciliação</td></tr><tr><td>Lease e fencing</td><td>Coordenação entre processos</td><td>Dependência do banco e efeitos já admitidos</td></tr><tr><td>Gateway mediado</td><td>Escopo, orçamento e segredos no host</td><td>Adaptadores limitam os protocolos suportados</td></tr><tr><td>Container sem rede</td><td>Redução de acesso direto do plugin</td><td>Confiança no daemon e kernel compartilhado</td></tr><tr><td>Artefato cifrado e hash</td><td>Privacidade e verificação dos bytes</td><td>Gestão de chaves, retenção e backup</td></tr><tr><td>Origem explícita</td><td>Separação entre corpus e software</td><td>Legado precisa de classificação governada</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Lacunas conhecidas</h2></div></div><div class=\"prose\"><p>O perfil de produção exige aprovação e guardas ainda indisponíveis. A admissão de plugins de terceiros não está concluída. Ampliação de adaptadores, análise profunda de código e escala operacional depende de desenvolvimento e validação.</p></div><div class=\"prose\"><p>Sessão não cobre todos os esquemas de autenticação. Sondagens de injeção não comprovam exploração universal. Inventário de dependências não resolve todos os ecossistemas. Evidências redigidas não garantem anonimização completa.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Divergências históricas resolvidas nesta leitura</h2></div></div><div class=\"prose\"><p>Trechos antigos do README citam S3 e revogação como pendentes. A revisão atual contém S3EvidenceStorage, ciclo de revogação e regras de escopo: essas implementações são descritas como existentes, preservando os limites operacionais.</p></div><div class=\"prose\"><p>O backend aceita segunda identidade JsonLogin, enquanto a interface ainda limita a seleção secundária a Bearer. Recursos de sessão/logout/refresh são descritos pelo contrato implementado, sem declarar todo o roadmap encerrado.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Próximas verificações recomendadas</h2></div></div><div class=\"prose\"><p>Priorize baseline integrada, prontidão da base offline, recuperação do conjunto banco/blobs/chaves e experiência de diagnóstico. Valide no ambiente autorizado antes de promover uma mudança de infraestrutura.</p></div><div class=\"prose\"><p>Recomendações são propostas desta leitura, não promessas de funcionalidades já entregues.</p></div></section>"
   }
 ];
