@@ -1,0 +1,35 @@
+{
+  "id": "score-performance",
+  "title": "Score e Performance Lab",
+  "group": "Resultados",
+  "lead": "Números só fazem sentido quando o denominador e o limite da medição estão visíveis.",
+  "sources": [
+    "Sentinel/Persistence/PostgresSentinelStore.cs",
+    "Sentinel/Core/Domain.cs",
+    "Sentinel.PluginHost/Checks/BoundedHttpLoadCheck.cs",
+    "Sentinel.Web/src/app/pages/performance.ts"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Security Score",
+      "paragraphs": [
+        "O algoritmo P0-2.0 considera controles Passed/Failed de auditorias Completed com origem SoftwareUnderTest. Exclui corpus, desconhecidos e controles demonstrativos. O retorno informa versão, fórmula, componentes, confiança, contagens e limitações.",
+        "Cobertura observada é uma proporção do conjunto de auditorias elegíveis, não cobertura de todos os endpoints ou controles possíveis. Comparar notas de versões diferentes do algoritmo exige contexto. Ausência de dados elegíveis não deve virar aprovação."
+      ]
+    },
+    {
+      "title": "Carga limitada de laboratório",
+      "paragraphs": [
+        "O controle de carga usa até quarenta GETs, concorrência dois e orçamento global do alvo. Para em sinais como 429, 5xx, transporte falho, latência excessiva, redirect ou prazo. A medição é do recorte executado, não um benchmark geral da aplicação.",
+        "Percentis p50/p95/p99 usam nearest-rank. Taxa observada depende da janela e das requisições realizadas. Cabeçalhos e cenário autenticado têm contratos diferentes; não misture seus números como se medissem a mesma operação."
+      ]
+    },
+    {
+      "title": "Evite conclusões fora da amostra",
+      "paragraphs": [
+        "Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor."
+      ]
+    }
+  ]
+}
