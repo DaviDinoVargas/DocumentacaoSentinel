@@ -2317,5 +2317,48 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Sinais independentes</h2></div></div><div class=\"prose\"><p>GET /api/v1/health verifica conexão com PostgreSQL. Não confirma broker, imagem, base Trivy, login do alvo ou leitura de evidências. O painel de infraestrutura complementa a visão com outbox, filas e monitor da sandbox.</p></div><div class=\"prose\"><p>O frontend oferece pausa e intervalos de 5/15/30/60 segundos. Guarda até sessenta amostras válidas durante a visita. Contagens passivas de AMQP não permitem inferir taxa de entrega ou mensagens sem confirmação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Diagnóstico por sintoma</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Diagnóstico por sintoma\"><table><thead><tr><th scope=\"col\">Sintoma</th><th scope=\"col\">Investigar primeiro</th></tr></thead><tbody><tr><td>401 no Sentinel</td><td>Token OIDC, validade e configuração de identidade</td></tr><tr><td>Auditoria Blocked</td><td>Motivo de política, janela, ambiente, método e origem</td></tr><tr><td>WaitingForBudget persistente</td><td>Posse global, auditorias do mesmo host/porta e heartbeat</td></tr><tr><td>Falha da sandbox</td><td>Daemon, imagem, recursos, compatibilidade e diagnóstico registrado</td></tr><tr><td>CVE inconclusiva</td><td>Idade/integridade da base offline e recorte de dependências</td></tr><tr><td>Evidência indisponível</td><td>Retenção, StorageId, volume/bucket, versão e keyring</td></tr><tr><td>Achado ainda não apareceu</td><td>Estado terminal e fila da projeção</td></tr><tr><td>Erro após alteração de plano</td><td>Versão otimista e referências ainda válidas</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Atualizar instâncias em conjunto</h2></div></div><div class=\"prose\"><p>Mudanças de política distribuída exigem atualizar API e todos os workers antes de liberar auditorias. Um worker antigo pode desconhecer restrições novas. Preserve banco, volumes, versões de objetos e proteção de chaves.</p></div><div class=\"prose\"><p>Para reiniciar a API local, o script verifica se o processo da porta pertence ao checkout. Não encerre processos desconhecidos nem recrie volumes como solução padrão de diagnóstico.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Sequência de incidente</h2></div></div><div class=\"prose\"><p>Registre identificadores não sensíveis, horários e estados; consulte a execução e seus eventos; localize a camada indisponível; aplique correção controlada; confirme saúde e um cenário sintético autorizado.</p></div><div class=\"prose\"><p>Este guia não executa reinícios, auditorias ou alterações no ambiente Sentinel. Logs reais podem conter contexto privado e não devem ser copiados para a documentação pública.</p></div></section>"
+  },
+  {
+    "id": "testes",
+    "title": "Testes e validação",
+    "group": "Operação e qualidade",
+    "lead": "Diferencie suíte existente, resultados históricos e verificação desta documentação.",
+    "sources": [
+      "tests/Sentinel.IntegrationTests/Sentinel.IntegrationTests.csproj",
+      "scripts/test-local.ps1",
+      "Sentinel.Web/package.json",
+      "README.md"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Backend e integração",
+        "paragraphs": [
+          "A suíte usa banco sentinel_test e filas com sufixo de integração. Ela exige explicitamente o banco de testes e não deve apontar para a instalação de desenvolvimento. Cenários de container requerem imagem preparada e infraestrutura real.",
+          "O projeto inclui testes de políticas, identidade, protocolo, concorrência, credenciais, fontes, evidências e controles. Fixtures locais não acessam aplicações de clientes. A presença de um arquivo de teste não significa que todos os casos passaram nesta revisão."
+        ],
+        "code": "dotnet build Sentinel.sln -c Release\n.\\scripts\\test-local.ps1\n# Alternativa documentada, com ambiente e imagem de testes preparados:\ndotnet test tests/Sentinel.IntegrationTests/Sentinel.IntegrationTests.csproj -c Integration"
+      },
+      {
+        "title": "Frontend",
+        "paragraphs": [],
+        "code": "cd Sentinel.Web\nnpm test -- --watch=false\nnpm run test:contrast\nnpm run build"
+      },
+      {
+        "title": "Resultados históricos com limite explícito",
+        "paragraphs": [
+          "O README registra regressão V54 com 692 de 695 testes aprovados e três falhas de asserção em cabeçalhos autenticados e autoria de trilhas de escrita. Esses números são históricos, não foram medidos novamente para esta documentação e não significam homologação empresarial.",
+          "Recortes focados aprovados podem se sobrepor. Não some suas contagens para anunciar cobertura total nem use um recorte para apagar uma falha da baseline integrada."
+        ]
+      },
+      {
+        "title": "Verificar a documentação",
+        "paragraphs": [
+          "npm test verifica estrutura das páginas, referências internas, arquivos estáticos e coerência do conteúdo gerado. A revisão de navegador confere navegação, busca, temas, layout e interações. A documentação não executa a suíte do software Sentinel.",
+          "Não são apresentados percentuais de cobertura, Lighthouse ou desempenho que não tenham sido medidos e registrados para este site."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Backend e integração</h2></div></div><div class=\"prose\"><p>A suíte usa banco sentinel_test e filas com sufixo de integração. Ela exige explicitamente o banco de testes e não deve apontar para a instalação de desenvolvimento. Cenários de container requerem imagem preparada e infraestrutura real.</p></div><div class=\"prose\"><p>O projeto inclui testes de políticas, identidade, protocolo, concorrência, credenciais, fontes, evidências e controles. Fixtures locais não acessam aplicações de clientes. A presença de um arquivo de teste não significa que todos os casos passaram nesta revisão.</p></div><pre class=\"codebox\"><code>dotnet build Sentinel.sln -c Release\n.\\scripts\\test-local.ps1\n# Alternativa documentada, com ambiente e imagem de testes preparados:\ndotnet test tests/Sentinel.IntegrationTests/Sentinel.IntegrationTests.csproj -c Integration</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Frontend</h2></div></div><pre class=\"codebox\"><code>cd Sentinel.Web\nnpm test -- --watch=false\nnpm run test:contrast\nnpm run build</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Resultados históricos com limite explícito</h2></div></div><div class=\"prose\"><p>O README registra regressão V54 com 692 de 695 testes aprovados e três falhas de asserção em cabeçalhos autenticados e autoria de trilhas de escrita. Esses números são históricos, não foram medidos novamente para esta documentação e não significam homologação empresarial.</p></div><div class=\"prose\"><p>Recortes focados aprovados podem se sobrepor. Não some suas contagens para anunciar cobertura total nem use um recorte para apagar uma falha da baseline integrada.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Operação e qualidade</p><h2>Verificar a documentação</h2></div></div><div class=\"prose\"><p>npm test verifica estrutura das páginas, referências internas, arquivos estáticos e coerência do conteúdo gerado. A revisão de navegador confere navegação, busca, temas, layout e interações. A documentação não executa a suíte do software Sentinel.</p></div><div class=\"prose\"><p>Não são apresentados percentuais de cobertura, Lighthouse ou desempenho que não tenham sido medidos e registrados para este site.</p></div></section>"
   }
 ];
