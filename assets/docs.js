@@ -1545,5 +1545,71 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Da ocorrência ao achado</h2></div></div><div class=\"prose\"><p>Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.</p></div><div class=\"prose\"><p>A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Triagem com revisão otimista</h2></div></div><div class=\"prose\"><p>Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.</p></div><div class=\"prose\"><p>AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Resolver exige comparação válida</h2></div></div><div class=\"prose\"><p>Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.</p></div><div class=\"prose\"><p>A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Sequência de trabalho</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>Conferir</h3><p>Abra ocorrência, evidência, escopo e versão do produtor.</p></article><article class=\"card\"><h3>Classificar</h3><p>Registre motivo, prioridade e decisão dentro das permissões.</p></article><article class=\"card\"><h3>Corrigir</h3><p>Faça a alteração no software avaliado com rastreabilidade própria.</p></article><article class=\"card\"><h3>Reavaliar</h3><p>Execute recorte comparável e confira a projeção posterior.</p></article></div></section>"
+  },
+  {
+    "id": "score-performance",
+    "title": "Score e Performance Lab",
+    "group": "Resultados",
+    "lead": "Números só fazem sentido quando o denominador e o limite da medição estão visíveis.",
+    "sources": [
+      "Sentinel/Persistence/PostgresSentinelStore.cs",
+      "Sentinel/Core/Domain.cs",
+      "Sentinel.PluginHost/Checks/BoundedHttpLoadCheck.cs",
+      "Sentinel.Web/src/app/pages/performance.ts"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Security Score",
+        "paragraphs": [
+          "O algoritmo P0-2.0 considera controles Passed/Failed de auditorias Completed com origem SoftwareUnderTest. Exclui corpus, desconhecidos e controles demonstrativos. O retorno informa versão, fórmula, componentes, confiança, contagens e limitações.",
+          "Cobertura observada é uma proporção do conjunto de auditorias elegíveis, não cobertura de todos os endpoints ou controles possíveis. Comparar notas de versões diferentes do algoritmo exige contexto. Ausência de dados elegíveis não deve virar aprovação."
+        ]
+      },
+      {
+        "title": "Carga limitada de laboratório",
+        "paragraphs": [
+          "O controle de carga usa até quarenta GETs, concorrência dois e orçamento global do alvo. Para em sinais como 429, 5xx, transporte falho, latência excessiva, redirect ou prazo. A medição é do recorte executado, não um benchmark geral da aplicação.",
+          "Percentis p50/p95/p99 usam nearest-rank. Taxa observada depende da janela e das requisições realizadas. Cabeçalhos e cenário autenticado têm contratos diferentes; não misture seus números como se medissem a mesma operação."
+        ]
+      },
+      {
+        "title": "Evite conclusões fora da amostra",
+        "paragraphs": [
+          "Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor."
+        ]
+      },
+      {
+        "title": "Perguntas antes de comparar",
+        "paragraphs": [],
+        "table": [
+          [
+            "Dimensão",
+            "Verifique"
+          ],
+          [
+            "População",
+            "Mesma origem, projeto e critérios de elegibilidade"
+          ],
+          [
+            "Método",
+            "Mesma versão do algoritmo/plugin e tipo de medição"
+          ],
+          [
+            "Carga",
+            "Mesma URL, autenticação, orçamento e condições do ambiente"
+          ],
+          [
+            "Completude",
+            "Interrupções, recusas, truncamento e quantidade avaliada"
+          ],
+          [
+            "Tempo",
+            "Janela observada e ordem efetiva dos checkpoints"
+          ]
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Security Score</h2></div></div><div class=\"prose\"><p>O algoritmo P0-2.0 considera controles Passed/Failed de auditorias Completed com origem SoftwareUnderTest. Exclui corpus, desconhecidos e controles demonstrativos. O retorno informa versão, fórmula, componentes, confiança, contagens e limitações.</p></div><div class=\"prose\"><p>Cobertura observada é uma proporção do conjunto de auditorias elegíveis, não cobertura de todos os endpoints ou controles possíveis. Comparar notas de versões diferentes do algoritmo exige contexto. Ausência de dados elegíveis não deve virar aprovação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Carga limitada de laboratório</h2></div></div><div class=\"prose\"><p>O controle de carga usa até quarenta GETs, concorrência dois e orçamento global do alvo. Para em sinais como 429, 5xx, transporte falho, latência excessiva, redirect ou prazo. A medição é do recorte executado, não um benchmark geral da aplicação.</p></div><div class=\"prose\"><p>Percentis p50/p95/p99 usam nearest-rank. Taxa observada depende da janela e das requisições realizadas. Cabeçalhos e cenário autenticado têm contratos diferentes; não misture seus números como se medissem a mesma operação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Evite conclusões fora da amostra</h2></div></div><div class=\"prose\"><p>Uma auditoria Completed pode conter Inconclusive. Um score alto não exclui vulnerabilidades não cobertas. Uma taxa baixa pode refletir orçamento deliberado do Sentinel, e não capacidade máxima do servidor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Perguntas antes de comparar</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Perguntas antes de comparar\"><table><thead><tr><th scope=\"col\">Dimensão</th><th scope=\"col\">Verifique</th></tr></thead><tbody><tr><td>População</td><td>Mesma origem, projeto e critérios de elegibilidade</td></tr><tr><td>Método</td><td>Mesma versão do algoritmo/plugin e tipo de medição</td></tr><tr><td>Carga</td><td>Mesma URL, autenticação, orçamento e condições do ambiente</td></tr><tr><td>Completude</td><td>Interrupções, recusas, truncamento e quantidade avaliada</td></tr><tr><td>Tempo</td><td>Janela observada e ordem efetiva dos checkpoints</td></tr></tbody></table></div></section>"
   }
 ];
