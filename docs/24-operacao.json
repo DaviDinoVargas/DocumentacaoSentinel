@@ -66,6 +66,13 @@
         "Mudanças de política distribuída exigem atualizar API e todos os workers antes de liberar auditorias. Um worker antigo pode desconhecer restrições novas. Preserve banco, volumes, versões de objetos e proteção de chaves.",
         "Para reiniciar a API local, o script verifica se o processo da porta pertence ao checkout. Não encerre processos desconhecidos nem recrie volumes como solução padrão de diagnóstico."
       ]
+    },
+    {
+      "title": "Sequência de incidente",
+      "paragraphs": [
+        "Registre identificadores não sensíveis, horários e estados; consulte a execução e seus eventos; localize a camada indisponível; aplique correção controlada; confirme saúde e um cenário sintético autorizado.",
+        "Este guia não executa reinícios, auditorias ou alterações no ambiente Sentinel. Logs reais podem conter contexto privado e não devem ser copiados para a documentação pública."
+      ]
     }
   ]
 }
