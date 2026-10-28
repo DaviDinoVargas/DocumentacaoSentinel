@@ -19,3 +19,4 @@
 - [Achados e triagem](../index.html#achados) — Consolide ocorrências sem perder a diferença entre decisão humana e nova evidência.
 - [Score e Performance Lab](../index.html#score-performance) — Números só fazem sentido quando o denominador e o limite da medição estão visíveis.
 - [Referência da API](../index.html#api) — Rotas extraídas dos controllers, com os contratos de contexto e autorização preservados.
+- [Frontend e workspace](../index.html#frontend) — Um contexto de projeto consistente entre preparação, execução e investigação.
