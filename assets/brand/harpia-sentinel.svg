@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 320" fill="none">
+  <title>Sentinel — Harpia brasileira</title>
+  <desc>Harpia frontal de plumagem grafite e prata, penacho alto, olhos âmbar e bico curvo. Nova interpretação vetorial para a documentação Sentinel.</desc>
+  <defs>
+    <linearGradient id="plumagem" x1="160" y1="26" x2="160" y2="292" gradientUnits="userSpaceOnUse"><stop stop-color="#425975"/><stop offset="1" stop-color="#152235"/></linearGradient>
+    <linearGradient id="face" x1="160" y1="92" x2="160" y2="257" gradientUnits="userSpaceOnUse"><stop stop-color="#F2F5F9"/><stop offset=".6" stop-color="#CBD7E5"/><stop offset="1" stop-color="#9BAEC3"/></linearGradient>
+    <linearGradient id="bico" x1="149" y1="169" x2="180" y2="235" gradientUnits="userSpaceOnUse"><stop stop-color="#53677D"/><stop offset="1" stop-color="#080D14"/></linearGradient>
+  </defs>
+  <path d="M52 252c-7-41-3-80 14-111 3-22 0-48-12-79 30 11 51 24 64 42L122 40c16 13 29 29 38 47 8-25 22-47 42-65l-2 79c19-18 42-30 69-35-17 29-24 55-24 80 21 36 27 72 23 108l-35-14 13 37-38-15-17 27-31-15-31 15-17-27-38 15 13-37Z" fill="url(#plumagem)"/>
+  <path d="m67 78 32 56 25-14-29-22Zm67-15 12 56 17-13Zm54-13-23 64 22 7Zm65 31-42 34 16 19Z" fill="#76A9E8" fill-opacity=".26"/>
+  <path d="M70 160c8-31 30-58 54-58 15 0 24 7 36 20 12-13 21-20 36-20 24 0 46 27 54 58l-17 52-32 32-41 28-41-28-32-32Z" fill="url(#face)"/>
+  <path d="M76 151c15-26 34-36 54-28l30 21 30-21c20-8 39 2 54 28l-31-8-26 12-27 23-27-23-26-12Z" fill="#E8EEF6"/>
+  <path d="m70 157 37 6 37 19-9 14-29-5-25-16Zm180 0-37 6-37 19 9 14 29-5 25-16Z" fill="#080D14"/>
+  <path d="m91 168 39 13-14 6-14-5Zm138 0-39 13 14 6 14-5Z" fill="#C5A66C"/>
+  <path d="m110 174 8 3-4 8-6-2Zm100 0-8 3 4 8 6-2Z" fill="#080D14"/>
+  <path d="m91 199 33 9 13 30-25-19Zm138 0-33 9-13 30 25-19Z" fill="#9BAEC3"/>
+  <path d="m75 202 15 28 36 18-17-3-24-12Zm170 0-15 28-36 18 17-3 24-12Z" fill="#53677D"/>
+  <path d="M160 169c-13 11-22 24-22 37 0 10 9 25 22 39 3-14 15-22 21-31 5-10-3-31-21-45Z" fill="url(#bico)"/>
+  <path d="M160 179c-6 7-10 15-10 22 0 8 4 16 10 25-1-13 8-20 13-23-2-8-6-16-13-24Z" fill="#080D14"/>
+  <path d="m151 193 6-5" stroke="#9BAEC3" stroke-width="2.5" stroke-linecap="round"/>
+  <path d="m136 251 24 21 24-21-24 9Z" fill="#E8EEF6"/>
+  <path d="m53 253 30-13m185 14-35-14" stroke="#76A9E8" stroke-opacity=".35" stroke-width="2"/>
+</svg>
