@@ -1,0 +1,267 @@
+{
+  "id": "api",
+  "title": "Referência da API",
+  "group": "Desenvolvimento",
+  "lead": "Rotas extraídas dos controllers, com os contratos de contexto e autorização preservados.",
+  "sources": [
+    "Sentinel/Controllers/ProjectsController.cs",
+    "Sentinel/Controllers/AuditsController.cs",
+    "Sentinel/Controllers/TargetCredentialsController.cs",
+    "Sentinel/Controllers/SourceSnapshotsController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Convenções e autenticação",
+      "paragraphs": [
+        "As rotas usam /api/v1. ASP.NET serializa enums como strings. Parâmetros :guid no catálogo representam restrições de rota, não texto que o cliente deva enviar. Use o Swagger do ambiente Development para conferir schemas e exemplos completos.",
+        "Saúde e configuração OIDC são públicas. Demais recursos são sujeitos a autenticação, organização e políticas por operação. Ausência de um atributo no método não significa que o recurso é público: a configuração global também participa."
+      ]
+    },
+    {
+      "title": "Paginação e concorrência",
+      "paragraphs": [
+        "Projetos oferecem busca por nome/descrição, propósito e ordenação. Históricos usam limit/offset; eventos de execução usam cursor beforeId. Use o total e o cursor retornados em vez de presumir que a primeira página é o conjunto completo.",
+        "run-profile usa expectedVersion. Triagem usa revisão otimista. Ao receber conflito, recarregue o registro e reconcilie a alteração. Após falha de conexão em um POST, consulte o histórico antes de repetir."
+      ]
+    },
+    {
+      "title": "Contratos essenciais",
+      "paragraphs": [],
+      "code": "// Corpo ilustrativo de um pedido de auditoria HTTP\n{\n  \"targetUrl\": \"http://localhost:8080/api/status\",\n  \"action\": \"simulated\",\n  \"confirmActive\": false,\n  \"dataOrigin\": \"SoftwareUnderTest\"\n}",
+      "note": "O projeto e o escopo devem existir e autorizar esse alvo. O exemplo contém somente endereço de loopback; não inclui autenticação nem dispara requisições."
+    },
+    {
+      "title": "Catálogo de rotas",
+      "paragraphs": [],
+      "table": [
+        [
+          "Método",
+          "Rota",
+          "Controller"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/api-surface/preview",
+          "ApiSurfaceController"
+        ],
+        [
+          "GET",
+          "/api/v1/audits/{auditId:guid}/execution",
+          "AuditsController"
+        ],
+        [
+          "GET",
+          "/api/v1/audits/{auditId:guid}/execution/events",
+          "AuditsController"
+        ],
+        [
+          "POST",
+          "/api/v1/audits/{auditId:guid}/cancel",
+          "AuditsController"
+        ],
+        [
+          "PUT",
+          "/api/v1/audits/{auditId:guid}/target-budget",
+          "AuditsController"
+        ],
+        [
+          "GET",
+          "/api/v1/audits/{auditId:guid}",
+          "AuditsController"
+        ],
+        [
+          "GET",
+          "/api/v1/audits/{auditId:guid}/report",
+          "AuditsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/data-origins/events",
+          "DataOriginsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/data-origins/classify",
+          "DataOriginsController"
+        ],
+        [
+          "GET",
+          "/api/v1/audits/{auditId:guid}/evidence/{evidenceId}/artifact",
+          "EvidenceController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/evidence-policy",
+          "EvidencePolicyController"
+        ],
+        [
+          "PUT",
+          "/api/v1/projects/{projectId:guid}/evidence-policy",
+          "EvidencePolicyController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/findings",
+          "FindingsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/findings/{id:guid}",
+          "FindingsController"
+        ],
+        [
+          "PUT",
+          "/api/v1/projects/{projectId:guid}/findings/{id:guid}/triage",
+          "FindingsController"
+        ],
+        [
+          "GET",
+          "/api/v1/identity/configuration",
+          "IdentityController"
+        ],
+        [
+          "GET",
+          "/api/v1/identity",
+          "IdentityController"
+        ],
+        [
+          "GET",
+          "/api/v1/identity/organizations",
+          "IdentityController"
+        ],
+        [
+          "POST",
+          "/api/v1/identity/organizations",
+          "IdentityController"
+        ],
+        [
+          "GET",
+          "/api/v1/operations",
+          "OperationsController"
+        ],
+        [
+          "GET",
+          "/api/v1/plugins",
+          "PluginsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/run-profile",
+          "ProjectRunProfilesController"
+        ],
+        [
+          "PUT",
+          "/api/v1/projects/{projectId:guid}/run-profile",
+          "ProjectRunProfilesController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/search",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/scopes",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/audits",
+          "ProjectsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects",
+          "ProjectsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/scopes",
+          "ProjectsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/audits",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/security-score",
+          "ProjectsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/scopes/{scopeId:guid}/events",
+          "ScopeLifecycleController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/scopes/{scopeId:guid}/revoke",
+          "ScopeLifecycleController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/source-snapshots",
+          "SourceSnapshotsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/source-snapshots",
+          "SourceSnapshotsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/source-snapshots/{id:guid}/audits",
+          "SourceSnapshotsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/source-snapshots/{id:guid}/revoke",
+          "SourceSnapshotsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/target-credentials",
+          "TargetCredentialsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/target-credentials",
+          "TargetCredentialsController"
+        ],
+        [
+          "PUT",
+          "/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}",
+          "TargetCredentialsController"
+        ],
+        [
+          "POST",
+          "/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}/revoke",
+          "TargetCredentialsController"
+        ],
+        [
+          "GET",
+          "/api/v1/projects/{projectId:guid}/target-credentials/{id:guid}/events",
+          "TargetCredentialsController"
+        ],
+        [
+          "GET",
+          "/api/v1/health",
+          "Program.cs"
+        ]
+      ],
+      "note": "Extração estática dos atributos de rota, acrescida da saúde mapeada em Program.cs. O catálogo não substitui schemas, políticas e validações do método."
+    }
+  ]
+}
