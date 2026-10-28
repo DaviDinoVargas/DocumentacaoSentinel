@@ -58,6 +58,13 @@
         "Gitleaks executa offline com configuração da plataforma. Dispensas do próprio repositório não eliminam achados. O resultado agrupa arquivo/regra e linhas; valores, trechos e relatório bruto são descartados.",
         "Candidatos têm confiança Hypothesis e não são testados contra provedores. Ausência de candidatos é Informational, não comprovação de inexistência de segredos. O recorte não cobre todo histórico Git, binários ou arquivos compactados aninhados."
       ]
+    },
+    {
+      "title": "Retenção e revogação",
+      "paragraphs": [
+        "Snapshots continuam em volume privado, mesmo quando evidências usam S3. Workers compartilham volume lógico, StorageId e keyring. Revogação solicita cancelamento; expiração bloqueia novos plugins e o expurgo remove conteúdo em lotes.",
+        "Preserve os metadados e a revisão do recorte para interpretar o relatório. Uma análise de ZIP parcial não equivale à cobertura de todo o repositório."
+      ]
     }
   ]
 }
