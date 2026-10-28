@@ -1,0 +1,35 @@
+{
+  "id": "achados",
+  "title": "Achados e triagem",
+  "group": "Resultados",
+  "lead": "Consolide ocorrências sem perder a diferença entre decisão humana e nova evidência.",
+  "sources": [
+    "Sentinel/Findings/FindingProjector.cs",
+    "Sentinel/Findings/FindingModel.cs",
+    "Sentinel/Controllers/FindingsController.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Da ocorrência ao achado",
+      "paragraphs": [
+        "Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.",
+        "A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção."
+      ]
+    },
+    {
+      "title": "Triagem com revisão otimista",
+      "paragraphs": [
+        "Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.",
+        "AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento."
+      ]
+    },
+    {
+      "title": "Resolver exige comparação válida",
+      "paragraphs": [
+        "Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.",
+        "A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica."
+      ]
+    }
+  ]
+}

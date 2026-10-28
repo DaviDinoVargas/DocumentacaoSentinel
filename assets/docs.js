@@ -1487,5 +1487,41 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Do resultado ao artefato</h2></div></div><div class=\"prose\"><p>O documento JSON é redigido e cifrado antes de persistir. PostgreSQL mantém referência, hash, produtor, horário e retenção. O SHA-256 corresponde aos bytes exportados; API e navegador verificam a integridade antes de apresentar o conteúdo.</p></div><div class=\"prose\"><p>Consulta exige organização autorizada, proveniência correta e retenção válida. Resumos legados sem conteúdo verificável são identificados como tal. Um hash não é assinatura digital nem prova de correção da conclusão.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Filesystem e S3/MinIO</h2></div></div><div class=\"prose\"><p>O provider local mantém arquivos privados cifrados. Provider S3 grava em bucket privado versionado, usa PUT condicional e persiste a versão exata do objeto. Sem versionamento a gravação é recusada. O browser consulta pela API, sem receber credenciais do bucket.</p></div><div class=\"prose\"><p>Object Lock pode usar GOVERNANCE ou COMPLIANCE até o prazo da evidência. O expurgo só marca a remoção após confirmação. Conteúdo local anterior não é migrado automaticamente; preserve seu volume, identidade e keyring.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Privacidade e retenção</h2></div></div><div class=\"prose\"><p>A política aceita de um a trinta dias para novas evidências; mudar a política não reescreve a retenção histórica. Conteúdo vencido é expurgado em lotes, mantendo metadados e hash. Falhas de storage e retenção remota preservam pendências.</p></div><div class=\"prose\"><p>basic-v1 redige padrões de credenciais com orçamento por artefato. Não garante anonimização de todo dado pessoal. Compartilhar relatórios exige revisão do conteúdo e do contexto, mesmo quando o hash confere.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Checklist de interpretação</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Checklist de interpretação\"><table><thead><tr><th scope=\"col\">Pergunta</th><th scope=\"col\">Onde conferir</th></tr></thead><tbody><tr><td>Quem produziu?</td><td>Plugin, versão e proveniência</td></tr><tr><td>O que foi enviado?</td><td>Perfil, escopo, modalidade e recorte descrito</td></tr><tr><td>O conteúdo está íntegro?</td><td>Verificação do hash na API e no navegador</td></tr><tr><td>Ainda pode ser consultado?</td><td>Retenção, provider, versão e StorageId</td></tr><tr><td>O que conclui?</td><td>Controle, confiança, severidade e limitações — não apenas o hash</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "achados",
+    "title": "Achados e triagem",
+    "group": "Resultados",
+    "lead": "Consolide ocorrências sem perder a diferença entre decisão humana e nova evidência.",
+    "sources": [
+      "Sentinel/Findings/FindingProjector.cs",
+      "Sentinel/Findings/FindingModel.cs",
+      "Sentinel/Controllers/FindingsController.cs"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Da ocorrência ao achado",
+        "paragraphs": [
+          "Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.",
+          "A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção."
+        ]
+      },
+      {
+        "title": "Triagem com revisão otimista",
+        "paragraphs": [
+          "Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.",
+          "AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento."
+        ]
+      },
+      {
+        "title": "Resolver exige comparação válida",
+        "paragraphs": [
+          "Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.",
+          "A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Da ocorrência ao achado</h2></div></div><div class=\"prose\"><p>Controles Failed alimentam a consolidação; todas as avaliações relevantes ficam como ocorrências. O fingerprint considera projeto, localização, controle/plugin e contexto de execução. Origem conhecida participa da separação.</p></div><div class=\"prose\"><p>A projeção é assíncrona, com ledger e lock transacional para idempotência. Horário de checkpoint ordena observações; entrada histórica fora de ordem não deve duplicar achados. A interface informa trabalhos ainda pendentes de projeção.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Triagem com revisão otimista</h2></div></div><div class=\"prose\"><p>Decisões exigem permissão findings.triage, revisão esperada, ator e motivo. Prioridade de tratamento é independente de severidade/confiança do controle. Conflito de revisão exige reler o estado antes de salvar.</p></div><div class=\"prose\"><p>AcceptedRisk exige administrador, responsável e validade futura limitada. FalsePositive e aceite vigente preservam a decisão manual. Expiração do aceite retorna o achado para triagem com evento.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Resultados</p><h2>Resolver exige comparação válida</h2></div></div><div class=\"prose\"><p>Resolved requer auditoria concluída com Passed comparável após a última falha. Versão diferente, erro, inconclusão ou interrupção não fecham automaticamente o achado. Nova falha comparável pode reabrir.</p></div><div class=\"prose\"><p>A consolidação não prova exploração e não cria remediação automática. Correlação semântica de aliases, URLs equivalentes e revisões de código precisa de evolução específica.</p></div></section>"
   }
 ];

@@ -16,3 +16,4 @@
 - [Dependências e inventário](../index.html#dependencias) — Declare o recorte, verifique a base offline e interprete diferenças sem inventar cobertura.
 - [Superfície e sondagens HTTP](../index.html#superficie-api) — Contratos OpenAPI orientam o recorte; respostas reais ainda precisam de interpretação.
 - [Evidências e relatórios](../index.html#evidencias) — Integridade, proveniência e retenção acompanham os bytes que sustentam a análise.
+- [Achados e triagem](../index.html#achados) — Consolide ocorrências sem perder a diferença entre decisão humana e nova evidência.
