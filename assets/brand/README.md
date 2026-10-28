@@ -1,9 +1,7 @@
 # Identidade Harpia
 
-`harpia-sentinel.svg` é a nova interpretação vetorial criada para esta documentação: cinco formas essenciais, penacho triplo, disco facial prateado, olhos âmbar e bico grafite. O símbolo aparece na abertura, na navegação e no favicon.
+`harpy-symbol.svg` é o símbolo original do Sentinel, preservado de `Sentinel.Web/public/brand/` e aplicado na abertura, na navegação e no favicon da documentação.
 
-A paleta acompanha os tokens de `Sentinel.Web/src/styles.css`, revisão `5bb78a6adf7255d63ee2fa938d942257299ca757`: grafite, azul e branco frio, com equivalentes claros. Os olhos usam âmbar natural.
+A paleta acompanha os tokens de `Sentinel.Web/src/styles.css`, revisão `5bb78a6adf7255d63ee2fa938d942257299ca757`: grafite, azul e branco frio, com equivalentes claros. O símbolo usa penacho, disco facial, bico e olhos em âmbar natural da harpia brasileira.
 
-`harpy-symbol.svg` preserva a marca anterior do projeto como referência histórica; não é a marca exibida no site. O código e os assets do aplicativo Sentinel não foram alterados.
-
-Os arquivos são vetoriais locais, sem scripts, fontes remotas ou dependências de imagem. A harpia ampliada fica na abertura; páginas técnicas priorizam conteúdo, estados e evidências.
+O arquivo é vetorial local, sem scripts, fontes remotas ou dependências de imagem. A harpia ampliada fica na abertura; páginas técnicas priorizam conteúdo, estados e evidências. O aplicativo Sentinel não foi alterado.
