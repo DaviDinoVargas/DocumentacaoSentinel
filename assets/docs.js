@@ -350,8 +350,35 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo."
         ]
+      },
+      {
+        "title": "Papéis e responsabilidades",
+        "paragraphs": [],
+        "table": [
+          [
+            "Papel",
+            "Capacidade principal"
+          ],
+          [
+            "ReadOnly / Auditor",
+            "Consultar recursos autorizados da organização"
+          ],
+          [
+            "Developer",
+            "Consultar, cadastrar projetos, executar baixo risco, cancelar e fazer triagem permitida"
+          ],
+          [
+            "SecurityEngineer / OrganizationAdmin",
+            "Também gerenciar escopos e executar laboratório ativo"
+          ],
+          [
+            "PlatformAdmin",
+            "Também administrar organizações, infraestrutura e orçamento global por alvo"
+          ]
+        ],
+        "note": "As políticas do servidor são a autoridade. Permissões por projeto e aprovação de produção não devem ser presumidas a partir de um papel global."
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Entrada com OIDC</h2></div></div><div class=\"prose\"><p>O frontend utiliza Authorization Code com PKCE S256. Tokens ficam na memória da aba; o estado temporário do protocolo usa sessionStorage. Recarregar a aplicação exige entrar novamente, podendo reaproveitar a sessão no provedor.</p></div><div class=\"prose\"><p>A API valida assinatura, emissor, audiência, prazo, papéis e vínculo com uma única organização existente. Rotas de saúde e configuração de identidade são públicas; rotas de negócio exigem autenticação e políticas aplicáveis.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Isolamento por organização</h2></div></div><div class=\"prose\"><p>Filtros globais do EF Core limitam os recursos HTTP ao tenant. Uma requisição anônima não herda a organização histórica. Serviços de background trabalham com envelopes persistidos entre organizações e precisam manter os vínculos de cada operação.</p></div><div class=\"prose\"><p>Administradores de plataforma gerenciam organizações e infraestrutura global, mas consultas a projetos continuam no contexto da organização do token. Atribuição de papéis e organização acontece no provedor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Credenciais diferentes, fronteiras diferentes</h2></div></div><div class=\"prose\"><p>O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Entrada com OIDC</h2></div></div><div class=\"prose\"><p>O frontend utiliza Authorization Code com PKCE S256. Tokens ficam na memória da aba; o estado temporário do protocolo usa sessionStorage. Recarregar a aplicação exige entrar novamente, podendo reaproveitar a sessão no provedor.</p></div><div class=\"prose\"><p>A API valida assinatura, emissor, audiência, prazo, papéis e vínculo com uma única organização existente. Rotas de saúde e configuração de identidade são públicas; rotas de negócio exigem autenticação e políticas aplicáveis.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Isolamento por organização</h2></div></div><div class=\"prose\"><p>Filtros globais do EF Core limitam os recursos HTTP ao tenant. Uma requisição anônima não herda a organização histórica. Serviços de background trabalham com envelopes persistidos entre organizações e precisam manter os vínculos de cada operação.</p></div><div class=\"prose\"><p>Administradores de plataforma gerenciam organizações e infraestrutura global, mas consultas a projetos continuam no contexto da organização do token. Atribuição de papéis e organização acontece no provedor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Credenciais diferentes, fronteiras diferentes</h2></div></div><div class=\"prose\"><p>O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Governança</p><h2>Papéis e responsabilidades</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Papéis e responsabilidades\"><table><thead><tr><th scope=\"col\">Papel</th><th scope=\"col\">Capacidade principal</th></tr></thead><tbody><tr><td>ReadOnly / Auditor</td><td>Consultar recursos autorizados da organização</td></tr><tr><td>Developer</td><td>Consultar, cadastrar projetos, executar baixo risco, cancelar e fazer triagem permitida</td></tr><tr><td>SecurityEngineer / OrganizationAdmin</td><td>Também gerenciar escopos e executar laboratório ativo</td></tr><tr><td>PlatformAdmin</td><td>Também administrar organizações, infraestrutura e orçamento global por alvo</td></tr></tbody></table></div><div class=\"callout\"><span>As políticas do servidor são a autoridade. Permissões por projeto e aprovação de produção não devem ser presumidas a partir de um papel global.</span></div></section>"
   }
 ];

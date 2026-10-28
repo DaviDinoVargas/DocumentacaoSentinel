@@ -30,6 +30,33 @@
       "paragraphs": [
         "O login do operador permite usar o Sentinel. O acesso ao alvo é outro contrato, administrado no cofre do projeto. Não reutilize credenciais de infraestrutura como credenciais do alvo."
       ]
+    },
+    {
+      "title": "Papéis e responsabilidades",
+      "paragraphs": [],
+      "table": [
+        [
+          "Papel",
+          "Capacidade principal"
+        ],
+        [
+          "ReadOnly / Auditor",
+          "Consultar recursos autorizados da organização"
+        ],
+        [
+          "Developer",
+          "Consultar, cadastrar projetos, executar baixo risco, cancelar e fazer triagem permitida"
+        ],
+        [
+          "SecurityEngineer / OrganizationAdmin",
+          "Também gerenciar escopos e executar laboratório ativo"
+        ],
+        [
+          "PlatformAdmin",
+          "Também administrar organizações, infraestrutura e orçamento global por alvo"
+        ]
+      ],
+      "note": "As políticas do servidor são a autoridade. Permissões por projeto e aprovação de produção não devem ser presumidas a partir de um papel global."
     }
   ]
 }
