@@ -1,0 +1,29 @@
+{
+  "id": "plugins",
+  "title": "Plugins e controles",
+  "group": "Motor de auditoria",
+  "lead": "Manifestos declaram capacidades, controles, permissões e limites de cada execução.",
+  "sources": [
+    "Sentinel/Execution/PluginRegistry.cs",
+    "Sentinel/Execution/PluginSelectionPolicy.cs",
+    "Sentinel/Execution/PluginSchemaValidator.cs",
+    "Sentinel.Contracts/PluginManifest.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Contrato antes da execução",
+      "paragraphs": [
+        "Cada plugin possui manifesto YAML validado por schema e um contrato de entrada/saída. O catálogo declara identificador, versão, controles, modo, permissões, capacidades de gateway, isolamento e recursos. Um manifesto presente não comprova execução bem-sucedida.",
+        "Plugins de ativação explicit exigem seleção e compatibilidade com o perfil. O gateway só libera capacidades declaradas e autorizadas. Contratos de login, escrita, dupla identidade e leitura de OpenAPI não são permissões genéricas de rede."
+      ]
+    },
+    {
+      "title": "Interpretação dos controles",
+      "paragraphs": [
+        "Passed vale para o critério e o recorte efetivamente observados. Failed pode produzir candidato a achado, preservando confiança e severidade. Inconclusive registra lacunas e pré-condições não satisfeitas. Informational registra informação sem aprovação de segurança.",
+        "SIM-001 é fixture determinística do pipeline, não teste do alvo. Manifestos válidos locais ainda são aprovados automaticamente; isso não equivale a admissão empresarial de extensões de terceiros."
+      ]
+    }
+  ]
+}
