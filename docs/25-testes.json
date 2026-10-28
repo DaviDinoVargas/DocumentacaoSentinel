@@ -30,6 +30,13 @@
         "O README registra regressão V54 com 692 de 695 testes aprovados e três falhas de asserção em cabeçalhos autenticados e autoria de trilhas de escrita. Esses números são históricos, não foram medidos novamente para esta documentação e não significam homologação empresarial.",
         "Recortes focados aprovados podem se sobrepor. Não some suas contagens para anunciar cobertura total nem use um recorte para apagar uma falha da baseline integrada."
       ]
+    },
+    {
+      "title": "Verificar a documentação",
+      "paragraphs": [
+        "npm test verifica estrutura das páginas, referências internas, arquivos estáticos e coerência do conteúdo gerado. A revisão de navegador confere navegação, busca, temas, layout e interações. A documentação não executa a suíte do software Sentinel.",
+        "Não são apresentados percentuais de cobertura, Lighthouse ou desempenho que não tenham sido medidos e registrados para este site."
+      ]
     }
   ]
 }
