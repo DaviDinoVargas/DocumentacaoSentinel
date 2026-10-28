@@ -80,5 +80,49 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Investigar com contexto. Concluir com evidências.</h2></div></div><div class=\"prose\"><p>Sentinel organiza avaliações de segurança de aplicações por projeto, organização e escopo autorizado. A interface cria e acompanha auditorias; o backend governa a execução; plugins produzem controles e evidências verificáveis. Os adaptadores atuais trabalham com URLs HTTP/HTTPS e snapshots ZIP.</p></div><div class=\"prose\"><p>O fluxo central é projeto → escopo → auditoria e outbox → RabbitMQ → worker → plugin isolado → gateway autorizado → controles, evidências e achados. PostgreSQL mantém o estado durável. A notificação da fila não substitui o envelope persistido.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Quatro perguntas para começar</h2></div></div><div class=\"card-grid\"><article class=\"card\"><h3>O que pode ser testado?</h3><p>O escopo define alvo, ambiente, métodos, perfis e janela. A API e o worker revalidam a autorização.</p></article><article class=\"card\"><h3>O que foi executado?</h3><p>Estados, eventos e checkpoints mostram o progresso e as interrupções. Conclusão da auditoria não significa aprovação dos controles.</p></article><article class=\"card\"><h3>O que foi observado?</h3><p>Controles carregam estado, severidade, confiança e origem. Evidências permitem conferir o recorte e a integridade.</p></article><article class=\"card\"><h3>O que fazer depois?</h3><p>Achados consolidados preservam ocorrências, decisões humanas e reavaliações comparáveis.</p></article></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Estado da leitura</h2></div></div><div class=\"prose\"><p>Esta documentação descreve a revisão indicada nas fontes, consultada em 28/10/2026. Não acessa bancos, credenciais ou resultados privados da instalação. Exemplos e interações do site são didáticos e não executam auditorias.</p></div><div class=\"prose\"><p>O produto está em validação, sem homologação empresarial declarada. A leitura separa implementação atual, resultados históricos e limites. Nenhum score, plugin ou ausência de achado equivale a certificação.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Percurso de leitura</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Percurso de leitura\"><table><thead><tr><th scope=\"col\">Objetivo</th><th scope=\"col\">Comece por</th><th scope=\"col\">Continue em</th></tr></thead><tbody><tr><td>Instalar e experimentar</td><td>Primeiros passos</td><td>Configuração e operação</td></tr><tr><td>Entender o sistema</td><td>Arquitetura</td><td>Domínio, execução e persistência</td></tr><tr><td>Investigar um resultado</td><td>Plugins e controles</td><td>Evidências, achados e score</td></tr><tr><td>Manter e evoluir</td><td>API e frontend</td><td>Testes, decisões e limites</td></tr></tbody></table></div></section>"
+  },
+  {
+    "id": "primeiros-passos",
+    "title": "Primeiros passos",
+    "group": "Comece aqui",
+    "lead": "Prepare um laboratório local, abra o workspace e siga o primeiro fluxo autorizado.",
+    "sources": [
+      "README.md",
+      "scripts/README.md",
+      "scripts/start-local.ps1",
+      "scripts/build-plugin-sandbox.ps1"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "Pré-requisitos e preparação",
+        "paragraphs": [
+          "O README requer SDKs .NET 8/9, Node/npm e Rancher Desktop com PostgreSQL e RabbitMQ locais já configurados. Consulte os TargetFramework dos projetos antes de instalar SDKs. O bootstrap reutiliza recursos existentes; não é um provisionador universal de uma máquina vazia.",
+          "Instale as dependências do frontend com npm ci em Sentinel.Web. Construa a imagem de plugins com o script próprio. Os comandos abaixo devem ser executados na raiz do código Sentinel, não na pasta desta documentação."
+        ],
+        "code": "cd Sentinel.Web\nnpm ci\ncd ..\n.\\scripts\\build-plugin-sandbox.ps1\n.\\scripts\\start-local.ps1"
+      },
+      {
+        "title": "Entrada na aplicação",
+        "paragraphs": [
+          "A interface local usa http://localhost:4200; a API, http://localhost:5161. O Swagger fica em /swagger no ambiente Development. O script verifica saúde, configuração OIDC e página. Entre pelo provedor de identidade e selecione a organização autorizada.",
+          "Cadastre um projeto de software, abra sua área e registre um escopo para um alvo de laboratório sob sua autorização. Defina explicitamente métodos, perfil e expiração. Salvar o plano de testes não inicia tráfego nem renova o escopo."
+        ]
+      },
+      {
+        "title": "Primeiro resultado",
+        "paragraphs": [
+          "Na tela Rodar testes, confira as modalidades disponíveis e confirme a execução desejada. Acompanhe o identificador retornado no histórico. Um bloqueio de política também pode ser persistido: leia o motivo antes de tentar novamente.",
+          "Abra o detalhe, examine os controles e verifique a evidência. Separe Failed, Inconclusive e erro de execução. O site de documentação não cria projetos nem envia requisições ao alvo."
+        ]
+      },
+      {
+        "title": "Retomar após alterações",
+        "paragraphs": [],
+        "code": ".\\scripts\\start-local.ps1 -RestartApi",
+        "note": "Se a conexão cair durante o envio de uma auditoria, consulte o histórico antes de reenviar: a API pode já ter aceitado o pedido. O bootstrap local e as credenciais de laboratório não devem ser usados como configuração de produção."
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Pré-requisitos e preparação</h2></div></div><div class=\"prose\"><p>O README requer SDKs .NET 8/9, Node/npm e Rancher Desktop com PostgreSQL e RabbitMQ locais já configurados. Consulte os TargetFramework dos projetos antes de instalar SDKs. O bootstrap reutiliza recursos existentes; não é um provisionador universal de uma máquina vazia.</p></div><div class=\"prose\"><p>Instale as dependências do frontend com npm ci em Sentinel.Web. Construa a imagem de plugins com o script próprio. Os comandos abaixo devem ser executados na raiz do código Sentinel, não na pasta desta documentação.</p></div><pre class=\"codebox\"><code>cd Sentinel.Web\nnpm ci\ncd ..\n.\\scripts\\build-plugin-sandbox.ps1\n.\\scripts\\start-local.ps1</code></pre></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Entrada na aplicação</h2></div></div><div class=\"prose\"><p>A interface local usa http://localhost:4200; a API, http://localhost:5161. O Swagger fica em /swagger no ambiente Development. O script verifica saúde, configuração OIDC e página. Entre pelo provedor de identidade e selecione a organização autorizada.</p></div><div class=\"prose\"><p>Cadastre um projeto de software, abra sua área e registre um escopo para um alvo de laboratório sob sua autorização. Defina explicitamente métodos, perfil e expiração. Salvar o plano de testes não inicia tráfego nem renova o escopo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Primeiro resultado</h2></div></div><div class=\"prose\"><p>Na tela Rodar testes, confira as modalidades disponíveis e confirme a execução desejada. Acompanhe o identificador retornado no histórico. Um bloqueio de política também pode ser persistido: leia o motivo antes de tentar novamente.</p></div><div class=\"prose\"><p>Abra o detalhe, examine os controles e verifique a evidência. Separe Failed, Inconclusive e erro de execução. O site de documentação não cria projetos nem envia requisições ao alvo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Comece aqui</p><h2>Retomar após alterações</h2></div></div><pre class=\"codebox\"><code>.\\scripts\\start-local.ps1 -RestartApi</code></pre><div class=\"callout\"><span>Se a conexão cair durante o envio de uma auditoria, consulte o histórico antes de reenviar: a API pode já ter aceitado o pedido. O bootstrap local e as credenciais de laboratório não devem ser usados como configuração de produção.</span></div></section>"
   }
 ];
