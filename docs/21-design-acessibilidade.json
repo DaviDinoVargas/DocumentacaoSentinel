@@ -1,0 +1,58 @@
+{
+  "id": "design-acessibilidade",
+  "title": "Design e acessibilidade",
+  "group": "Desenvolvimento",
+  "lead": "Hierarquia clara, estados legíveis e navegação previsível em telas grandes e pequenas.",
+  "sources": [
+    "Sentinel.Web/DESIGN-SYSTEM.md",
+    "Sentinel.Web/src/styles.css",
+    "Sentinel.Web/scripts/check-contrast.mjs",
+    "Sentinel.Web/src/app/app.routes.ts"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Linguagem visual do produto",
+      "paragraphs": [
+        "A revisão Harpia adota marca vetorial local, grafite/azul, branco frio e temas claro/escuro. Tokens semânticos compartilham superfícies, texto, risco, foco e espaçamento entre páginas. Risco combina cor com texto.",
+        "Menu recolhível, breadcrumbs, indicador de projeto e drawer móvel dão orientação. O drawer do produto confina foco, fecha com Escape e devolve foco ao acionador. Tabelas têm rolagem interna e formulários se reorganizam em telas estreitas."
+      ]
+    },
+    {
+      "title": "Padrão desta documentação",
+      "paragraphs": [
+        "O site mantém o padrão editorial e visual das referências: Inter local, navegação numerada, agrupamentos, páginas temáticas, tabelas, cartões, tema persistente e fontes do código. A apresentação própria do Sentinel destaca o fluxo da auditoria e suas fronteiras.",
+        "Busca funciona sem rede e ignora acentos. Ctrl/Cmd+K abre a busca; Alt+setas percorre temas. Links diretos por fragmento permitem compartilhar uma seção temática. Exemplos interativos são didáticos e não representam telemetria real."
+      ]
+    },
+    {
+      "title": "Verificação de acessibilidade",
+      "paragraphs": [
+        "O código do produto inclui Axe e script de contraste. O design system registra vinte pares de texto avaliados a 4,5:1, sem declarar certificação. Navegação por teclado, zoom, foco, leitores de tela e fluxos completos exigem revisão além de testes automáticos.",
+        "A documentação respeita prefers-reduced-motion, usa títulos em hierarquia, link de salto e indicação textual dos estados. O controle de tema é persistido somente no navegador."
+      ]
+    },
+    {
+      "title": "Critérios de revisão",
+      "paragraphs": [],
+      "items": [
+        [
+          "Orientação",
+          "Página ativa, grupo, título e sequência de leitura permanecem visíveis."
+        ],
+        [
+          "Interação",
+          "Teclado, Escape, foco e retorno seguem caminhos previsíveis."
+        ],
+        [
+          "Leitura",
+          "Contraste, tamanho e largura das linhas preservam legibilidade nos dois temas."
+        ],
+        [
+          "Responsividade",
+          "Conteúdo continua disponível no celular sem esconder informações essenciais."
+        ]
+      ]
+    }
+  ]
+}
