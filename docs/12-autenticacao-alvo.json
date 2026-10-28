@@ -31,6 +31,36 @@
         "Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.",
         "Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo."
       ]
+    },
+    {
+      "title": "Limites de sessão",
+      "paragraphs": [],
+      "table": [
+        [
+          "Capacidade",
+          "Limite"
+        ],
+        [
+          "Login",
+          "Não é suporte universal a MFA, cookies ou qualquer fluxo de autenticação"
+        ],
+        [
+          "Logout",
+          "Não comprova revogação em todos os dispositivos ou propagação assíncrona"
+        ],
+        [
+          "Refresh",
+          "Não cobre client_secret_basic, DPoP, mTLS e todos os modelos de sessão"
+        ],
+        [
+          "Limpeza",
+          "Sem logout aplicável, sessões sintéticas podem permanecer até expiração"
+        ],
+        [
+          "Carga autenticada",
+          "Exige acesso permitido e seleção explícita, dentro do orçamento global"
+        ]
+      ]
     }
   ]
 }

@@ -1034,8 +1034,38 @@ window.SENTINEL_DOCS = [
           "Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.",
           "Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo."
         ]
+      },
+      {
+        "title": "Limites de sessão",
+        "paragraphs": [],
+        "table": [
+          [
+            "Capacidade",
+            "Limite"
+          ],
+          [
+            "Login",
+            "Não é suporte universal a MFA, cookies ou qualquer fluxo de autenticação"
+          ],
+          [
+            "Logout",
+            "Não comprova revogação em todos os dispositivos ou propagação assíncrona"
+          ],
+          [
+            "Refresh",
+            "Não cobre client_secret_basic, DPoP, mTLS e todos os modelos de sessão"
+          ],
+          [
+            "Limpeza",
+            "Sem logout aplicável, sessões sintéticas podem permanecer até expiração"
+          ],
+          [
+            "Carga autenticada",
+            "Exige acesso permitido e seleção explícita, dentro do orçamento global"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Bearer e login JSON</h2></div></div><div class=\"prose\"><p>Perfis pertencem ao projeto e ao escopo. Bearer guarda token cifrado; JsonLogin guarda o contrato e os dados privados necessários ao login. Consultas retornam metadados, nunca segredos. O host mantém tokens obtidos por login e exporta somente observações permitidas.</p></div><div class=\"prose\"><p>Rotação muda a versão e revogação invalida usos posteriores. O prazo fica limitado ao escopo; Bearer usa teto de 24 horas, enquanto JsonLogin tem política configurável MaximumJsonLoginLifetimeHours, padrão de 24 horas. Configuração privada do laboratório pode alterar esse teto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Comparar acesso permitido e negado</h2></div></div><div class=\"prose\"><p>O cenário verifica recusa anônima e acesso autenticado. Para negação esperada, precisa de referência permitida recente da mesma identidade/versão. 401 não prova autorização correta; 403/404 precisam do contexto previsto pelo contrato.</p></div><div class=\"prose\"><p>Uma segunda identidade pode ser Bearer ou JsonLogin no backend, do mesmo projeto/escopo e diferente da primária. Tokens, estados de login e diagnósticos ficam separados. Na revisão analisada, o seletor secundário da interface ainda se restringe a Bearer.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Logout e refresh são contratos explícitos</h2></div></div><div class=\"prose\"><p>Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.</p></div><div class=\"prose\"><p>Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Bearer e login JSON</h2></div></div><div class=\"prose\"><p>Perfis pertencem ao projeto e ao escopo. Bearer guarda token cifrado; JsonLogin guarda o contrato e os dados privados necessários ao login. Consultas retornam metadados, nunca segredos. O host mantém tokens obtidos por login e exporta somente observações permitidas.</p></div><div class=\"prose\"><p>Rotação muda a versão e revogação invalida usos posteriores. O prazo fica limitado ao escopo; Bearer usa teto de 24 horas, enquanto JsonLogin tem política configurável MaximumJsonLoginLifetimeHours, padrão de 24 horas. Configuração privada do laboratório pode alterar esse teto.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Comparar acesso permitido e negado</h2></div></div><div class=\"prose\"><p>O cenário verifica recusa anônima e acesso autenticado. Para negação esperada, precisa de referência permitida recente da mesma identidade/versão. 401 não prova autorização correta; 403/404 precisam do contexto previsto pelo contrato.</p></div><div class=\"prose\"><p>Uma segunda identidade pode ser Bearer ou JsonLogin no backend, do mesmo projeto/escopo e diferente da primária. Tokens, estados de login e diagnósticos ficam separados. Na revisão analisada, o seletor secundário da interface ainda se restringe a Bearer.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Logout e refresh são contratos explícitos</h2></div></div><div class=\"prose\"><p>Logout verifica o recurso, confirma identidade, solicita encerramento e reapresenta o token antigo; uma sessão independente serve como controle. Resposta 2xx do logout não prova que a revogação foi efetivada.</p></div><div class=\"prose\"><p>Refresh suporta JSON ou formulário e cliente público/client_secret_post. O teste verifica rotação utilizável antes de sondar reutilização; política por família precisa ser ativada separadamente. Sem contrato, identidade inequívoca ou controle independente, o resultado permanece inconclusivo.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Investigações</p><h2>Limites de sessão</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Limites de sessão\"><table><thead><tr><th scope=\"col\">Capacidade</th><th scope=\"col\">Limite</th></tr></thead><tbody><tr><td>Login</td><td>Não é suporte universal a MFA, cookies ou qualquer fluxo de autenticação</td></tr><tr><td>Logout</td><td>Não comprova revogação em todos os dispositivos ou propagação assíncrona</td></tr><tr><td>Refresh</td><td>Não cobre client_secret_basic, DPoP, mTLS e todos os modelos de sessão</td></tr><tr><td>Limpeza</td><td>Sem logout aplicável, sessões sintéticas podem permanecer até expiração</td></tr><tr><td>Carga autenticada</td><td>Exige acesso permitido e seleção explícita, dentro do orçamento global</td></tr></tbody></table></div></section>"
   }
 ];
