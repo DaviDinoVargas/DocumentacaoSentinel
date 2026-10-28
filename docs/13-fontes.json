@@ -1,0 +1,70 @@
+{
+  "id": "fontes",
+  "title": "Snapshots e segredos",
+  "group": "Investigações",
+  "lead": "Análise offline de um recorte autorizado, sem executar o projeto enviado.",
+  "sources": [
+    "Sentinel.Contracts/SourceArchivePolicy.cs",
+    "Sentinel/Source/SourceSnapshotStore.cs",
+    "Sentinel/Controllers/SourceSnapshotsController.cs",
+    "Sentinel.PluginHost/Checks/SourceSecretsCheck.cs"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Contrato de entrada",
+      "paragraphs": [
+        "O upload recebe ZIP binário application/zip, sourceKey estável e revision. O snapshot fica cifrado por uma hora. Cada execução revalida hash, validade e autorização exata; o outbox contém referências e metadados, não os bytes do arquivo.",
+        "O parser recusa links, arquivos especiais, caminhos perigosos, colisões e diretórios privados proibidos. Não há clone remoto, leitura arbitrária do servidor, build, restore ou execução de scripts do snapshot."
+      ]
+    },
+    {
+      "title": "Limites do arquivo",
+      "paragraphs": [],
+      "table": [
+        [
+          "Limite",
+          "Valor"
+        ],
+        [
+          "ZIP compactado",
+          "20 MiB"
+        ],
+        [
+          "Conteúdo expandido",
+          "100 MiB"
+        ],
+        [
+          "Arquivo individual",
+          "2 MiB"
+        ],
+        [
+          "Arquivos",
+          "5.000"
+        ],
+        [
+          "Uploads simultâneos",
+          "2 por processo"
+        ],
+        [
+          "Snapshots retidos",
+          "10 por projeto; 100 na instalação"
+        ]
+      ]
+    },
+    {
+      "title": "Candidatos a segredo",
+      "paragraphs": [
+        "Gitleaks executa offline com configuração da plataforma. Dispensas do próprio repositório não eliminam achados. O resultado agrupa arquivo/regra e linhas; valores, trechos e relatório bruto são descartados.",
+        "Candidatos têm confiança Hypothesis e não são testados contra provedores. Ausência de candidatos é Informational, não comprovação de inexistência de segredos. O recorte não cobre todo histórico Git, binários ou arquivos compactados aninhados."
+      ]
+    },
+    {
+      "title": "Retenção e revogação",
+      "paragraphs": [
+        "Snapshots continuam em volume privado, mesmo quando evidências usam S3. Workers compartilham volume lógico, StorageId e keyring. Revogação solicita cancelamento; expiração bloqueia novos plugins e o expurgo remove conteúdo em lotes.",
+        "Preserve os metadados e a revisão do recorte para interpretar o relatório. Uma análise de ZIP parcial não equivale à cobertura de todo o repositório."
+      ]
+    }
+  ]
+}
