@@ -45,6 +45,37 @@
         "Esta documentação descreve a revisão indicada nas fontes, consultada em 28/10/2026. Não acessa bancos, credenciais ou resultados privados da instalação. Exemplos e interações do site são didáticos e não executam auditorias.",
         "O produto está em validação, sem homologação empresarial declarada. A leitura separa implementação atual, resultados históricos e limites. Nenhum score, plugin ou ausência de achado equivale a certificação."
       ]
+    },
+    {
+      "title": "Percurso de leitura",
+      "paragraphs": [],
+      "table": [
+        [
+          "Objetivo",
+          "Comece por",
+          "Continue em"
+        ],
+        [
+          "Instalar e experimentar",
+          "Primeiros passos",
+          "Configuração e operação"
+        ],
+        [
+          "Entender o sistema",
+          "Arquitetura",
+          "Domínio, execução e persistência"
+        ],
+        [
+          "Investigar um resultado",
+          "Plugins e controles",
+          "Evidências, achados e score"
+        ],
+        [
+          "Manter e evoluir",
+          "API e frontend",
+          "Testes, decisões e limites"
+        ]
+      ]
     }
   ]
 }
