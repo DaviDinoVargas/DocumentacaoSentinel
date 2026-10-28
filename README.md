@@ -1,6 +1,6 @@
 # Documentação Sentinel
 
-Documentação técnica em português do Sentinel, organizada no padrão visual e editorial das documentações Locadora e DinoTube: navegação lateral, busca, páginas temáticas, tabelas, fontes locais e tema claro/escuro.
+Documentação técnica em português do Sentinel, organizada no padrão visual e editorial das documentações Locadora e DinoTube: navegação lateral, busca, páginas temáticas, tabelas, fontes locais e tema claro/escuro. A identidade visual usa as cores e o símbolo original da harpia brasileira do Sentinel.
 
 **Site:** https://davidinovargas.github.io/DocumentacaoSentinel/
 
@@ -24,7 +24,8 @@ Abra http://127.0.0.1:8000/DocumentacaoSentinel/. O site também funciona por `i
 - `docs/INDICE.md`: índice gerado.
 - `assets/docs.js`: conteúdo estático gerado por `npm run build`.
 - `assets/app.js`: busca, navegação, atalhos e preferências visuais.
-- `assets/styles.css`: padrão visual compartilhado com a documentação DinoTube.
+- `assets/styles.css`: estrutura visual compartilhada com a documentação DinoTube.
+- `assets/experience.css` e `assets/experience.js`: identidade Harpia, mapa interativo, simulador e filtros dos catálogos.
 - `tools/`: geração, verificação e servidor local.
 - `.github/workflows/`: validação e publicação.
 
