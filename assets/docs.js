@@ -1912,8 +1912,42 @@ window.SENTINEL_DOCS = [
         "paragraphs": [
           "As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor."
         ]
+      },
+      {
+        "title": "Rotas do workspace",
+        "paragraphs": [],
+        "table": [
+          [
+            "Rota",
+            "Uso"
+          ],
+          [
+            "projects / projects/:id",
+            "Lista e área do projeto"
+          ],
+          [
+            "run",
+            "Preparação, confirmação e acompanhamento"
+          ],
+          [
+            "audits / audits/:id",
+            "Histórico e detalhe da execução"
+          ],
+          [
+            "findings / evidence / score",
+            "Investigação e síntese"
+          ],
+          [
+            "source-analysis / dependencies / api-surface",
+            "Recortes de fonte e contratos"
+          ],
+          [
+            "operations / plugins / coverage / identity",
+            "Infraestrutura, capacidades e acesso"
+          ]
+        ]
       }
     ],
-    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Área central do projeto</h2></div></div><div class=\"prose\"><p>Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.</p></div><div class=\"prose\"><p>O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Estado real e contexto</h2></div></div><div class=\"prose\"><p>Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.</p></div><div class=\"prose\"><p>A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Carregamento por rota</h2></div></div><div class=\"prose\"><p>As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor.</p></div></section>"
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Área central do projeto</h2></div></div><div class=\"prose\"><p>Projetos pesquisa o conjunto autorizado, preserva seleção e abre o workspace com alvos/escopos, acessos, fontes, plano e resultados. O cabeçalho indica o projeto; a seleção ocorre em Projetos ou Rodar testes.</p></div><div class=\"prose\"><p>O plano salva URLs e referências com versão otimista. O browser envia modalidades disponíveis em sequência, cada uma como auditoria independente. Parar os próximos envios não cancela auditorias já aceitas.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Estado real e contexto</h2></div></div><div class=\"prose\"><p>Telas consultam APIs de histórico, controles, evidências, score e infraestrutura. Troca de identidade limpa dados e cancela consultas pendentes. Filtros e origem precisam acompanhar o contexto para evitar comparar corpus com software avaliado.</p></div><div class=\"prose\"><p>A página Rodar testes oferece Todos os testes e Testes separados. O modo geral considera modalidades disponíveis sem alterar as preferências salvas. O acompanhamento mostra as últimas oito execuções; sua contagem de atividade se refere ao recorte exibido.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Carregamento por rota</h2></div></div><div class=\"prose\"><p>As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Desenvolvimento</p><h2>Rotas do workspace</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Rotas do workspace\"><table><thead><tr><th scope=\"col\">Rota</th><th scope=\"col\">Uso</th></tr></thead><tbody><tr><td>projects / projects/:id</td><td>Lista e área do projeto</td></tr><tr><td>run</td><td>Preparação, confirmação e acompanhamento</td></tr><tr><td>audits / audits/:id</td><td>Histórico e detalhe da execução</td></tr><tr><td>findings / evidence / score</td><td>Investigação e síntese</td></tr><tr><td>source-analysis / dependencies / api-surface</td><td>Recortes de fonte e contratos</td></tr><tr><td>operations / plugins / coverage / identity</td><td>Infraestrutura, capacidades e acesso</td></tr></tbody></table></div></section>"
   }
 ];

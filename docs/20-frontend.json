@@ -30,6 +30,40 @@
       "paragraphs": [
         "As páginas usam loadComponent. Rotas legadas continuam disponíveis ao lado da área por projeto. O fallback navega para overview. Uma rota conhecida no frontend não dispensa validação e autorização no servidor."
       ]
+    },
+    {
+      "title": "Rotas do workspace",
+      "paragraphs": [],
+      "table": [
+        [
+          "Rota",
+          "Uso"
+        ],
+        [
+          "projects / projects/:id",
+          "Lista e área do projeto"
+        ],
+        [
+          "run",
+          "Preparação, confirmação e acompanhamento"
+        ],
+        [
+          "audits / audits/:id",
+          "Histórico e detalhe da execução"
+        ],
+        [
+          "findings / evidence / score",
+          "Investigação e síntese"
+        ],
+        [
+          "source-analysis / dependencies / api-surface",
+          "Recortes de fonte e contratos"
+        ],
+        [
+          "operations / plugins / coverage / identity",
+          "Infraestrutura, capacidades e acesso"
+        ]
+      ]
     }
   ]
 }
