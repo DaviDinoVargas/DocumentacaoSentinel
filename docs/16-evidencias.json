@@ -31,6 +31,36 @@
         "A política aceita de um a trinta dias para novas evidências; mudar a política não reescreve a retenção histórica. Conteúdo vencido é expurgado em lotes, mantendo metadados e hash. Falhas de storage e retenção remota preservam pendências.",
         "basic-v1 redige padrões de credenciais com orçamento por artefato. Não garante anonimização de todo dado pessoal. Compartilhar relatórios exige revisão do conteúdo e do contexto, mesmo quando o hash confere."
       ]
+    },
+    {
+      "title": "Checklist de interpretação",
+      "paragraphs": [],
+      "table": [
+        [
+          "Pergunta",
+          "Onde conferir"
+        ],
+        [
+          "Quem produziu?",
+          "Plugin, versão e proveniência"
+        ],
+        [
+          "O que foi enviado?",
+          "Perfil, escopo, modalidade e recorte descrito"
+        ],
+        [
+          "O conteúdo está íntegro?",
+          "Verificação do hash na API e no navegador"
+        ],
+        [
+          "Ainda pode ser consultado?",
+          "Retenção, provider, versão e StorageId"
+        ],
+        [
+          "O que conclui?",
+          "Controle, confiança, severidade e limitações — não apenas o hash"
+        ]
+      ]
     }
   ]
 }
