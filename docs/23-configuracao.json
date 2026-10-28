@@ -1,0 +1,93 @@
+{
+  "id": "configuracao",
+  "title": "Configuração e instalação",
+  "group": "Operação e qualidade",
+  "lead": "Configure capacidades e caminhos; mantenha os valores privados fora do repositório.",
+  "sources": [
+    "Sentinel/Program.cs",
+    "Sentinel/Execution/PluginRuntime.cs",
+    "Sentinel/Evidence/S3EvidenceStorage.cs",
+    "scripts/start-local.ps1"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Configuração em camadas",
+      "paragraphs": [
+        "O host usa configuração ASP.NET Core. Variáveis de ambiente com duplo sublinhado representam seções hierárquicas. A connection string é resolvida no momento de criar o DbContext, respeitando substituições do host de testes.",
+        "As tabelas abaixo documentam nomes e finalidades, nunca valores de credenciais. O bootstrap local reutiliza configuração privada e containers existentes; não publique seus arquivos de estado ou logs."
+      ]
+    },
+    {
+      "title": "Parâmetros principais",
+      "paragraphs": [],
+      "table": [
+        [
+          "Chave",
+          "Finalidade"
+        ],
+        [
+          "ConnectionStrings:SentinelPostgres",
+          "Conexão PostgreSQL; sem fallback em memória"
+        ],
+        [
+          "SENTINEL_POSTGRES_PASSWORD",
+          "Senha externa quando ausente na connection string"
+        ],
+        [
+          "SENTINEL_RABBITMQ_PASSWORD",
+          "Senha externa do broker"
+        ],
+        [
+          "Identity:Authority / Audience / ClientId",
+          "Provedor e cliente OIDC"
+        ],
+        [
+          "Identity:RedirectUri / PostLogoutRedirectUri",
+          "Retornos autorizados do frontend"
+        ],
+        [
+          "PluginRuntime:Image / Mode",
+          "Imagem fixada e modo de execução"
+        ],
+        [
+          "PluginRuntime:DockerApiVersion",
+          "Override opcional major.minor para processos Docker próprios"
+        ],
+        [
+          "TargetCredentials:KeyDirectory",
+          "Keyring compartilhado e protegido"
+        ],
+        [
+          "TargetCredentials:ProtectionCertificateThumbprint",
+          "Proteção por certificado quando exigida"
+        ],
+        [
+          "TargetCredentials:MaximumJsonLoginLifetimeHours",
+          "Teto de validade do perfil JsonLogin"
+        ],
+        [
+          "Evidence:Provider / RootDirectory / StorageId",
+          "Armazenamento de artefatos"
+        ],
+        [
+          "SourceSnapshots:RootDirectory / StorageId",
+          "Volume privado dos snapshots"
+        ]
+      ]
+    },
+    {
+      "title": "S3 e produção",
+      "paragraphs": [
+        "Evidence:S3 configura Endpoint, Bucket, StorageId, Region, AccessKey, SecretKey e RetentionMode. Use configuração privada do serviço e usuário restrito ao prefixo necessário. HTTPS é exigido fora do loopback; versionamento é requisito de gravação.",
+        "A configuração local HTTP/H2 e o bootstrap de identidade são de desenvolvimento. O suporte de infraestrutura não habilita testes de produção: a política de auditoria continua bloqueando esse perfil."
+      ]
+    },
+    {
+      "title": "Exemplo sem segredo",
+      "paragraphs": [],
+      "code": "# Exemplo de sintaxe de variável hierárquica\n$env:Evidence__Provider = \"S3\"\n# Demais valores vêm da configuração privada aprovada do serviço.",
+      "note": "Não grave tokens, senhas, access keys ou connection strings completas em README, screenshots, commits ou comandos compartilhados."
+    }
+  ]
+}
