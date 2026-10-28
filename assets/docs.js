@@ -2438,5 +2438,40 @@ window.SENTINEL_DOCS = [
       }
     ],
     "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Decisões de arquitetura</h2></div></div><div class=\"table-wrap\" tabindex=\"0\" role=\"region\" aria-label=\"Decisões de arquitetura\"><table><thead><tr><th scope=\"col\">Escolha</th><th scope=\"col\">Benefício</th><th scope=\"col\">Custo / limite</th></tr></thead><tbody><tr><td>Outbox e fila</td><td>Pedido durável sem depender do broker na transação HTTP</td><td>Mais estados operacionais e reconciliação</td></tr><tr><td>Lease e fencing</td><td>Coordenação entre processos</td><td>Dependência do banco e efeitos já admitidos</td></tr><tr><td>Gateway mediado</td><td>Escopo, orçamento e segredos no host</td><td>Adaptadores limitam os protocolos suportados</td></tr><tr><td>Container sem rede</td><td>Redução de acesso direto do plugin</td><td>Confiança no daemon e kernel compartilhado</td></tr><tr><td>Artefato cifrado e hash</td><td>Privacidade e verificação dos bytes</td><td>Gestão de chaves, retenção e backup</td></tr><tr><td>Origem explícita</td><td>Separação entre corpus e software</td><td>Legado precisa de classificação governada</td></tr></tbody></table></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Lacunas conhecidas</h2></div></div><div class=\"prose\"><p>O perfil de produção exige aprovação e guardas ainda indisponíveis. A admissão de plugins de terceiros não está concluída. Ampliação de adaptadores, análise profunda de código e escala operacional depende de desenvolvimento e validação.</p></div><div class=\"prose\"><p>Sessão não cobre todos os esquemas de autenticação. Sondagens de injeção não comprovam exploração universal. Inventário de dependências não resolve todos os ecossistemas. Evidências redigidas não garantem anonimização completa.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Divergências históricas resolvidas nesta leitura</h2></div></div><div class=\"prose\"><p>Trechos antigos do README citam S3 e revogação como pendentes. A revisão atual contém S3EvidenceStorage, ciclo de revogação e regras de escopo: essas implementações são descritas como existentes, preservando os limites operacionais.</p></div><div class=\"prose\"><p>O backend aceita segunda identidade JsonLogin, enquanto a interface ainda limita a seleção secundária a Bearer. Recursos de sessão/logout/refresh são descritos pelo contrato implementado, sem declarar todo o roadmap encerrado.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Próximas verificações recomendadas</h2></div></div><div class=\"prose\"><p>Priorize baseline integrada, prontidão da base offline, recuperação do conjunto banco/blobs/chaves e experiência de diagnóstico. Valide no ambiente autorizado antes de promover uma mudança de infraestrutura.</p></div><div class=\"prose\"><p>Recomendações são propostas desta leitura, não promessas de funcionalidades já entregues.</p></div></section>"
+  },
+  {
+    "id": "encerramento",
+    "title": "Mapa de leitura e manutenção",
+    "group": "Conclusão",
+    "lead": "Uma referência versionada para entender, operar e evoluir o Sentinel.",
+    "sources": [
+      "README.md",
+      "Sentinel/Program.cs",
+      "Sentinel.Web/DESIGN-SYSTEM.md"
+    ],
+    "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+    "sections": [
+      {
+        "title": "O que esta documentação entrega",
+        "paragraphs": [
+          "Uma leitura temática do produto e do código: instalação, arquitetura, domínio, governança, execução, plugins, análise de fontes, evidências, achados, API, interface e operação. Catálogos são derivados de arquivos de código, sem copiar configuração privada.",
+          "A revisão analisada está fixada nas fontes de cada página. Resultados históricos permanecem rotulados; exemplos são didáticos. O repositório Sentinel é somente fonte de leitura para este trabalho."
+        ]
+      },
+      {
+        "title": "Como atualizar sem perder rastreabilidade",
+        "paragraphs": [
+          "Leia a alteração no código e identifique o tema responsável. Abra sua branch temática, edite o JSON editorial, atualize fontes e revisão quando necessário, gere assets/docs.js e execute as verificações. Revise os dois temas visuais e a tela móvel antes de integrar.",
+          "Não copie o README inteiro como fonte de verdade: ele contém evolução histórica com afirmações superadas. Compare serviços, contratos, controllers e testes da revisão efetivamente documentada."
+        ]
+      },
+      {
+        "title": "Como navegar",
+        "paragraphs": [
+          "Use busca por palavra, links diretos por tema ou a sequência anterior/próxima. As referências no rodapé levam a arquivos da revisão do código. O site funciona sem serviços Sentinel e sem chamadas de auditoria."
+        ]
+      }
+    ],
+    "body": "<section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>O que esta documentação entrega</h2></div></div><div class=\"prose\"><p>Uma leitura temática do produto e do código: instalação, arquitetura, domínio, governança, execução, plugins, análise de fontes, evidências, achados, API, interface e operação. Catálogos são derivados de arquivos de código, sem copiar configuração privada.</p></div><div class=\"prose\"><p>A revisão analisada está fixada nas fontes de cada página. Resultados históricos permanecem rotulados; exemplos são didáticos. O repositório Sentinel é somente fonte de leitura para este trabalho.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Como atualizar sem perder rastreabilidade</h2></div></div><div class=\"prose\"><p>Leia a alteração no código e identifique o tema responsável. Abra sua branch temática, edite o JSON editorial, atualize fontes e revisão quando necessário, gere assets/docs.js e execute as verificações. Revise os dois temas visuais e a tela móvel antes de integrar.</p></div><div class=\"prose\"><p>Não copie o README inteiro como fonte de verdade: ele contém evolução histórica com afirmações superadas. Compare serviços, contratos, controllers e testes da revisão efetivamente documentada.</p></div></section><section class=\"section\"><div class=\"section-head\"><div><p class=\"eyebrow\">Conclusão</p><h2>Como navegar</h2></div></div><div class=\"prose\"><p>Use busca por palavra, links diretos por tema ou a sequência anterior/próxima. As referências no rodapé levam a arquivos da revisão do código. O site funciona sem serviços Sentinel e sem chamadas de auditoria.</p></div></section>"
   }
 ];

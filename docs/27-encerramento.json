@@ -1,0 +1,34 @@
+{
+  "id": "encerramento",
+  "title": "Mapa de leitura e manutenção",
+  "group": "Conclusão",
+  "lead": "Uma referência versionada para entender, operar e evoluir o Sentinel.",
+  "sources": [
+    "README.md",
+    "Sentinel/Program.cs",
+    "Sentinel.Web/DESIGN-SYSTEM.md"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "O que esta documentação entrega",
+      "paragraphs": [
+        "Uma leitura temática do produto e do código: instalação, arquitetura, domínio, governança, execução, plugins, análise de fontes, evidências, achados, API, interface e operação. Catálogos são derivados de arquivos de código, sem copiar configuração privada.",
+        "A revisão analisada está fixada nas fontes de cada página. Resultados históricos permanecem rotulados; exemplos são didáticos. O repositório Sentinel é somente fonte de leitura para este trabalho."
+      ]
+    },
+    {
+      "title": "Como atualizar sem perder rastreabilidade",
+      "paragraphs": [
+        "Leia a alteração no código e identifique o tema responsável. Abra sua branch temática, edite o JSON editorial, atualize fontes e revisão quando necessário, gere assets/docs.js e execute as verificações. Revise os dois temas visuais e a tela móvel antes de integrar.",
+        "Não copie o README inteiro como fonte de verdade: ele contém evolução histórica com afirmações superadas. Compare serviços, contratos, controllers e testes da revisão efetivamente documentada."
+      ]
+    },
+    {
+      "title": "Como navegar",
+      "paragraphs": [
+        "Use busca por palavra, links diretos por tema ou a sequência anterior/próxima. As referências no rodapé levam a arquivos da revisão do código. O site funciona sem serviços Sentinel e sem chamadas de auditoria."
+      ]
+    }
+  ]
+}
