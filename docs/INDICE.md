@@ -10,3 +10,4 @@
 - [Execução e concorrência](../index.html#execucao) — Fila, posse, orçamento e checkpoints controlam o trabalho entre processos.
 - [Outbox e mensageria](../index.html#mensageria) — Entrega confirmada e reconciliação conectam o pedido persistido à execução.
 - [Plugins e controles](../index.html#plugins) — Manifestos declaram capacidades, controles, permissões e limites de cada execução.
+- [Sandbox e gateway](../index.html#sandbox) — O host governa a rede e os segredos; o plugin recebe somente o contrato necessário.
