@@ -29,6 +29,12 @@
       "paragraphs": [
         "Use busca por palavra, links diretos por tema ou a sequência anterior/próxima. As referências no rodapé levam a arquivos da revisão do código. O site funciona sem serviços Sentinel e sem chamadas de auditoria."
       ]
+    },
+    {
+      "title": "Critério de conclusão",
+      "paragraphs": [
+        "Uma página está pronta quando explica responsabilidade, fluxo, contrato, falhas e limites, aponta fontes verificáveis e não expõe informação privada. Uma publicação está pronta quando conteúdo gerado, navegação e endereço público foram conferidos."
+      ]
     }
   ]
 }
