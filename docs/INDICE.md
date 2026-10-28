@@ -8,3 +8,4 @@
 - [Escopos e políticas](../index.html#escopos) — A autorização é um contrato verificável de alvo, janela, método e ação.
 - [Origem dos resultados](../index.html#origens) — Separe software avaliado, corpus sintético e legado desconhecido antes de comparar.
 - [Execução e concorrência](../index.html#execucao) — Fila, posse, orçamento e checkpoints controlam o trabalho entre processos.
+- [Outbox e mensageria](../index.html#mensageria) — Entrega confirmada e reconciliação conectam o pedido persistido à execução.
