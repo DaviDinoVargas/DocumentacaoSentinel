@@ -1,0 +1,70 @@
+{
+  "id": "decisoes-limites",
+  "title": "Decisões e limites",
+  "group": "Conclusão",
+  "lead": "O desenho protege fronteiras conhecidas e torna lacunas explícitas para a próxima evolução.",
+  "sources": [
+    "README.md",
+    "Sentinel/Execution/PluginRuntime.cs",
+    "Sentinel/Core/PolicyAndAuditService.cs",
+    "Sentinel.Web/DESIGN-SYSTEM.md"
+  ],
+  "revision": "5bb78a6adf7255d63ee2fa938d942257299ca757",
+  "sections": [
+    {
+      "title": "Decisões de arquitetura",
+      "paragraphs": [],
+      "table": [
+        [
+          "Escolha",
+          "Benefício",
+          "Custo / limite"
+        ],
+        [
+          "Outbox e fila",
+          "Pedido durável sem depender do broker na transação HTTP",
+          "Mais estados operacionais e reconciliação"
+        ],
+        [
+          "Lease e fencing",
+          "Coordenação entre processos",
+          "Dependência do banco e efeitos já admitidos"
+        ],
+        [
+          "Gateway mediado",
+          "Escopo, orçamento e segredos no host",
+          "Adaptadores limitam os protocolos suportados"
+        ],
+        [
+          "Container sem rede",
+          "Redução de acesso direto do plugin",
+          "Confiança no daemon e kernel compartilhado"
+        ],
+        [
+          "Artefato cifrado e hash",
+          "Privacidade e verificação dos bytes",
+          "Gestão de chaves, retenção e backup"
+        ],
+        [
+          "Origem explícita",
+          "Separação entre corpus e software",
+          "Legado precisa de classificação governada"
+        ]
+      ]
+    },
+    {
+      "title": "Lacunas conhecidas",
+      "paragraphs": [
+        "O perfil de produção exige aprovação e guardas ainda indisponíveis. A admissão de plugins de terceiros não está concluída. Ampliação de adaptadores, análise profunda de código e escala operacional depende de desenvolvimento e validação.",
+        "Sessão não cobre todos os esquemas de autenticação. Sondagens de injeção não comprovam exploração universal. Inventário de dependências não resolve todos os ecossistemas. Evidências redigidas não garantem anonimização completa."
+      ]
+    },
+    {
+      "title": "Divergências históricas resolvidas nesta leitura",
+      "paragraphs": [
+        "Trechos antigos do README citam S3 e revogação como pendentes. A revisão atual contém S3EvidenceStorage, ciclo de revogação e regras de escopo: essas implementações são descritas como existentes, preservando os limites operacionais.",
+        "O backend aceita segunda identidade JsonLogin, enquanto a interface ainda limita a seleção secundária a Bearer. Recursos de sessão/logout/refresh são descritos pelo contrato implementado, sem declarar todo o roadmap encerrado."
+      ]
+    }
+  ]
+}
